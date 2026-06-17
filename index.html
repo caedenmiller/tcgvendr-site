@@ -63,15 +63,15 @@
     --ink-faint:#5d646b;
     --line:rgba(255,255,255,.08);
     --line-2:rgba(255,255,255,.05);
-    --accent:#3ecfb2;          /* fills */
-    --on-accent:#06231d;       /* text on an accent fill — never white in dark */
-    --accent-ink:#3ecfb2;      /* accent used as text/icon color */
-    --accent-soft:rgba(62,207,178,.12);
-    --accent-deep:#0e2f2b;
-    --accent-line:rgba(62,207,178,.35);
+    --accent:#46d0b7;          /* fills — brand mint */
+    --on-accent:#04241c;       /* text on an accent fill — never white in dark */
+    --accent-ink:#46d0b7;      /* accent used as text/icon color */
+    --accent-soft:rgba(70,208,183,.12);
+    --accent-deep:#0c2c27;
+    --accent-line:rgba(70,208,183,.35);
     --nav-bg:rgba(0,0,0,.62);
-    --glow-a:rgba(62,207,178,.14);
-    --glow-b:rgba(62,207,178,.05);
+    --glow-a:rgba(70,208,183,.14);
+    --glow-b:rgba(70,208,183,.05);
     --shadow:0 24px 60px rgba(0,0,0,.55);
     --shadow-soft:0 14px 36px rgba(0,0,0,.4);
   }
@@ -86,15 +86,15 @@
     --ink-faint:#9a9aa2;
     --line:rgba(0,0,0,.08);
     --line-2:rgba(0,0,0,.05);
-    --accent:#0f766e;          /* deep teal — mint fails contrast on white */
+    --accent:#0b5546;          /* brand ink green — mint fails contrast on white */
     --on-accent:#ffffff;
-    --accent-ink:#0f766e;
-    --accent-soft:rgba(15,118,110,.09);
-    --accent-deep:#e4f2ef;
-    --accent-line:rgba(15,118,110,.3);
+    --accent-ink:#0b5546;
+    --accent-soft:rgba(11,85,70,.09);
+    --accent-deep:#e3f1ec;
+    --accent-line:rgba(11,85,70,.3);
     --nav-bg:rgba(242,242,247,.78);
-    --glow-a:rgba(15,118,110,.10);
-    --glow-b:rgba(15,118,110,.04);
+    --glow-a:rgba(11,85,70,.10);
+    --glow-b:rgba(11,85,70,.04);
     --shadow:0 22px 50px rgba(17,24,28,.12);
     --shadow-soft:0 12px 30px rgba(17,24,28,.08);
   }
@@ -160,8 +160,8 @@
   .nav-in{display:flex;align-items:center;justify-content:space-between;height:var(--nav-h);gap:16px}
   .brand{font-family:var(--display);font-weight:800;font-size:21px;letter-spacing:-.02em;
     display:flex;align-items:center;gap:10px}
-  .brand .mk{width:28px;height:28px;border-radius:9px;background:var(--accent);display:grid;place-items:center;flex:none}
-  .brand .mk svg{width:16px;height:16px;stroke:var(--on-accent)}
+  .brand .mk{width:28px;height:28px;border-radius:9px;background:radial-gradient(120% 120% at 32% 22%,#16201d,#05100e);display:grid;place-items:center;flex:none;box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
+  .brand .mk svg{width:28px;height:28px}
   .nav-links{display:flex;gap:28px;align-items:center}
   .nav-links>a{color:var(--ink-dim);font-size:14.5px;font-weight:500;transition:color .2s}
   .nav-links>a:hover{color:var(--ink)}
@@ -215,8 +215,8 @@
     --surface:#141416;--surface-2:#1c1c1e;--surface-3:#2c2c2e;
     --ink:#ecedee;--ink-dim:#8a9098;--ink-faint:#5d646b;
     --line:rgba(255,255,255,.08);--line-2:rgba(255,255,255,.05);
-    --accent:#3ecfb2;--on-accent:#06231d;--accent-ink:#3ecfb2;
-    --accent-deep:#0e2f2b;--accent-line:rgba(62,207,178,.35);
+    --accent:#46d0b7;--on-accent:#04241c;--accent-ink:#46d0b7;
+    --accent-deep:#0c2c27;--accent-line:rgba(70,208,183,.35);
     color:var(--ink);
   }
   .glow-ring{position:absolute;width:340px;height:340px;border-radius:50%;
@@ -402,10 +402,13 @@
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
+<!-- brand "V" gradient, defined once and referenced by every .mk mark -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="vG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6CEFD6"/><stop offset="1" stop-color="#39C0A6"/></linearGradient></defs></svg>
+
 <div class="nav">
   <div class="wrap nav-in">
     <a class="brand" href="#top" aria-label="TCGVendr home">
-      <span class="mk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2 3 7v10l9 5 9-5V7l-9-5Z" stroke-width="2.2" stroke-linejoin="round"/><path d="M12 12v9" stroke-width="2.2"/></svg></span>
+      <span class="mk" aria-hidden="true"><svg viewBox="0 0 512 512" fill="none"><path d="M140 150 256 372 372 150" stroke="url(#vG)" stroke-width="78" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       TCGVendr
     </a>
     <nav class="nav-links" aria-label="Primary">
@@ -473,7 +476,7 @@
         <div class="lbl">Table 5 · live</div>
         <div class="row">
           <div class="ic">
-            <svg viewBox="0 0 24 24" width="15" height="15" fill="none"><path d="M3 9h18l-1-4H4L3 9Zm0 0v9h18V9" stroke="#3ecfb2" stroke-width="1.8" stroke-linejoin="round"/></svg>
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none"><path d="M3 9h18l-1-4H4L3 9Zm0 0v9h18V9" stroke="#46d0b7" stroke-width="1.8" stroke-linejoin="round"/></svg>
           </div>
           <div><div class="cn">Cm's Cards</div><div class="cs">24 cards listed</div></div>
         </div>
@@ -773,7 +776,7 @@
     <div class="foot">
       <div class="foot-col" style="max-width:260px">
         <div class="brand" style="font-size:19px;margin-bottom:12px">
-          <span class="mk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2 3 7v10l9 5 9-5V7l-9-5Z" stroke-width="2.2" stroke-linejoin="round"/><path d="M12 12v9" stroke-width="2.2"/></svg></span>
+          <span class="mk" aria-hidden="true"><svg viewBox="0 0 512 512" fill="none"><path d="M140 150 256 372 372 150" stroke="url(#vG)" stroke-width="78" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
           TCGVendr
         </div>
         <p style="color:var(--ink-faint);font-size:13.5px">The show app for card people. Find the table. Know the price. Make the deal.</p>
