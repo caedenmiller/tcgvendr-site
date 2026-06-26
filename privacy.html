@@ -41,17 +41,23 @@ we don't track you across other apps or websites.</p>
   sign-in), a display name, and an optional profile photo. You can browse without
   an account; publishing, RSVPs, interests, and messaging require one.</li>
   <li><strong>Content you create.</strong> Inventory entries (cards, conditions,
-  grades, prices you set), published show tables, show submissions, RSVPs,
-  "Interested" marks, follows and saved items, chat messages, and any reports you
-  file about other users' content.</li>
+  grades, prices you set, and any card photos you add), published show tables, show
+  submissions, RSVPs, "Interested" marks, follows and saved items, chat messages, and
+  any reports you file about other users' content.</li>
+  <li><strong>Card scans.</strong> When you scan a card, the photo is sent through our
+  servers to a third-party card-recognition service to identify it. It is used only to
+  return a catalog match and is not tied to your profile.</li>
 </ul>
 
 <h2>Information collected automatically</h2>
 <p>The app itself does not include advertising or analytics SDKs and does not
-collect location data. Our infrastructure providers keep standard operational
-logs (such as IP addresses and request timestamps) to run and secure the
-service. If we add crash reporting, it will collect technical crash data
-(device model, OS version, stack traces) — not your content.</p>
+collect location data. Each session is tied to an account identifier, and if you
+turn on notifications we store a push-notification device token so we can deliver
+them. Our infrastructure providers keep standard operational logs (such as IP
+addresses and request timestamps) to run and secure the service. We use a
+third-party crash-reporting tool that collects technical crash data (device
+model, OS version, stack traces) to diagnose problems — never your content, and
+configured not to attach identifying information.</p>
 
 <h2>What other users can see</h2>
 <p>TCGVendr is a social discovery app, and some information is visible to others
@@ -91,6 +97,14 @@ behalf:</p>
   <li><strong>Card catalog and market-price data</strong> — catalog queries
   are proxied through our servers and are not tied to your profile by the
   data provider.</li>
+  <li><strong>Card image recognition</strong> — when you scan a card, the photo is
+  relayed through our servers to a third-party recognition service solely to identify
+  the card; the provider is not given your account or profile.</li>
+  <li><strong>Error monitoring</strong> — receives crash diagnostics (device
+  model, OS version, stack traces) to help us fix bugs, with identifying
+  information stripped before it is sent.</li>
+  <li><strong>Push notifications</strong> — delivers notifications to your
+  device when you enable them.</li>
   <li><strong>Apple</strong> — app distribution (TestFlight / App Store).</li>
 </ul>
 <p>We do not sell personal information to anyone, and we do not share it with
