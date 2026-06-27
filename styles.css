@@ -44,6 +44,7 @@ html[data-theme="dark"]{
   /* signature gradient ends */
   --sky:#7ea7cb;
   --sand:#c9bba2;
+  --brand-ink:#e7dec9;   /* logo lockup: beige paper mark + wordmark on dark */
   /* glass */
   --glass-bg:linear-gradient(155deg,rgba(255,255,255,.07),rgba(255,255,255,.022) 60%);
   --glass-fill:rgba(20,24,30,.72);   /* translucent card base — no backdrop blur (scroll-cheap) */
@@ -67,7 +68,7 @@ html[data-theme="light"]{
   --surface:#ffffff;
   --surface-2:#f1ede4;   /* warm light fill */
   --surface-3:#e7e1d5;
-  --ink:#15181c;         /* near-black — the brand color */
+  --ink:#1b1b1b;         /* near-black — the brand ink */
   --ink-dim:#595f66;
   --ink-faint:#9a978f;
   --line:rgba(20,24,28,.10);
@@ -83,6 +84,7 @@ html[data-theme="light"]{
   /* signature gradient ends */
   --sky:#aecbe2;
   --sand:#ece2d2;
+  --brand-ink:#1b1b1b;   /* logo lockup: ink mark + wordmark on light */
   --glass-bg:linear-gradient(155deg,rgba(255,255,255,.85),rgba(255,255,255,.5) 60%);
   --glass-fill:rgba(255,255,255,.7);
   --glass-blur:20px;
@@ -223,12 +225,12 @@ h2{font-family:var(--display);font-weight:800;letter-spacing:-.032em;line-height
 }
 .nav.scrolled{box-shadow:0 10px 30px -16px rgba(0,0,0,.5)}
 .nav-in{display:flex;align-items:center;justify-content:space-between;height:var(--nav-h);gap:16px}
+/* theme-aware lockup: ink mark + wordmark on light, beige paper on dark.
+   No tile — just the transparent mark (per brand spec). */
 .brand{font-family:var(--display);font-weight:800;font-size:21px;letter-spacing:-.02em;
-  display:flex;align-items:center;gap:10px}
-.brand .mk{width:30px;height:30px;border-radius:9px;
-  background:radial-gradient(120% 120% at 32% 22%,#2a2e35,#0e1014);
-  display:grid;place-items:center;flex:none;box-shadow:inset 0 0 0 1px rgba(255,255,255,.10),0 4px 14px rgba(20,20,28,.3)}
-.brand .mk svg{width:30px;height:30px}
+  display:flex;align-items:center;gap:9px;color:var(--brand-ink)}
+.brand .mk{width:27px;height:27px;display:grid;place-items:center;flex:none}
+.brand .mk svg{width:27px;height:27px}
 .nav-links{display:flex;gap:6px;align-items:center}
 .nav-links>a{color:var(--ink-dim);font-size:14.5px;font-weight:600;transition:color .2s;
   padding:8px 13px;border-radius:999px;position:relative}
