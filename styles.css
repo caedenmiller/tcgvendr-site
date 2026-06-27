@@ -44,7 +44,6 @@ html[data-theme="dark"]{
   /* signature gradient ends */
   --sky:#7ea7cb;
   --sand:#c9bba2;
-  --brand-ink:#e7dec9;   /* logo lockup: beige paper mark + wordmark on dark */
   /* glass */
   --glass-bg:linear-gradient(155deg,rgba(255,255,255,.07),rgba(255,255,255,.022) 60%);
   --glass-fill:rgba(20,24,30,.72);   /* translucent card base — no backdrop blur (scroll-cheap) */
@@ -84,7 +83,6 @@ html[data-theme="light"]{
   /* signature gradient ends */
   --sky:#aecbe2;
   --sand:#ece2d2;
-  --brand-ink:#1b1b1b;   /* logo lockup: ink mark + wordmark on light */
   --glass-bg:linear-gradient(155deg,rgba(255,255,255,.85),rgba(255,255,255,.5) 60%);
   --glass-fill:rgba(255,255,255,.7);
   --glass-blur:20px;
@@ -225,14 +223,12 @@ h2{font-family:var(--display);font-weight:800;letter-spacing:-.032em;line-height
 }
 .nav.scrolled{box-shadow:0 10px 30px -16px rgba(0,0,0,.5)}
 .nav-in{display:flex;align-items:center;justify-content:space-between;height:var(--nav-h);gap:16px}
-/* theme-aware lockup: ink mark + wordmark on light, beige paper on dark.
-   No tile — just the transparent mark (per brand spec). */
+/* theme-aware lockup: inline SVG mark via currentColor — ink on light,
+   white on dark (matches the wordmark + body text). No tile. */
 .brand{font-family:var(--display);font-weight:800;font-size:21px;letter-spacing:-.02em;
-  display:flex;align-items:center;gap:9px;color:var(--brand-ink)}
-.brand .mk{width:26px;height:26px;flex:none;
-  background-size:contain;background-repeat:no-repeat;background-position:center}
-html[data-theme="light"] .brand .mk{background-image:url(/logo-mark-light.png?v=3)}
-html[data-theme="dark"] .brand .mk{background-image:url(/logo-mark-dark.png?v=3)}
+  display:flex;align-items:center;gap:9px;color:var(--ink)}
+.brand .mk{width:29px;height:29px;flex:none;display:grid;place-items:center}
+.brand .mk svg{width:29px;height:29px;display:block}
 .nav-links{display:flex;gap:6px;align-items:center}
 .nav-links>a{color:var(--ink-dim);font-size:14.5px;font-weight:600;transition:color .2s;
   padding:8px 13px;border-radius:999px;position:relative}
