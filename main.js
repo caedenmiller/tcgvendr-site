@@ -14,7 +14,7 @@
   var metaTheme = document.getElementById('meta-theme');
   function syncTheme() {
     var t = root.dataset.theme;
-    metaTheme.setAttribute('content', t === 'light' ? '#eef0f4' : '#050506');
+    metaTheme.setAttribute('content', t === 'light' ? '#f4f1ea' : '#0c0e11');
     toggleBtn.setAttribute('aria-label', t === 'light' ? 'Switch to dark mode' : 'Switch to light mode');
   }
   toggleBtn.addEventListener('click', function () {
@@ -115,36 +115,6 @@
         }
       } });
   });
-
-  /* ---- hero phone: pointer tilt + float-chip parallax ---- */
-  var stage = document.querySelector('.stage');
-  var device = document.getElementById('device');   // the .device-wrap
-  var floats = document.querySelectorAll('.float');
-  if (stage && device && finePointer) {
-    var rotY = gsap.quickTo(device, 'rotationY', { duration: 0.6, ease: 'power3' });
-    var rotX = gsap.quickTo(device, 'rotationX', { duration: 0.6, ease: 'power3' });
-    stage.addEventListener('pointermove', function (e) {
-      var r = stage.getBoundingClientRect();
-      var px = (e.clientX - r.left) / r.width - 0.5;
-      var py = (e.clientY - r.top) / r.height - 0.5;
-      rotY(px * 15); rotX(-py * 13);
-      floats.forEach(function (f) {
-        var d = parseFloat(f.dataset.depth || '16');
-        gsap.to(f, { x: px * d, y: py * d, duration: 0.6, ease: 'power3' });
-      });
-    });
-    stage.addEventListener('pointerleave', function () {
-      rotY(0); rotX(0);
-      floats.forEach(function (f) { gsap.to(f, { x: 0, y: 0, duration: 0.8, ease: 'power3' }); });
-    });
-  }
-
-  /* ---- idle float + scroll parallax on the device ---- */
-  if (device) {
-    gsap.to(device, { y: -12, duration: 3, ease: 'sine.inOut', yoyo: true, repeat: -1 });
-    gsap.to(device, { yPercent: -8, ease: 'none',
-      scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
-  }
 
   /* ---- magnetic CTA buttons ---- */
   if (finePointer) {

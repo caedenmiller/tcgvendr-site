@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#050506" id="meta-theme">
+<meta name="theme-color" content="#f4f1ea" id="meta-theme">
 <title>TCGVendr — Privacy Policy</title>
 <link rel="icon" type="image/png" href="/favicon.png?v=2">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2">
@@ -11,9 +11,7 @@
   (function () {
     var t = null;
     try { t = localStorage.getItem('tcgv-theme'); } catch (e) {}
-    if (t !== 'light' && t !== 'dark') {
-      t = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-    }
+    if (t !== 'light' && t !== 'dark') { t = 'light'; }
     document.documentElement.dataset.theme = t;
   })();
 </script>
@@ -171,7 +169,7 @@ updated policy.</p>
 <script>
   (function () {
     var root = document.documentElement, btn = document.getElementById('theme-toggle'), m = document.getElementById('meta-theme');
-    function sync(){ var t = root.dataset.theme; m.setAttribute('content', t === 'light' ? '#eef0f4' : '#050506');
+    function sync(){ var t = root.dataset.theme; m.setAttribute('content', t === 'light' ? '#f4f1ea' : '#0c0e11');
       btn.setAttribute('aria-label', t === 'light' ? 'Switch to dark mode' : 'Switch to light mode'); }
     btn.addEventListener('click', function(){ var n = root.dataset.theme === 'light' ? 'dark' : 'light';
       root.dataset.theme = n; try { localStorage.setItem('tcgv-theme', n); } catch(e){} sync(); });
