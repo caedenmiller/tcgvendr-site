@@ -229,8 +229,10 @@ h2{font-family:var(--display);font-weight:800;letter-spacing:-.032em;line-height
    No tile — just the transparent mark (per brand spec). */
 .brand{font-family:var(--display);font-weight:800;font-size:21px;letter-spacing:-.02em;
   display:flex;align-items:center;gap:9px;color:var(--brand-ink)}
-.brand .mk{width:27px;height:27px;display:grid;place-items:center;flex:none}
-.brand .mk svg{width:27px;height:27px}
+.brand .mk{width:26px;height:26px;flex:none;
+  background-size:contain;background-repeat:no-repeat;background-position:center}
+html[data-theme="light"] .brand .mk{background-image:url(/logo-mark-light.png?v=3)}
+html[data-theme="dark"] .brand .mk{background-image:url(/logo-mark-dark.png?v=3)}
 .nav-links{display:flex;gap:6px;align-items:center}
 .nav-links>a{color:var(--ink-dim);font-size:14.5px;font-weight:600;transition:color .2s;
   padding:8px 13px;border-radius:999px;position:relative}
