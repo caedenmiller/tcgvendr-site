@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>TCGVendr — Know the floor before you walk it</title>
 <meta name="description" content="The show app for card people. Browse every upcoming card show, search cards across every table before doors open, scan cards into your inventory, and match with buyers and sellers ahead of the show." />
-<meta name="theme-color" content="#000000" id="meta-theme" />
+<meta name="theme-color" content="#050506" id="meta-theme" />
 <link rel="canonical" href="https://tcgvendr.com/" />
 <link rel="icon" type="image/png" href="/favicon.png?v=2" />
 <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2" />
@@ -31,6 +31,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/styles.css" />
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -43,369 +44,16 @@
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
 }
 </script>
-<style>
-  /* ============ tokens — mirror the app's constants/theme.ts (S8) ============ */
-  :root{
-    --display:"Schibsted Grotesk",system-ui,sans-serif;
-    --body:"Hanken Grotesk",system-ui,sans-serif;
-    --maxw:1180px;
-    --r:18px;
-    --nav-h:72px;
-  }
-  html[data-theme="dark"]{
-    color-scheme:dark;
-    --bg:#000000;
-    --surface:#141416;
-    --surface-2:#1c1c1e;
-    --surface-3:#2c2c2e;
-    --ink:#ecedee;
-    --ink-dim:#8a9098;
-    --ink-faint:#5d646b;
-    --line:rgba(255,255,255,.08);
-    --line-2:rgba(255,255,255,.05);
-    --accent:#46d0b7;          /* fills — brand mint */
-    --on-accent:#04241c;       /* text on an accent fill — never white in dark */
-    --accent-ink:#46d0b7;      /* accent used as text/icon color */
-    --accent-soft:rgba(70,208,183,.12);
-    --accent-deep:#0c2c27;
-    --accent-line:rgba(70,208,183,.35);
-    --nav-bg:rgba(0,0,0,.62);
-    --glow-a:rgba(70,208,183,.14);
-    --glow-b:rgba(70,208,183,.05);
-    --shadow:0 24px 60px rgba(0,0,0,.55);
-    --shadow-soft:0 14px 36px rgba(0,0,0,.4);
-  }
-  html[data-theme="light"]{
-    color-scheme:light;
-    --bg:#f2f2f7;
-    --surface:#ffffff;
-    --surface-2:#ececf0;
-    --surface-3:#e2e2e8;
-    --ink:#11181c;
-    --ink-dim:#6b7075;
-    --ink-faint:#9a9aa2;
-    --line:rgba(0,0,0,.08);
-    --line-2:rgba(0,0,0,.05);
-    --accent:#0b5546;          /* brand ink green — mint fails contrast on white */
-    --on-accent:#ffffff;
-    --accent-ink:#0b5546;
-    --accent-soft:rgba(11,85,70,.09);
-    --accent-deep:#e3f1ec;
-    --accent-line:rgba(11,85,70,.3);
-    --nav-bg:rgba(242,242,247,.78);
-    --glow-a:rgba(11,85,70,.10);
-    --glow-b:rgba(11,85,70,.04);
-    --shadow:0 22px 50px rgba(17,24,28,.12);
-    --shadow-soft:0 12px 30px rgba(17,24,28,.08);
-  }
-
-  /* ============ base ============ */
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
-  body{
-    background:var(--bg);color:var(--ink);font-family:var(--body);
-    line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden;
-    transition:background .3s ease,color .3s ease;
-  }
-  /* tabular numerics on money/date values only — body-wide tnum gives
-     periods a digit-width advance and breaks heading punctuation */
-  .pv,.amt,.badge .d,.statusbar{font-variant-numeric:tabular-nums}
-  body::before{
-    content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
-    background:
-      radial-gradient(50% 38% at 82% -5%, var(--glow-a), transparent 65%),
-      radial-gradient(40% 35% at 8% 12%, var(--glow-b), transparent 70%);
-  }
-  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
-  a{color:inherit;text-decoration:none}
-  .accent{color:var(--accent-ink)}
-  section{padding:96px 0}
-  [id]{scroll-margin-top:calc(var(--nav-h) + 18px)}
-  :focus-visible{outline:2px solid var(--accent-ink);outline-offset:3px;border-radius:6px}
-  .skip{
-    position:absolute;left:-9999px;top:0;z-index:100;background:var(--accent);
-    color:var(--on-accent);font-weight:700;padding:10px 18px;border-radius:0 0 12px 0;
-  }
-  .skip:focus{left:0}
-
-  /* ============ type ============ */
-  h1{font-family:var(--display);font-weight:800;letter-spacing:-.035em;line-height:.98;
-    font-size:clamp(42px,7vw,80px);max-width:13ch}
-  h2{font-family:var(--display);font-weight:800;letter-spacing:-.03em;line-height:1.04;
-    font-size:clamp(30px,4.4vw,46px)}
-  .kicker{font-size:12.5px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;
-    color:var(--accent-ink);margin-bottom:16px}
-  .sec-head{max-width:62ch}
-  .sec-head p{margin-top:16px;color:var(--ink-dim);font-size:17.5px;max-width:54ch}
-
-  /* ============ buttons ============ */
-  .btn{
-    display:inline-flex;align-items:center;justify-content:center;gap:8px;
-    font-family:var(--body);font-weight:700;font-size:15px;cursor:pointer;border:none;
-    border-radius:999px;padding:13px 24px;white-space:nowrap;
-    transition:transform .15s ease,box-shadow .25s ease,background .2s ease,border-color .2s ease;
-  }
-  .btn-primary{background:var(--accent);color:var(--on-accent)}
-  .btn-primary:hover{transform:translateY(-1px);box-shadow:0 10px 30px var(--accent-soft),0 4px 14px var(--accent-soft)}
-  .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
-  .btn-ghost:hover{border-color:var(--ink-dim)}
-  .btn-sm{padding:10px 18px;font-size:14px}
-
-  /* ============ nav ============ */
-  .nav{
-    position:sticky;top:0;z-index:60;
-    backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
-    background:var(--nav-bg);border-bottom:1px solid var(--line-2);
-  }
-  .nav-in{display:flex;align-items:center;justify-content:space-between;height:var(--nav-h);gap:16px}
-  .brand{font-family:var(--display);font-weight:800;font-size:21px;letter-spacing:-.02em;
-    display:flex;align-items:center;gap:10px}
-  .brand .mk{width:28px;height:28px;border-radius:9px;background:radial-gradient(120% 120% at 32% 22%,#16201d,#05100e);display:grid;place-items:center;flex:none;box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
-  .brand .mk svg{width:28px;height:28px}
-  .nav-links{display:flex;gap:28px;align-items:center}
-  .nav-links>a{color:var(--ink-dim);font-size:14.5px;font-weight:500;transition:color .2s}
-  .nav-links>a:hover{color:var(--ink)}
-  .nav-actions{display:flex;align-items:center;gap:10px}
-  .theme-toggle,.menu-btn{
-    background:transparent;border:1px solid var(--line);color:var(--ink);
-    width:40px;height:40px;border-radius:999px;display:grid;place-items:center;cursor:pointer;
-    transition:border-color .2s,background .2s;flex:none;
-  }
-  .theme-toggle:hover,.menu-btn:hover{border-color:var(--ink-dim)}
-  .theme-toggle svg,.menu-btn svg{width:18px;height:18px}
-  html[data-theme="dark"] .ic-moon{display:none}
-  html[data-theme="light"] .ic-sun{display:none}
-  .menu-btn{display:none}
-  .menu-btn .ic-close{display:none}
-  .menu-btn[aria-expanded="true"] .ic-burger{display:none}
-  .menu-btn[aria-expanded="true"] .ic-close{display:block}
-  /* mobile menu panel */
-  .mobile-menu{
-    display:none;border-top:1px solid var(--line-2);
-    background:var(--nav-bg);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
-  }
-  .mobile-menu.open{display:block}
-  .mobile-menu a{
-    display:block;padding:15px 24px;font-size:16px;font-weight:600;color:var(--ink);
-    border-bottom:1px solid var(--line-2);
-  }
-  .mobile-menu a:last-child{border-bottom:none}
-  @media(max-width:840px){
-    .nav-links{display:none}
-    .menu-btn{display:grid}
-  }
-  @media(max-width:600px){
-    .nav-cta{display:none} /* the mobile menu carries the beta link */
-  }
-
-  /* ============ hero ============ */
-  .hero-wrap{padding:68px 0 36px}
-  .hero{display:grid;grid-template-columns:1.04fr .96fr;gap:48px;align-items:center}
-  @media(max-width:940px){.hero{grid-template-columns:1fr;gap:56px}}
-  .eyebrow{font-size:12.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
-    color:var(--accent-ink);display:inline-flex;align-items:center;gap:9px;margin-bottom:22px}
-  .eyebrow::before{content:"";width:24px;height:1px;background:var(--accent-ink)}
-  .lede{margin-top:24px;font-size:clamp(16.5px,2vw,19px);color:var(--ink-dim);max-width:50ch}
-  .hero-cta{margin-top:32px;display:flex;gap:12px;flex-wrap:wrap}
-  .micro{margin-top:14px;font-size:13px;color:var(--ink-faint)}
-
-  /* ============ phone mockup — pinned dark in both themes ============ */
-  .stage{position:relative;display:flex;justify-content:center;align-items:center;min-height:580px}
-  .device,.float{
-    --surface:#141416;--surface-2:#1c1c1e;--surface-3:#2c2c2e;
-    --ink:#ecedee;--ink-dim:#8a9098;--ink-faint:#5d646b;
-    --line:rgba(255,255,255,.08);--line-2:rgba(255,255,255,.05);
-    --accent:#46d0b7;--on-accent:#04241c;--accent-ink:#46d0b7;
-    --accent-deep:#0c2c27;--accent-line:rgba(70,208,183,.35);
-    color:var(--ink);
-  }
-  .glow-ring{position:absolute;width:340px;height:340px;border-radius:50%;
-    background:radial-gradient(circle,var(--accent-soft),transparent 62%);filter:blur(8px);z-index:0}
-  .device{position:relative;z-index:2;width:300px;aspect-ratio:300/628;background:#0a0a0b;
-    border:10px solid #1c1c1f;border-radius:48px;overflow:hidden;
-    box-shadow:0 40px 90px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.04);
-    animation:floatY 6s ease-in-out infinite}
-  @keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
-  .scr{position:absolute;inset:0;background:#000;padding:16px 15px 0;display:flex;flex-direction:column}
-  .statusbar{display:flex;justify-content:space-between;align-items:center;font-size:11px;font-weight:700;color:#fff;padding:4px 6px 12px}
-  .statusbar .bat{background:var(--accent);color:var(--on-accent);border-radius:4px;padding:1px 5px;font-size:9px;font-weight:800}
-  .s-label{font-size:9.5px;font-weight:700;letter-spacing:.14em;color:var(--accent-ink);text-transform:uppercase}
-  .s-top{display:flex;justify-content:space-between;align-items:flex-start}
-  .s-h1{font-family:var(--display);font-weight:800;font-size:29px;letter-spacing:-.03em;margin-top:2px;color:#fff}
-  .s-sub{font-size:11px;color:var(--ink-dim);margin-top:1px}
-  .s-submit{background:var(--accent);color:var(--on-accent);font-size:11px;font-weight:700;border-radius:10px;padding:8px 13px}
-  .seg{display:flex;background:var(--surface-2);border-radius:12px;padding:3px;margin:13px 0 12px}
-  .seg div{flex:1;text-align:center;font-size:11.5px;font-weight:700;padding:8px;border-radius:9px;color:var(--ink-dim)}
-  .seg div.on{background:var(--accent);color:var(--on-accent)}
-  .s-search{background:var(--surface);border-radius:11px;padding:9px 12px;font-size:11px;color:var(--ink-faint);display:flex;gap:7px;align-items:center;margin-bottom:13px}
-  .s-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  .scard{background:var(--surface);border-radius:14px;padding:11px;height:132px;position:relative;display:flex;flex-direction:column;justify-content:space-between}
-  .badge{background:var(--accent-deep);border-radius:9px;padding:6px 0;width:52px;text-align:center}
-  .badge .m{font-size:8.5px;font-weight:700;letter-spacing:.08em;color:var(--accent-ink)}
-  .badge .d{font-family:var(--display);font-weight:800;font-size:15px;color:#fff;line-height:1}
-  .scard .nm{font-weight:700;font-size:12.5px;line-height:1.15;color:#fff}
-  .scard .loc{font-size:10px;color:var(--ink-dim);margin-top:2px}
-  .store-chip{position:absolute;top:11px;right:11px;background:var(--accent-deep);color:var(--accent-ink);
-    font-size:9.5px;font-weight:700;border-radius:999px;padding:3px 8px}
-  .tabbar{margin-top:auto;display:flex;justify-content:space-around;padding:10px 2px 22px;border-top:1px solid var(--line-2)}
-  .tab{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:8.5px;color:var(--ink-dim);position:relative}
-  .tab.on{color:var(--accent-ink)}
-  .tab svg{width:18px;height:18px}
-  .tab .dot{position:absolute;top:-3px;right:-5px;background:#e26060;color:#fff;font-size:7.5px;font-weight:800;
-    border-radius:999px;min-width:13px;height:13px;display:grid;place-items:center;padding:0 3px}
-
-  /* floating chips */
-  .float{position:absolute;z-index:3;background:rgba(20,20,22,.92);border:1px solid var(--line);
-    border-radius:14px;padding:12px 14px;backdrop-filter:blur(8px);box-shadow:0 18px 40px rgba(0,0,0,.5)}
-  .float.a{top:-4px;left:-8px;max-width:240px;animation:floatY 5s ease-in-out infinite}
-  .float.b{bottom:72px;right:-12px;animation:floatY 7s ease-in-out infinite .5s}
-  .float .lbl{font-size:9px;font-weight:700;letter-spacing:.12em;color:var(--accent-ink);text-transform:uppercase;margin-bottom:7px}
-  .float .row{display:flex;align-items:center;gap:10px}
-  .float .av{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#2c6f5b,#173f33);flex:none}
-  .float .ic{width:30px;height:30px;border-radius:8px;background:var(--accent-deep);display:grid;place-items:center;flex:none}
-  .float .cn{font-size:11.5px;font-weight:700;color:#fff}
-  .float .cs{font-size:9.5px;color:var(--ink-dim)}
-  @media(max-width:400px){.device{width:272px}.float{display:none}}
-
-  /* ============ how it works ============ */
-  .steps-band{border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2);margin-top:54px;padding:34px 0}
-  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-  @media(max-width:760px){.steps{grid-template-columns:1fr;gap:24px}}
-  .step{display:flex;gap:15px;align-items:flex-start}
-  .step .num{font-family:var(--display);font-weight:800;font-size:15px;color:var(--accent-ink);
-    width:32px;height:32px;border:1px solid var(--accent-line);border-radius:999px;
-    display:grid;place-items:center;flex:none;margin-top:2px}
-  .step h3{font-family:var(--display);font-weight:700;font-size:16.5px;letter-spacing:-.01em}
-  .step p{font-size:13.5px;color:var(--ink-dim);margin-top:3px;max-width:34ch}
-
-  /* ============ duo ============ */
-  .duo{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:44px}
-  @media(max-width:760px){.duo{grid-template-columns:1fr}}
-  .side{border:1px solid var(--line);border-radius:var(--r);padding:32px;background:var(--surface);
-    transition:transform .25s,border-color .25s,box-shadow .25s}
-  .side:hover{transform:translateY(-4px);border-color:var(--accent-line);box-shadow:var(--shadow-soft)}
-  .side .role{font-size:11.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--accent-ink)}
-  .side h3{font-family:var(--display);font-weight:700;font-size:25px;margin:13px 0 11px;letter-spacing:-.02em}
-  .side p{color:var(--ink-dim);font-size:15px}
-  .side ul{list-style:none;margin-top:18px;display:flex;flex-direction:column;gap:10px}
-  .side li{display:flex;gap:11px;font-size:14.5px;align-items:center}
-  .side li svg{width:16px;height:16px;flex:none;color:var(--accent-ink)}
-
-  /* ============ features — five tabs ============ */
-  .features{display:grid;grid-template-columns:repeat(6,1fr);gap:18px;margin-top:46px}
-  .feat{border:1px solid var(--line);border-radius:var(--r);padding:30px;background:var(--surface);
-    position:relative;overflow:hidden;transition:transform .25s,box-shadow .25s;grid-column:span 2}
-  .feat.wide{grid-column:span 3}
-  .feat:hover{transform:translateY(-4px);box-shadow:var(--shadow-soft)}
-  @media(max-width:900px){.feat,.feat.wide{grid-column:span 3}}
-  @media(max-width:680px){.features{grid-template-columns:1fr}.feat,.feat.wide{grid-column:span 1}}
-  .feat .tab-ico{width:38px;height:38px;border-radius:11px;background:var(--accent-deep);display:grid;
-    place-items:center;color:var(--accent-ink);margin-bottom:18px}
-  .feat .tab-ico svg{width:20px;height:20px}
-  .feat h3{font-family:var(--display);font-weight:700;font-size:21px;letter-spacing:-.02em;margin-bottom:9px}
-  .feat p{color:var(--ink-dim);font-size:14.5px}
-  .chip{display:inline-block;font-size:11px;font-weight:600;color:var(--accent-ink);
-    border:1px solid var(--accent-line);border-radius:6px;padding:3px 9px;margin-top:15px}
-
-  /* ============ showcase ============ */
-  .show{display:grid;grid-template-columns:1fr 1fr;gap:54px;align-items:center;margin-top:46px}
-  .show+.show{margin-top:84px}
-  @media(max-width:860px){.show{grid-template-columns:1fr;gap:36px}.show .copy-first{order:-1}}
-  .ui-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;box-shadow:var(--shadow-soft)}
-  .ui-h{font-family:var(--display);font-weight:800;font-size:21px;letter-spacing:-.02em}
-  .ui-sub{font-size:12.5px;color:var(--ink-dim);margin:2px 0 14px}
-  .ui-eyebrow{font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--ink-dim);margin:18px 0 10px;text-transform:uppercase}
-  .list-table{display:flex;align-items:center;gap:13px;background:var(--surface-2);border-radius:13px;padding:13px;margin-bottom:9px}
-  .list-table:last-child{margin-bottom:0}
-  .list-table .av{width:38px;height:38px;border-radius:50%;flex:none}
-  .list-table .tt{font-weight:700;font-size:14.5px}
-  .list-table .ts{font-size:11.5px;color:var(--ink-dim)}
-  .list-table .arr{margin-left:auto;color:var(--ink-faint)}
-  .big-btn{background:var(--accent);color:var(--on-accent);font-weight:700;text-align:center;border-radius:13px;
-    padding:14px;font-size:14.5px;margin-top:4px;display:flex;align-items:center;justify-content:center;gap:8px}
-  .big-btn svg{stroke:var(--on-accent)}
-  .inv-row{display:flex;align-items:center;gap:13px;padding:13px 0;border-bottom:1px solid var(--line-2)}
-  .inv-row:last-child{border-bottom:none}
-  .inv-row .thumb2{width:38px;height:53px;border-radius:6px;flex:none}
-  .inv-row .nm{font-weight:700;font-size:14.5px}
-  .inv-row .st{font-size:11.5px;color:var(--ink-dim)}
-  .inv-row .cond{font-size:11.5px;color:var(--accent-ink);font-weight:600}
-  .inv-row .pr{margin-left:auto;text-align:right}
-  .inv-row .pv{font-family:var(--display);font-weight:800;font-size:15px}
-  .inv-row .gr{font-size:10.5px;color:var(--ink-dim)}
-  .show h3.feature-h{font-family:var(--display);font-weight:700;font-size:27px;letter-spacing:-.02em;margin-bottom:14px}
-  .show .copy p{color:var(--ink-dim);font-size:16px;max-width:48ch}
-  /* scan mock */
-  .scan-mock{display:flex;flex-direction:column;align-items:center;gap:18px;padding:42px 18px}
-  .shutter{width:96px;height:96px;border-radius:50%;background:var(--accent);display:grid;place-items:center;
-    box-shadow:0 14px 36px var(--accent-soft)}
-  .shutter svg{width:42px;height:42px;color:var(--on-accent)}
-  .scan-mock .t1{font-family:var(--display);font-weight:700;font-size:18px}
-  .scan-mock .t2{font-size:13px;color:var(--ink-dim);text-align:center;max-width:30ch}
-  .scan-steps{display:flex;gap:8px;margin-top:6px;flex-wrap:wrap;justify-content:center}
-  .scan-steps span{font-size:11px;font-weight:600;color:var(--accent-ink);border:1px solid var(--accent-line);
-    border-radius:999px;padding:4px 11px}
-
-  /* ============ pricing ============ */
-  .price-band{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:46px}
-  @media(max-width:760px){.price-band{grid-template-columns:1fr}}
-  .plan{border:1px solid var(--line);border-radius:var(--r);padding:34px;background:var(--surface)}
-  .plan.pro{border-color:var(--accent-line);background:linear-gradient(180deg,var(--accent-soft),var(--surface) 55%)}
-  .plan .pname{font-size:12px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-dim)}
-  .plan.pro .pname{color:var(--accent-ink)}
-  .plan .amt{font-family:var(--display);font-weight:800;font-size:46px;letter-spacing:-.03em;margin:12px 0 4px}
-  .plan .amt span{font-size:15px;color:var(--ink-faint);font-weight:500}
-  .plan ul{list-style:none;margin-top:20px;display:flex;flex-direction:column;gap:11px}
-  .plan li{font-size:14.5px;color:var(--ink-dim);display:flex;gap:10px;align-items:center}
-  .plan li svg{width:16px;height:16px;color:var(--accent-ink);flex:none}
-
-  /* ============ faq ============ */
-  .faq{max-width:760px;margin-top:42px}
-  .faq details{border:1px solid var(--line);border-radius:14px;background:var(--surface);margin-bottom:10px;overflow:hidden}
-  .faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;
-    padding:19px 22px;font-family:var(--display);font-weight:700;font-size:16.5px;letter-spacing:-.01em}
-  .faq summary::-webkit-details-marker{display:none}
-  .faq summary::after{content:"+";font-weight:600;font-size:20px;color:var(--accent-ink);transition:transform .2s;flex:none}
-  .faq details[open] summary::after{transform:rotate(45deg)}
-  .faq details p{padding:0 22px 20px;color:var(--ink-dim);font-size:14.5px;max-width:62ch}
-
-  /* ============ cta ============ */
-  .cta{text-align:center;border:1px solid var(--line);border-radius:26px;padding:72px 28px;
-    background:radial-gradient(75% 130% at 50% 0%,var(--accent-soft),transparent 60%)}
-  .cta .hero-cta{justify-content:center}
-
-  /* ============ footer ============ */
-  footer{border-top:1px solid var(--line-2);padding:54px 0 70px;margin-top:30px}
-  .foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:36px}
-  .foot-col h4{font-size:11px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:14px}
-  .foot-col a{display:block;color:var(--ink-dim);font-size:14px;margin-bottom:9px;transition:color .2s}
-  .foot-col a:hover{color:var(--ink)}
-  .foot-note{margin-top:38px;font-size:12.5px;color:var(--ink-faint);border-top:1px solid var(--line-2);padding-top:22px}
-
-  /* ============ motion ============ */
-  .js .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
-  .js .reveal.in{opacity:1;transform:none}
-  @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-  .js .stagger>*{opacity:0;transform:translateY(18px);animation:rise .65s ease forwards}
-  .js .stagger>*:nth-child(1){animation-delay:.05s}
-  .js .stagger>*:nth-child(2){animation-delay:.14s}
-  .js .stagger>*:nth-child(3){animation-delay:.23s}
-  .js .stagger>*:nth-child(4){animation-delay:.32s}
-  @media(prefers-reduced-motion:reduce){
-    html{scroll-behavior:auto}
-    .device,.float{animation:none}
-    .js .reveal,.js .stagger>*{opacity:1;transform:none;animation:none;transition:none}
-    .btn,.side,.feat{transition:none}
-  }
-</style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
+<div class="aurora" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
 
 <!-- brand "V" gradient, defined once and referenced by every .mk mark -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="vG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6CEFD6"/><stop offset="1" stop-color="#39C0A6"/></linearGradient></defs></svg>
 
-<div class="nav">
+<div class="nav" id="nav">
   <div class="wrap nav-in">
     <a class="brand" href="#top" aria-label="TCGVendr home">
       <span class="mk" aria-hidden="true"><svg viewBox="0 0 512 512" fill="none"><path d="M140 150 256 372 372 150" stroke="url(#vG)" stroke-width="78" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
@@ -443,27 +91,31 @@
 <main id="main">
 <header class="hero-wrap" id="top">
   <div class="wrap hero">
-    <div class="stagger">
-      <span class="eyebrow">The show app for card people</span>
-      <h1>Know the floor <span class="accent">before</span> you walk it.</h1>
-      <p class="lede">Browse every upcoming card show, see what's on each vendor's table before doors open, and match with buyers and sellers ahead of time. Scan cards straight into your inventory and publish your table in minutes.</p>
-      <div>
+    <div>
+      <span class="eyebrow"><span class="pip"></span>The show app for card people</span>
+      <h1 class="reveal-lines">
+        <span class="line-mask"><span class="line">Know the floor</span></span>
+        <span class="line-mask"><span class="line"><span class="accent">before</span> you</span></span>
+        <span class="line-mask"><span class="line">walk it.</span></span>
+      </h1>
+      <p class="lede reveal">Browse every upcoming card show, see what's on each vendor's table before doors open, and match with buyers and sellers ahead of time. Scan cards straight into your inventory and publish your table in minutes.</p>
+      <div class="reveal">
         <div class="hero-cta">
-          <a class="btn btn-primary" href="mailto:support@tcgvendr.com?subject=TCGVendr%20beta%20access">Request beta access</a>
+          <a class="btn btn-primary magnetic" href="mailto:support@tcgvendr.com?subject=TCGVendr%20beta%20access">Request beta access</a>
           <a class="btn btn-ghost" href="#how">See how it works</a>
         </div>
-        <p class="micro">In beta on iOS via TestFlight · free during beta · email us and we'll send an invite</p>
+        <p class="micro"><strong>In beta on iOS via TestFlight</strong> · free during beta · email us and we'll send an invite</p>
       </div>
     </div>
 
-    <div class="stage reveal">
+    <div class="stage">
       <div class="glow-ring" aria-hidden="true"></div>
 
       <!-- floating match chip -->
-      <div class="float a" aria-hidden="true">
-        <div class="lbl">New match</div>
+      <div class="float a" data-depth="26" aria-hidden="true">
+        <div class="lbl"><span class="live"></span>New match</div>
         <div class="row">
-          <div class="av"></div>
+          <div class="av-mono sm" style="background:linear-gradient(135deg,#7d3cc0,#c0397f)">F</div>
           <div>
             <div class="cn">First Edition TCG</div>
             <div class="cs">Interested in your Umbreon VMAX</div>
@@ -472,58 +124,56 @@
       </div>
 
       <!-- floating table chip -->
-      <div class="float b" aria-hidden="true">
-        <div class="lbl">Table 5 · live</div>
+      <div class="float b" data-depth="-20" aria-hidden="true">
+        <div class="lbl"><span class="live"></span>Table 5 · live</div>
         <div class="row">
           <div class="ic">
-            <svg viewBox="0 0 24 24" width="15" height="15" fill="none"><path d="M3 9h18l-1-4H4L3 9Zm0 0v9h18V9" stroke="#46d0b7" stroke-width="1.8" stroke-linejoin="round"/></svg>
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none"><path d="M3 9h18l-1-4H4L3 9Zm0 0v9h18V9" stroke="#54dcc3" stroke-width="1.8" stroke-linejoin="round"/></svg>
           </div>
           <div><div class="cn">Top Shelf Cards</div><div class="cs">24 cards listed</div></div>
         </div>
       </div>
 
-      <!-- phone: Shows / Upcoming screen, current 5-tab layout -->
-      <div class="device" role="img" aria-label="TCGVendr app showing the Shows tab with upcoming card shows">
-        <div class="scr" aria-hidden="true">
-          <div class="statusbar"><span>9:41</span><span class="bat">100</span></div>
-          <div class="s-top">
-            <div>
-              <div class="s-label">Shows</div>
-              <div class="s-h1">Upcoming</div>
-              <div class="s-sub">9 shows on the calendar</div>
+      <!-- phone: Shows / Upcoming screen, matched to the live app -->
+      <div class="device-wrap" id="device">
+        <div class="device" role="img" aria-label="TCGVendr app showing the Shows tab with upcoming card shows">
+          <div class="scr" aria-hidden="true">
+            <div class="statusbar"><span>9:41</span><span class="bat">100</span></div>
+            <div class="s-top">
+              <div>
+                <div class="s-label">Shows</div>
+                <div class="s-h1">Upcoming</div>
+                <div class="s-sub">10 shows on the calendar</div>
+              </div>
+              <div class="s-submit">+ Submit</div>
             </div>
-            <div class="s-submit">+ Submit</div>
-          </div>
-          <div class="seg"><div class="on">Shows</div><div>Saved tables</div></div>
-          <div class="s-search"><svg viewBox="0 0 24 24" width="13" height="13" fill="none"><circle cx="11" cy="11" r="7" stroke="#5d646b" stroke-width="2"/><path d="m20 20-3-3" stroke="#5d646b" stroke-width="2"/></svg>Search cards across shows</div>
-          <div class="s-grid">
-            <div class="scard">
-              <div class="badge"><div class="m">JUL</div><div class="d">11–12</div></div>
-              <div class="store-chip">▦ 5</div>
-              <div><div class="nm">Collect-A-Con</div><div class="loc">Edison, NJ</div></div>
+            <div class="seg"><div class="on">Shows</div><div>Saved tables</div></div>
+            <div class="s-search"><svg viewBox="0 0 24 24" width="13" height="13" fill="none"><circle cx="11" cy="11" r="7" stroke="#5d646b" stroke-width="2"/><path d="m20 20-3-3" stroke="#5d646b" stroke-width="2"/></svg>Search cards across shows</div>
+            <div class="s-grid">
+              <div class="scard">
+                <div class="badge"><div class="m">JUN</div><div class="d">26–28</div></div>
+                <div><div class="nm">The Chantilly Show</div><div class="loc">Chantilly, VA</div></div>
+              </div>
+              <div class="scard">
+                <div class="badge"><div class="m">JUL</div><div class="d">11–12</div></div>
+                <div><div class="nm">Collect-A-Con</div><div class="loc">Edison, NJ</div></div>
+              </div>
+              <div class="scard">
+                <div class="badge"><div class="m">JUL</div><div class="d">16–19</div></div>
+                <div><div class="nm">Dallas Card Show</div><div class="loc">Allen, TX</div></div>
+              </div>
+              <div class="scard">
+                <div class="badge"><div class="m">JUL</div><div class="d">18–19</div></div>
+                <div><div class="nm">Collect-A-Con</div><div class="loc">Minneapolis, MN</div></div>
+              </div>
             </div>
-            <div class="scard">
-              <div class="badge"><div class="m">JUL</div><div class="d">16–19</div></div>
-              <div class="store-chip">▦ 8</div>
-              <div><div class="nm">Dallas Card Show</div><div class="loc">Allen, TX</div></div>
+            <div class="tabbar">
+              <div class="tab"><svg viewBox="0 0 24 24" fill="none"><path d="m3 11 9-7 9 7v9H3v-9Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>Home</div>
+              <div class="tab on"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2.5" stroke="currentColor" stroke-width="1.8"/><path d="M3 9h18M8 2v4M16 2v4" stroke="currentColor" stroke-width="1.8"/></svg>Shows</div>
+              <div class="tab"><svg viewBox="0 0 24 24" fill="none"><path d="M4 8h3l2-3h6l2 3h3v12H4V8Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="13.5" r="3.4" stroke="currentColor" stroke-width="1.8"/></svg>Scan</div>
+              <div class="tab"><span class="dot">2</span><svg viewBox="0 0 24 24" fill="none"><path d="M21 12a8 8 0 0 1-8 8H4l1.5-3A8 8 0 1 1 21 12Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>Matches</div>
+              <div class="tab"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.8"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.8"/></svg>Profile</div>
             </div>
-            <div class="scard">
-              <div class="badge"><div class="m">JUL</div><div class="d">18–19</div></div>
-              <div class="store-chip">▦ 3</div>
-              <div><div class="nm">Collect-A-Con</div><div class="loc">Minneapolis, MN</div></div>
-            </div>
-            <div class="scard">
-              <div class="badge"><div class="m">AUG</div><div class="d">1–2</div></div>
-              <div class="store-chip">▦ 6</div>
-              <div><div class="nm">Collect-A-Con</div><div class="loc">Los Angeles, CA</div></div>
-            </div>
-          </div>
-          <div class="tabbar">
-            <div class="tab"><svg viewBox="0 0 24 24" fill="none"><path d="m3 11 9-7 9 7v9H3v-9Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>Home</div>
-            <div class="tab on"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2.5" stroke="currentColor" stroke-width="1.8"/><path d="M3 9h18M8 2v4M16 2v4" stroke="currentColor" stroke-width="1.8"/></svg>Shows</div>
-            <div class="tab"><svg viewBox="0 0 24 24" fill="none"><path d="M4 8h3l2-3h6l2 3h3v12H4V8Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="13.5" r="3.4" stroke="currentColor" stroke-width="1.8"/></svg>Scan</div>
-            <div class="tab"><span class="dot">2</span><svg viewBox="0 0 24 24" fill="none"><path d="M21 12a8 8 0 0 1-8 8H4l1.5-3A8 8 0 1 1 21 12Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>Matches</div>
-            <div class="tab"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.8"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.8"/></svg>Profile</div>
           </div>
         </div>
       </div>
@@ -565,33 +215,33 @@
       <h2>Built for the people who set up — and the people who show up.</h2>
     </div>
     <div class="duo">
-      <div class="side reveal">
+      <div class="side glass reveal">
         <span class="role">For Vendors</span>
         <h3>List your table. Get found.</h3>
         <p>Post a table at any show and let buyers come to you. It pulls straight from your inventory, so what people see is what you actually brought — priced from real market data.</p>
         <ul>
-          <li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 5 5 9-11" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Post a live table with your table number</li>
-          <li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 5 5 9-11" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>List from inventory in a couple taps</li>
-          <li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 5 5 9-11" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Market-price pre-fill on raw, graded &amp; variants</li>
-          <li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 5 5 9-11" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Surface in searches before doors open</li>
+          <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 5 5 9-11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Post a live table with your table number</li>
+          <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 5 5 9-11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>List from inventory in a couple taps</li>
+          <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 5 5 9-11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Market-price pre-fill on raw, graded &amp; variants</li>
+          <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 5 5 9-11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Surface in searches before doors open</li>
         </ul>
       </div>
-      <div class="side reveal">
+      <div class="side glass reveal">
         <span class="role">For Walkers</span>
         <h3>Work the floor like a regular.</h3>
         <p>Search cards across every show, see who's set up at the one you're hitting, and check a table's stock before you walk over — instead of burning an hour wandering aisles.</p>
         <ul>
-          <li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 5 5 9-11" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Search cards across shows at once</li>
-          <li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 5 5 9-11" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Save tables &amp; follow vendors you like</li>
-          <li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 5 5 9-11" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>RSVP "I'm going" so vendors know you're coming</li>
-          <li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 5 5 9-11" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Match on cards &amp; chat before the show</li>
+          <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 5 5 9-11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Search cards across shows at once</li>
+          <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 5 5 9-11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Save tables &amp; follow vendors you like</li>
+          <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 5 5 9-11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>RSVP "I'm going" so vendors know you're coming</li>
+          <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 5 5 9-11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Match on cards &amp; chat before the show</li>
         </ul>
       </div>
     </div>
   </div>
 </section>
 
-<section id="features" style="padding-top:20px">
+<section id="features" style="padding-top:24px">
   <div class="wrap">
     <div class="sec-head reveal">
       <div class="kicker">Five tabs</div>
@@ -599,31 +249,31 @@
       <p>Home, Scan, and Profile do their jobs cleanly. Shows is the reason you'll open it on a Saturday morning — and Matches is what happens next.</p>
     </div>
     <div class="features">
-      <div class="feat wide reveal">
+      <div class="feat wide glass reveal">
         <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2.5" stroke="currentColor" stroke-width="1.8"/><path d="M3 9h18M8 2v4M16 2v4" stroke="currentColor" stroke-width="1.8"/></svg></div>
         <h3>Shows</h3>
         <p>The whole calendar in one place. Browse and save shows, follow vendors, submit one that's missing, and search cards across every table at every show at once.</p>
         <span class="chip">the main event</span>
       </div>
-      <div class="feat wide reveal">
+      <div class="feat wide glass reveal">
         <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 12a8 8 0 0 1-8 8H4l1.5-3A8 8 0 1 1 21 12Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
         <h3>Matches</h3>
         <p>Mark "Interested" on a card; when it's mutual, you Match — and chat opens right in the app to plan the deal before the show. Unreads badge the tab so nothing slips.</p>
         <span class="chip">two-way interest</span>
       </div>
-      <div class="feat reveal">
+      <div class="feat glass reveal">
         <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m3 11 9-7 9 7v9H3v-9Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
         <h3>Home</h3>
         <p>Your portfolio at a glance — collection value, sales history, and top cards, all priced from live market data.</p>
         <span class="chip">market data</span>
       </div>
-      <div class="feat reveal">
+      <div class="feat glass reveal">
         <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v12H4V8Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="13.5" r="3.4" stroke="currentColor" stroke-width="1.8"/></svg></div>
         <h3>Scan</h3>
         <p>Snap the card in your hand and match it in the catalog — raw or graded, any variant, added to inventory in seconds.</p>
         <span class="chip">camera-first</span>
       </div>
-      <div class="feat reveal">
+      <div class="feat glass reveal">
         <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.8"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.8"/></svg></div>
         <h3>Profile</h3>
         <p>Your handle, your follows, your saved shows and tables. A name regulars recognize show to show.</p>
@@ -633,7 +283,7 @@
   </div>
 </section>
 
-<section style="padding-top:20px" aria-label="Product showcase">
+<section style="padding-top:24px" aria-label="Product showcase">
   <div class="wrap">
     <div class="sec-head reveal">
       <div class="kicker">At the show</div>
@@ -641,23 +291,23 @@
     </div>
 
     <div class="show">
-      <div class="ui-card reveal" aria-hidden="true">
-        <div class="ui-h">Collect-A-Con</div>
-        <div class="ui-sub">Jul 11–12 · NJ Convention &amp; Expo Center</div>
+      <div class="ui-card glass reveal" aria-hidden="true">
+        <div class="ui-h">The Chantilly Show (CSA)</div>
+        <div class="ui-sub">Jun 26–28 · Dulles Expo Center · Chantilly, VA</div>
         <div class="big-btn"><svg viewBox="0 0 24 24" width="17" height="17" fill="none"><path d="M3 9h18l-1-4H4L3 9Zm0 0v10h18V9" stroke-width="1.8" stroke-linejoin="round"/></svg>List your table at this show</div>
-        <div class="ui-eyebrow">Tables · 3</div>
+        <div class="ui-eyebrow"><span>Tables</span><span>3</span></div>
         <div class="list-table">
-          <div class="av" style="background:linear-gradient(135deg,#7d3cc0,#c0397f)"></div>
+          <div class="av-mono" style="background:linear-gradient(135deg,#7d3cc0,#c0397f)">F</div>
           <div><div class="tt">First Edition TCG</div><div class="ts">Table 12 · 31 cards</div></div>
           <div class="arr">›</div>
         </div>
         <div class="list-table">
-          <div class="av" style="background:linear-gradient(135deg,#2c6f5b,#173f33)"></div>
+          <div class="av-mono" style="background:linear-gradient(135deg,#2c6f5b,#173f33)">T</div>
           <div><div class="tt">Top Shelf Cards</div><div class="ts">Table 5 · 24 cards</div></div>
           <div class="arr">›</div>
         </div>
         <div class="list-table">
-          <div class="av" style="background:linear-gradient(135deg,#b8862f,#6e4e14)"></div>
+          <div class="av-mono" style="background:linear-gradient(135deg,#b8862f,#6e4e14)">S</div>
           <div><div class="tt">Sierra Slabs</div><div class="ts">9 cards</div></div>
           <div class="arr">›</div>
         </div>
@@ -665,16 +315,30 @@
       <div class="reveal copy">
         <h3 class="feature-h">From "is anyone even here yet" to a plan.</h3>
         <p>Open a show and you see every table that's listed, who's running it, and how many cards they've got out. Tap in to search their stock and compare asks to live market value. The walkers who use it stop wandering — and the vendors who list get the foot traffic.</p>
-        <div class="ui-card" style="margin-top:22px" aria-hidden="true">
+        <div class="ui-card glass" style="margin-top:24px" aria-hidden="true">
           <div class="inv-row">
-            <div class="thumb2" style="background:linear-gradient(135deg,#d4a017,#7a5e0a)"></div>
-            <div><div class="nm">Pikachu ex</div><div class="st">Surging Sparks · #238</div><div class="cond">Near Mint · Holofoil</div></div>
-            <div class="pr"><div class="pv">$1,340</div><div class="gr">×2</div></div>
+            <img class="thumb" src="/cards/charizard-ex-obf-223.jpg" width="42" height="59" loading="lazy" decoding="async" alt="" />
+            <div class="meta">
+              <div class="nm">Charizard ex <span class="grade-badge">PSA 10</span></div>
+              <div class="st">Obsidian Flames · #223</div>
+            </div>
+            <div class="pr"><div class="pv count" data-to="639" data-prefix="$">$639</div><div class="gr">Asking</div></div>
           </div>
           <div class="inv-row">
-            <div class="thumb2" style="background:linear-gradient(135deg,#b03030,#5a1414)"></div>
-            <div><div class="nm">Charizard ex</div><div class="st">Obsidian Flames · #223</div><div class="cond">PSA 10</div></div>
-            <div class="pr"><div class="pv">$699.51</div><div class="gr">Ask</div></div>
+            <img class="thumb" src="/cards/pikachu-ex-ssp-238.jpg" width="42" height="59" loading="lazy" decoding="async" alt="" />
+            <div class="meta">
+              <div class="nm">Pikachu ex</div>
+              <div class="st">Surging Sparks · #238</div>
+            </div>
+            <div class="pr"><div class="pv count" data-to="94" data-prefix="$">$94</div><div class="gr">NM</div></div>
+          </div>
+          <div class="inv-row">
+            <img class="thumb" src="/cards/sylveon-ex-pre-156.jpg" width="42" height="59" loading="lazy" decoding="async" alt="" />
+            <div class="meta">
+              <div class="nm">Sylveon ex</div>
+              <div class="st">Prismatic Evolutions · #156</div>
+            </div>
+            <div class="pr"><div class="pv count" data-to="550" data-prefix="$">$550</div><div class="gr">NM</div></div>
           </div>
         </div>
       </div>
@@ -684,20 +348,45 @@
       <div class="reveal copy copy-first">
         <h3 class="feature-h">Your whole case, cataloged in an afternoon.</h3>
         <p>The Scan tab is the fastest way in: photograph the card in your hand, match it in the catalog with your photo pinned as the reference, pick the variant and grade, done. Live market pricing fills in the value — so when it's time to list a table, the work is already finished.</p>
+        <div class="pf-strip glass">
+          <div>
+            <div class="pf-l">Collection value</div>
+            <div class="pf-v count" data-to="11477" data-prefix="$">$11,477</div>
+            <div class="pf-up">▲ +$3,424 vs cost</div>
+          </div>
+          <svg class="spark" viewBox="0 0 120 46" aria-hidden="true">
+            <path class="fill" d="M2,40 C18,38 28,33 42,33 C58,33 66,24 82,18 C98,12 110,7 118,5 L118,44 L2,44 Z"/>
+            <path class="line" d="M2,40 C18,38 28,33 42,33 C58,33 66,24 82,18 C98,12 110,7 118,5"/>
+          </svg>
+        </div>
       </div>
-      <div class="ui-card reveal" aria-hidden="true">
+      <div class="ui-card glass reveal" aria-hidden="true">
         <div class="scan-mock">
-          <div class="shutter"><svg viewBox="0 0 24 24" fill="none"><path d="M4 8h3l2-3h6l2 3h3v12H4V8Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="13.5" r="3.4" stroke="currentColor" stroke-width="1.8"/></svg></div>
-          <div class="t1">Snap the card in your hand</div>
-          <div class="t2">Photo → catalog match → variant &amp; grade → priced and in your inventory</div>
-          <div class="scan-steps"><span>Photograph</span><span>Match</span><span>Price</span><span>Done</span></div>
+          <div class="scan-cta">
+            <div class="shutter"><svg viewBox="0 0 24 24" fill="none"><path d="M4 8h3l2-3h6l2 3h3v12H4V8Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="13.5" r="3.4" stroke="currentColor" stroke-width="1.8"/></svg></div>
+            <div class="t1">Scan a card</div>
+          </div>
+          <div class="scan-search"><svg viewBox="0 0 24 24" width="14" height="14" fill="none"><circle cx="11" cy="11" r="7" stroke="#54dcc3" stroke-width="2"/><path d="m20 20-3-3" stroke="#54dcc3" stroke-width="2"/></svg>Search the catalog<span class="ch">›</span></div>
+          <div class="scan-recent">
+            <div class="rl">Recently added</div>
+            <div class="inv-row">
+              <img class="thumb" src="/cards/sylveon-ex-pre-156.jpg" width="40" height="56" loading="lazy" decoding="async" alt="" />
+              <div class="meta"><div class="nm">Sylveon ex</div><div class="st">Prismatic Evolutions · #156</div></div>
+              <div class="arr" style="margin-left:auto;color:var(--ink-faint)">›</div>
+            </div>
+            <div class="inv-row">
+              <img class="thumb" src="/cards/pikachu-ex-ssp-238.jpg" width="40" height="56" loading="lazy" decoding="async" alt="" />
+              <div class="meta"><div class="nm">Pikachu ex <span class="grade-badge">PSA 10</span></div><div class="st">Surging Sparks · #238</div></div>
+              <div class="arr" style="margin-left:auto;color:var(--ink-faint)">›</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<section id="pricing" style="padding-top:20px">
+<section id="pricing" style="padding-top:24px">
   <div class="wrap">
     <div class="sec-head reveal">
       <div class="kicker">Pricing</div>
@@ -705,31 +394,31 @@
       <p>Everything is free while we seed the network. Vendor tiers (featured placement, analytics) come later, once the foot traffic is real.</p>
     </div>
     <div class="price-band">
-      <div class="plan reveal">
+      <div class="plan glass reveal">
         <div class="pname">Walker</div>
         <div class="amt">$0<span> / forever</span></div>
         <ul>
-          <li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 5 5 9-11" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Browse every show, everywhere</li>
-          <li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 5 5 9-11" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Search cards across shows</li>
-          <li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 5 5 9-11" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Scan &amp; track your collection at market value</li>
-          <li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 5 5 9-11" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Match, chat, save tables, follow vendors</li>
+          <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 5 5 9-11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Browse every show, everywhere</li>
+          <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 5 5 9-11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Search cards across shows</li>
+          <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 5 5 9-11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Scan &amp; track your collection at market value</li>
+          <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 5 5 9-11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Match, chat, save tables, follow vendors</li>
         </ul>
       </div>
-      <div class="plan pro reveal">
+      <div class="plan pro glass reveal">
         <div class="pname">Vendor · Beta</div>
         <div class="amt">$0<span> / during beta</span></div>
         <ul>
-          <li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 5 5 9-11" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Everything in Walker</li>
-          <li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 5 5 9-11" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>List your table at any show</li>
-          <li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 5 5 9-11" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Inventory-linked listings + market-price pre-fill</li>
-          <li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 5 5 9-11" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Get surfaced in walkers' searches</li>
+          <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 5 5 9-11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Everything in Walker</li>
+          <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 5 5 9-11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>List your table at any show</li>
+          <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 5 5 9-11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Inventory-linked listings + market-price pre-fill</li>
+          <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 5 5 9-11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Get surfaced in walkers' searches</li>
         </ul>
       </div>
     </div>
   </div>
 </section>
 
-<section id="faq" style="padding-top:20px">
+<section id="faq" style="padding-top:24px">
   <div class="wrap">
     <div class="sec-head reveal">
       <div class="kicker">FAQ</div>
@@ -760,12 +449,12 @@
   </div>
 </section>
 
-<section style="padding-top:20px">
+<section style="padding-top:24px">
   <div class="wrap">
     <div class="cta reveal">
       <h2>Stop wandering the floor.<br/>Start working it.</h2>
       <div class="hero-cta">
-        <a class="btn btn-primary" href="mailto:support@tcgvendr.com?subject=TCGVendr%20beta%20access">Request beta access</a>
+        <a class="btn btn-primary magnetic" href="mailto:support@tcgvendr.com?subject=TCGVendr%20beta%20access">Request beta access</a>
       </div>
       <p class="micro">In beta on iOS via TestFlight · coming to the App Store</p>
     </div>
@@ -806,51 +495,9 @@
   </div>
 </footer>
 
-<script>
-  document.documentElement.classList.add('js');
-
-  // ---- theme toggle: persists, updates label + browser chrome color ----
-  var toggleBtn = document.getElementById('theme-toggle');
-  var metaTheme = document.getElementById('meta-theme');
-  function syncTheme() {
-    var t = document.documentElement.dataset.theme;
-    metaTheme.setAttribute('content', t === 'light' ? '#f2f2f7' : '#000000');
-    toggleBtn.setAttribute('aria-label', t === 'light' ? 'Switch to dark mode' : 'Switch to light mode');
-  }
-  toggleBtn.addEventListener('click', function () {
-    var next = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
-    document.documentElement.dataset.theme = next;
-    try { localStorage.setItem('tcgv-theme', next); } catch (e) {}
-    syncTheme();
-  });
-  syncTheme();
-
-  // ---- mobile menu ----
-  var menuBtn = document.getElementById('menu-btn');
-  var menu = document.getElementById('mobile-menu');
-  function setMenu(open) {
-    menu.classList.toggle('open', open);
-    menuBtn.setAttribute('aria-expanded', String(open));
-    menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-  }
-  menuBtn.addEventListener('click', function () {
-    setMenu(!menu.classList.contains('open'));
-  });
-  menu.addEventListener('click', function (e) {
-    if (e.target.tagName === 'A') setMenu(false);
-  });
-
-  // ---- scroll reveals (skipped for reduced motion) ----
-  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) {
-        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
-      });
-    }, { threshold: 0.14 });
-    document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
-  } else {
-    document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in'); });
-  }
-</script>
+<script src="/vendor/gsap.min.js" defer></script>
+<script src="/vendor/ScrollTrigger.min.js" defer></script>
+<script src="/vendor/lenis.min.js" defer></script>
+<script src="/main.js" defer></script>
 </body>
 </html>
