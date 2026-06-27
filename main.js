@@ -54,16 +54,18 @@
     staggers.forEach(function (s) { s.classList.add('in'); });
   }
 
-  /* ---- count-up ---- */
-  function fmt(n, prefix) { return (prefix || '') + Math.round(n).toLocaleString('en-US'); }
+  /* ---- count-up (respects data-decimals so cents stay exact) ---- */
+  function fmt(n, prefix, dec) {
+    return (prefix || '') + n.toLocaleString('en-US', { minimumFractionDigits: dec, maximumFractionDigits: dec });
+  }
   function runCount(el) {
     if (el.dataset.done) return;
     el.dataset.done = '1';
-    var to = parseFloat(el.dataset.to), prefix = el.dataset.prefix || '';
-    if (reduced || !window.gsap) { el.textContent = fmt(to, prefix); return; }
+    var to = parseFloat(el.dataset.to), prefix = el.dataset.prefix || '', dec = parseInt(el.dataset.decimals || '0', 10);
+    if (reduced || !window.gsap) { el.textContent = fmt(to, prefix, dec); return; }
     var obj = { v: 0 };
     window.gsap.to(obj, { v: to, duration: 1.4, ease: 'power2.out',
-      onUpdate: function () { el.textContent = fmt(obj.v, prefix); } });
+      onUpdate: function () { el.textContent = fmt(obj.v, prefix, dec); } });
   }
 
   /* ---- no-motion / no-lib path: set final states and stop ---- */
@@ -76,22 +78,9 @@
   var gsap = window.gsap, ST = window.ScrollTrigger;
   gsap.registerPlugin(ST);
 
-  /* ---- Lenis smooth scroll, synced to the GSAP ticker ---- */
-  if (window.Lenis) {
-    var lenis = new window.Lenis({ duration: 1.05, smoothWheel: true });
-    lenis.on('scroll', ST.update);
-    gsap.ticker.add(function (time) { lenis.raf(time * 1000); });
-    gsap.ticker.lagSmoothing(0);
-    document.querySelectorAll('a[href^="#"]').forEach(function (a) {
-      a.addEventListener('click', function (e) {
-        var id = a.getAttribute('href');
-        if (id.length > 1) {
-          var target = document.querySelector(id);
-          if (target) { e.preventDefault(); lenis.scrollTo(target, { offset: -80 }); }
-        }
-      });
-    });
-  }
+  /* Native scroll only — no smooth-scroll library. A marketing page should feel
+     as responsive as every other site; anchor jumps use CSS scroll-behavior +
+     scroll-margin-top. ScrollTrigger works directly off the native scroller. */
 
   /* hero headline line reveal is handled by CSS (.reveal-lines) — see styles.css */
 
