@@ -4,20 +4,20 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>TCGVendr — Every show, every table, one search</title>
-<meta name="description" content="See the trading-card shows happening near you and search any card across every vendor's table before you go. Match with buyers and sellers, scan cards into your collection, and price from live market data." />
+<meta name="description" content="See upcoming trading-card shows and search what every vendor is bringing before you go. Free on iOS during beta." />
 <meta name="theme-color" content="#f4f1ea" id="meta-theme" />
 <link rel="canonical" href="https://tcgvendr.com/" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=4" />
 <link rel="icon" type="image/png" href="/favicon.png?v=4" />
 <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3" />
 <meta property="og:title" content="TCGVendr — Every show, every table, one search" />
-<meta property="og:description" content="See the trading-card shows near you and search any card across every vendor's table before you go." />
+<meta property="og:description" content="See upcoming trading-card shows and search what every vendor is bringing before you go." />
 <meta property="og:url" content="https://tcgvendr.com/" />
 <meta property="og:type" content="website" />
 <meta property="og:image" content="https://tcgvendr.com/apple-touch-icon.png?v=3" />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="TCGVendr — Every show, every table, one search" />
-<meta name="twitter:description" content="See the trading-card shows near you and search any card across every vendor's table before you go." />
+<meta name="twitter:description" content="See upcoming trading-card shows and search what every vendor is bringing before you go." />
 <script>
   // Resolve theme before first paint: saved choice, else light (the brand default).
   (function () {
@@ -30,7 +30,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/styles.css?v=4" />
+<link rel="stylesheet" href="/styles.css?v=5" />
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -38,7 +38,7 @@
   "name": "TCGVendr",
   "operatingSystem": "iOS",
   "applicationCategory": "LifestyleApplication",
-  "description": "Discovery app for trading-card shows: search any card across every vendor's table before you go, and match with buyers and sellers ahead of time.",
+  "description": "Discovery app for trading-card shows: search any card across every vendor's table before you go.",
   "url": "https://tcgvendr.com/",
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
 }
@@ -46,8 +46,6 @@
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<div class="aurora" aria-hidden="true"></div>
-<div class="grain" aria-hidden="true"></div>
 
 <div class="nav" id="nav">
   <div class="wrap nav-in">
@@ -58,7 +56,6 @@
     <nav class="nav-links" aria-label="Primary">
       <a href="#how">How it works</a>
       <a href="#features">Features</a>
-      <a href="#who">Who it's for</a>
       <a href="#pricing">Pricing</a>
       <a href="#faq">FAQ</a>
     </nav>
@@ -77,94 +74,77 @@
   <div class="mobile-menu" id="mobile-menu">
     <a href="#how">How it works</a>
     <a href="#features">Features</a>
-    <a href="#who">Who it's for</a>
     <a href="#pricing">Pricing</a>
     <a href="#faq">FAQ</a>
-    <a href="mailto:support@tcgvendr.com?subject=TCGVendr%20beta%20access">Request beta access →</a>
+    <a href="mailto:support@tcgvendr.com?subject=TCGVendr%20beta%20access">Request beta access</a>
   </div>
 </div>
 
 <main id="main">
 <header class="hero-wrap" id="top">
   <div class="wrap hero">
-    <div class="hero-copy">
-      <span class="eyebrow"><span class="pip"></span>The trading-card show app</span>
-      <h1 class="reveal-lines">
-        <span class="line-mask"><span class="line">Every show.</span></span>
-        <span class="line-mask"><span class="line">Every table.</span></span>
-        <span class="line-mask"><span class="line"><span class="accent">One search.</span></span></span>
-      </h1>
-      <p class="lede reveal">TCGVendr maps the card shows near you and the cards each vendor is bringing — so you can look up any card across every table, compare asking prices, and line up the deal ahead of time.</p>
-      <div class="reveal">
-        <div class="hero-cta">
-          <a class="btn btn-primary magnetic" href="mailto:support@tcgvendr.com?subject=TCGVendr%20beta%20access">Request beta access</a>
-          <a class="btn btn-ghost" href="#how">How it works</a>
-        </div>
-        <p class="micro"><strong>In beta on iOS via TestFlight</strong> · free during beta · email us for an invite</p>
+    <div>
+      <span class="pill">In beta on iOS via TestFlight</span>
+      <h1><span class="nb">Every show.</span> <span class="nb">Every table.</span> <span class="nb accent">One search.</span></h1>
+      <p class="lede">TCGVendr maps upcoming card shows and what each vendor is bringing. Search any card across every table and compare asking prices before you walk in.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="mailto:support@tcgvendr.com?subject=TCGVendr%20beta%20access">Request beta access</a>
+        <a class="btn btn-ghost" href="#how">How it works</a>
       </div>
+      <p class="micro">Free during beta. No account needed to browse.</p>
     </div>
 
     <div class="hero-demo reveal" aria-hidden="true">
-      <div class="search-demo glass">
-        <div class="sd-bar">
-          <svg viewBox="0 0 24 24" width="17" height="17" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="m20 20-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-          <span class="q">Pikachu ex</span>
-          <span class="caret"></span>
+      <div class="app-card">
+        <div class="demo-search">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="m20 20-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          Pikachu ex
         </div>
-        <div class="sd-meta"><span class="live"></span>3 tables · 2 shows near you</div>
-        <div class="sd-results">
-          <div class="inv-row">
-            <img class="thumb" src="/cards/pikachu-ex-ah-276.jpg" width="42" height="59" loading="eager" decoding="async" alt="" />
-            <div class="meta">
-              <div class="nm">Pikachu ex <span class="grade-badge">PSA 10</span></div>
-              <div class="st">The Chantilly Show · Table 12</div>
-            </div>
-            <div class="pr"><div class="pv count" data-to="2799" data-prefix="$">$2,799</div><div class="gr">Asking</div></div>
+        <div class="demo-meta">3 tables · 2 shows near you</div>
+        <div class="inv-row">
+          <img class="thumb" src="/cards/pikachu-ex-ah-276.jpg" width="40" height="56" loading="eager" decoding="async" alt="" />
+          <div class="meta">
+            <div class="nm">Pikachu ex <span class="grade-badge">PSA 10</span></div>
+            <div class="st">The Chantilly Show · Table 12</div>
           </div>
-          <div class="inv-row">
-            <img class="thumb" src="/cards/pikachu-ex-ah-276.jpg" width="42" height="59" loading="eager" decoding="async" alt="" />
-            <div class="meta">
-              <div class="nm">Pikachu ex <span class="grade-badge">PSA 10</span></div>
-              <div class="st">Collect-A-Con · Table 5</div>
-            </div>
-            <div class="pr"><div class="pv count" data-to="2844" data-prefix="$">$2,844</div><div class="gr">Asking</div></div>
+          <div class="pr"><div class="pv">$2,799</div><div class="gr">Asking</div></div>
+        </div>
+        <div class="inv-row">
+          <img class="thumb" src="/cards/pikachu-ex-ah-276.jpg" width="40" height="56" loading="eager" decoding="async" alt="" />
+          <div class="meta">
+            <div class="nm">Pikachu ex <span class="grade-badge">PSA 10</span></div>
+            <div class="st">Collect-A-Con · Table 5</div>
           </div>
-          <div class="inv-row">
-            <img class="thumb" src="/cards/pikachu-ex-ah-276.jpg" width="42" height="59" loading="eager" decoding="async" alt="" />
-            <div class="meta">
-              <div class="nm">Pikachu ex <span class="grade-badge">PSA 10</span></div>
-              <div class="st">Dallas Card Show · Table 30</div>
-            </div>
-            <div class="pr"><div class="pv count" data-to="2950" data-prefix="$">$2,950</div><div class="gr">Asking</div></div>
+          <div class="pr"><div class="pv">$2,844</div><div class="gr">Asking</div></div>
+        </div>
+        <div class="inv-row">
+          <img class="thumb" src="/cards/pikachu-ex-ah-276.jpg" width="40" height="56" loading="eager" decoding="async" alt="" />
+          <div class="meta">
+            <div class="nm">Pikachu ex <span class="grade-badge">PSA 10</span></div>
+            <div class="st">Dallas Card Show · Table 30</div>
           </div>
+          <div class="pr"><div class="pv">$2,950</div><div class="gr">Asking</div></div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- how it works -->
   <div class="steps-band" id="how">
     <div class="wrap steps">
       <div class="step reveal">
         <div class="num">1</div>
-        <div>
-          <h3>Browse shows</h3>
-          <p>See the card shows coming up near you and which vendors are tabling at each one.</p>
-        </div>
+        <h3>Browse shows</h3>
+        <p>See upcoming shows near you and which vendors are set up at each.</p>
       </div>
       <div class="step reveal">
         <div class="num">2</div>
-        <div>
-          <h3>Search every table</h3>
-          <p>Look up any card across every vendor at every show, and compare asking prices side by side.</p>
-        </div>
+        <h3>Search every table</h3>
+        <p>Find any card across all listed tables and compare asking prices.</p>
       </div>
       <div class="step reveal">
         <div class="num">3</div>
-        <div>
-          <h3>Match &amp; meet</h3>
-          <p>Mark the cards you want. When it's mutual, chat opens in the app — sort the deal out before you go.</p>
-        </div>
+        <h3>Match and chat</h3>
+        <p>Mark cards you want. When interest is mutual, a chat opens in the app.</p>
       </div>
     </div>
   </div>
@@ -173,79 +153,73 @@
 <section id="who">
   <div class="wrap">
     <div class="sec-head reveal">
-      <div class="kicker">Buyers and sellers</div>
-      <h2>One app, both sides of the table.</h2>
+      <div class="kicker">Who it's for</div>
+      <h2>Built for both sides of the table.</h2>
     </div>
     <div class="duo">
-      <div class="side glass reveal">
+      <div class="side reveal">
         <span class="role">Selling</span>
-        <h3>Publish a table. Get found.</h3>
-        <p>Post a table at any show and let buyers come to you. It pulls straight from your inventory, so what people see is what you actually brought — priced from real market data.</p>
-        <ul>
-          <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 5 5 9-11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Post a live table with your table number</li>
-          <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 5 5 9-11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>List from inventory in a couple of taps</li>
-          <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 5 5 9-11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Market-price pre-fill on raw, graded &amp; variants</li>
-          <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 5 5 9-11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Turn up in buyers' searches ahead of the show</li>
+        <h3>Get found before doors open.</h3>
+        <p>Publish your table straight from your inventory. Buyers searching for the cards you're bringing find you first.</p>
+        <ul class="checks">
+          <li>List a table at any show</li>
+          <li>Publish from inventory in a few taps</li>
+          <li>Market-price prefill for raw, graded, and variants</li>
+          <li>Appear in buyer searches before the show</li>
         </ul>
       </div>
-      <div class="side glass reveal">
+      <div class="side reveal">
         <span class="role">Buying</span>
-        <h3>Find the card you came for.</h3>
-        <p>Search cards across every show, see who's set up at the one you're going to, and check a table's stock from your phone — instead of working the room table by table.</p>
-        <ul>
-          <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 5 5 9-11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Search one card across every show at once</li>
-          <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 5 5 9-11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Save tables &amp; follow the sellers you like</li>
-          <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 5 5 9-11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>RSVP "I'm going" so sellers know you're coming</li>
-          <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 5 5 9-11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Match on cards &amp; chat before the show</li>
+        <h3>Know which tables are worth your time.</h3>
+        <p>Search across every show at once, check a table's stock from your phone, and save the sellers you want to visit.</p>
+        <ul class="checks">
+          <li>Search one card across every show</li>
+          <li>Save tables and follow sellers</li>
+          <li>RSVP to shows you plan to attend</li>
+          <li>Match and chat before the show</li>
         </ul>
       </div>
     </div>
   </div>
 </section>
 
-<section id="features" style="padding-top:24px">
+<section id="features">
   <div class="wrap">
     <div class="sec-head reveal">
-      <div class="kicker">The app</div>
-      <h2>Shows is where it starts.</h2>
-      <p>Shows and Matches are the reason to open it. Home, Scan, and Profile keep everything else in one place.</p>
+      <div class="kicker">Inside the app</div>
+      <h2>Five tabs. Nothing extra.</h2>
     </div>
     <div class="features">
-      <div class="feat wide glass reveal">
+      <div class="feat wide reveal">
         <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2.5" stroke="currentColor" stroke-width="1.8"/><path d="M3 9h18M8 2v4M16 2v4" stroke="currentColor" stroke-width="1.8"/></svg></div>
         <h3>Shows</h3>
-        <p>The whole calendar in one place. Browse and save shows, follow the sellers you like, submit one that's missing, and search cards across every table at every show at once.</p>
-        <span class="chip">search every show</span>
+        <p>The full calendar. Browse and save shows, submit one that's missing, and search cards across every listed table.</p>
       </div>
-      <div class="feat wide glass reveal">
+      <div class="feat wide reveal">
         <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 12a8 8 0 0 1-8 8H4l1.5-3A8 8 0 1 1 21 12Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
         <h3>Matches</h3>
-        <p>Mark "Interested" on a card; when it's mutual, you Match — and chat opens right in the app to plan the deal before the show. Unreads badge the tab so nothing slips.</p>
-        <span class="chip">two-way interest</span>
+        <p>Interest is two-way. When both sides mark a card, a chat opens to plan the deal before the show.</p>
       </div>
-      <div class="feat glass reveal">
+      <div class="feat reveal">
         <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m3 11 9-7 9 7v9H3v-9Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
         <h3>Home</h3>
-        <p>Your collection at a glance — total value, sales history, and top cards, all priced from live market data.</p>
-        <span class="chip">market data</span>
+        <p>Collection value, sales history, and top cards, priced from live market data.</p>
       </div>
-      <div class="feat glass reveal">
+      <div class="feat reveal">
         <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v12H4V8Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="13.5" r="3.4" stroke="currentColor" stroke-width="1.8"/></svg></div>
         <h3>Scan</h3>
-        <p>Snap the card in your hand and match it in the catalog — raw or graded, any variant, added to your collection in seconds.</p>
-        <span class="chip">camera-first</span>
+        <p>Photograph a card to identify it, price it, and add it to your collection.</p>
       </div>
-      <div class="feat glass reveal">
+      <div class="feat reveal">
         <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.8"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.8"/></svg></div>
         <h3>Profile</h3>
-        <p>Your handle, your follows, your saved shows and tables. A name the regulars recognize show to show.</p>
-        <span class="chip">community</span>
+        <p>Your handle, follows, saved shows, and saved tables.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section style="padding-top:24px" aria-label="Product showcase">
+<section aria-label="Product showcase">
   <div class="wrap">
     <div class="sec-head reveal">
       <div class="kicker">At the show</div>
@@ -253,54 +227,54 @@
     </div>
 
     <div class="show">
-      <div class="ui-card glass reveal" aria-hidden="true">
+      <div class="app-card reveal" aria-hidden="true">
         <div class="ui-h">The Chantilly Show (CSA)</div>
         <div class="ui-sub">Jun 26–28 · Dulles Expo Center · Chantilly, VA</div>
-        <div class="big-btn"><svg viewBox="0 0 24 24" width="17" height="17" fill="none"><path d="M3 9h18l-1-4H4L3 9Zm0 0v10h18V9" stroke-width="1.8" stroke-linejoin="round"/></svg>List your table at this show</div>
+        <div class="big-btn"><svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M3 9h18l-1-4H4L3 9Zm0 0v10h18V9" stroke-width="1.8" stroke-linejoin="round"/></svg>List your table at this show</div>
         <div class="ui-eyebrow"><span>Tables</span><span>3</span></div>
         <div class="list-table">
-          <div class="av-mono" style="background:linear-gradient(135deg,#3f6f97,#26486a)">F</div>
+          <div class="av-mono" style="background:#3f6f97">F</div>
           <div><div class="tt">First Edition TCG</div><div class="ts">Table 12 · 31 cards</div></div>
           <div class="arr">›</div>
         </div>
         <div class="list-table">
-          <div class="av-mono" style="background:linear-gradient(135deg,#6c8aa6,#41607f)">T</div>
+          <div class="av-mono" style="background:#54728c">T</div>
           <div><div class="tt">Top Shelf Cards</div><div class="ts">Table 5 · 24 cards</div></div>
           <div class="arr">›</div>
         </div>
         <div class="list-table">
-          <div class="av-mono" style="background:linear-gradient(135deg,#b0a384,#7c6f51)">S</div>
+          <div class="av-mono" style="background:#8a7d5e">S</div>
           <div><div class="tt">Sierra Slabs</div><div class="ts">9 cards</div></div>
           <div class="arr">›</div>
         </div>
       </div>
       <div class="reveal copy">
-        <h3 class="feature-h">Check a table from your phone.</h3>
-        <p>Open a show and every listed table is right there — who's running it and how many cards they have out. Tap in to search their stock and compare asks to live market value, so you know which tables are worth your time before you set foot inside.</p>
-        <div class="ui-card glass" style="margin-top:24px" aria-hidden="true">
+        <h3 class="feature-h">Check a table before you walk the floor.</h3>
+        <p>Every listed table shows who runs it and what they brought. Tap in to search their stock and compare asking prices against market value.</p>
+        <div class="app-card" aria-hidden="true">
           <div class="inv-row">
-            <img class="thumb" src="/cards/pikachu-ex-ah-276.jpg" width="42" height="59" loading="lazy" decoding="async" alt="" />
+            <img class="thumb" src="/cards/pikachu-ex-ah-276.jpg" width="40" height="56" loading="lazy" decoding="async" alt="" />
             <div class="meta">
               <div class="nm">Pikachu ex <span class="grade-badge">PSA 10</span></div>
               <div class="st">Ascended Heroes · #276</div>
             </div>
-            <div class="pr"><div class="pv count" data-to="2844" data-prefix="$">$2,844</div><div class="gr">Asking</div></div>
+            <div class="pr"><div class="pv">$2,844</div><div class="gr">Asking</div></div>
           </div>
           <div class="inv-row">
-            <img class="thumb" src="/cards/mega-gengar-ex-ah-284.jpg" width="42" height="59" loading="lazy" decoding="async" alt="" />
+            <img class="thumb" src="/cards/mega-gengar-ex-ah-284.jpg" width="40" height="56" loading="lazy" decoding="async" alt="" />
             <div class="meta">
               <div class="nm">Mega Gengar ex <span class="grade-badge">PSA 10</span></div>
               <div class="st">Ascended Heroes · #284</div>
             </div>
-            <div class="pr"><div class="pv count" data-to="2604" data-prefix="$">$2,604</div><div class="gr">Asking</div></div>
+            <div class="pr"><div class="pv">$2,604</div><div class="gr">Asking</div></div>
           </div>
           <div class="inv-row">
-            <img class="thumb" src="/cards/mega-charizard-x-ex-pf-125.jpg" width="42" height="59" loading="lazy" decoding="async" alt="" />
+            <img class="thumb" src="/cards/mega-charizard-x-ex-pf-125.jpg" width="40" height="56" loading="lazy" decoding="async" alt="" />
             <div class="meta">
               <div class="nm">Mega Charizard X ex <span class="grade-badge">PSA 9</span></div>
               <div class="st">Phantasmal Flames · #125</div>
             </div>
-            <div class="pr"><div class="pv count" data-to="833.60" data-decimals="2" data-prefix="$">$833.60</div><div class="gr">Asking</div></div>
+            <div class="pr"><div class="pv">$833.60</div><div class="gr">Asking</div></div>
           </div>
         </div>
       </div>
@@ -308,12 +282,12 @@
 
     <div class="show">
       <div class="reveal copy copy-first">
-        <h3 class="feature-h">Scan your collection in.</h3>
-        <p>Scan is the fastest way in: photograph the card in your hand, match it in the catalog with your photo pinned as the reference, pick the variant and grade, done. Live market pricing fills in the value — so when it's time to list a table, the work is already finished.</p>
-        <div class="pf-strip glass">
+        <h3 class="feature-h">Build your collection by camera.</h3>
+        <p>Scan a card, confirm the match, pick the variant and grade. Market pricing fills in the value, so listing a table later takes minutes.</p>
+        <div class="app-card pf-strip" aria-hidden="true">
           <div>
             <div class="pf-l">Collection value</div>
-            <div class="pf-v count" data-to="11477" data-prefix="$">$11,477</div>
+            <div class="pf-v">$11,477</div>
             <div class="pf-up">▲ +$3,424 vs cost</div>
           </div>
           <svg class="spark" viewBox="0 0 120 46" aria-hidden="true">
@@ -322,25 +296,21 @@
           </svg>
         </div>
       </div>
-      <div class="ui-card glass reveal" aria-hidden="true">
-        <div class="scan-mock">
-          <div class="scan-cta">
-            <div class="shutter"><svg viewBox="0 0 24 24" fill="none"><path d="M4 8h3l2-3h6l2 3h3v12H4V8Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="13.5" r="3.4" stroke="currentColor" stroke-width="1.8"/></svg></div>
-            <div class="t1">Scan a card</div>
+      <div class="app-card reveal" aria-hidden="true">
+        <div class="scan-cta">
+          <div class="shutter"><svg viewBox="0 0 24 24" fill="none"><path d="M4 8h3l2-3h6l2 3h3v12H4V8Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="13.5" r="3.4" stroke="currentColor" stroke-width="1.8"/></svg></div>
+          <div class="t1">Scan a card</div>
+        </div>
+        <div class="scan-search"><svg viewBox="0 0 24 24" width="14" height="14" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="m20 20-3-3" stroke="currentColor" stroke-width="2"/></svg>Search the catalog<span class="ch">›</span></div>
+        <div class="scan-recent">
+          <div class="rl">Recently added</div>
+          <div class="inv-row">
+            <img class="thumb" src="/cards/sylveon-ex-pre-156.jpg" width="40" height="56" loading="lazy" decoding="async" alt="" />
+            <div class="meta"><div class="nm">Sylveon ex</div><div class="st">Prismatic Evolutions · #156</div></div>
           </div>
-          <div class="scan-search"><svg viewBox="0 0 24 24" width="14" height="14" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="m20 20-3-3" stroke="currentColor" stroke-width="2"/></svg>Search the catalog<span class="ch">›</span></div>
-          <div class="scan-recent">
-            <div class="rl">Recently added</div>
-            <div class="inv-row">
-              <img class="thumb" src="/cards/sylveon-ex-pre-156.jpg" width="40" height="56" loading="lazy" decoding="async" alt="" />
-              <div class="meta"><div class="nm">Sylveon ex</div><div class="st">Prismatic Evolutions · #156</div></div>
-              <div class="arr" style="margin-left:auto;color:var(--ink-faint)">›</div>
-            </div>
-            <div class="inv-row">
-              <img class="thumb" src="/cards/pikachu-ex-ah-276.jpg" width="40" height="56" loading="lazy" decoding="async" alt="" />
-              <div class="meta"><div class="nm">Pikachu ex <span class="grade-badge">PSA 10</span></div><div class="st">Ascended Heroes · #276</div></div>
-              <div class="arr" style="margin-left:auto;color:var(--ink-faint)">›</div>
-            </div>
+          <div class="inv-row">
+            <img class="thumb" src="/cards/pikachu-ex-ah-276.jpg" width="40" height="56" loading="lazy" decoding="async" alt="" />
+            <div class="meta"><div class="nm">Pikachu ex <span class="grade-badge">PSA 10</span></div><div class="st">Ascended Heroes · #276</div></div>
           </div>
         </div>
       </div>
@@ -348,77 +318,75 @@
   </div>
 </section>
 
-<section id="pricing" style="padding-top:24px">
+<section id="pricing">
   <div class="wrap">
     <div class="sec-head reveal">
       <div class="kicker">Pricing</div>
-      <h2>Free to use. Pro is free during the beta.</h2>
-      <p>Everything is free while we seed the network. Pro adds the selling tools — featured placement and analytics come later, once the foot traffic is real.</p>
+      <h2>Free while the network grows.</h2>
+      <p>Pro adds the selling tools. Both tiers are free during the beta.</p>
     </div>
     <div class="price-band">
-      <div class="plan glass reveal">
+      <div class="plan reveal">
         <div class="pname">Free</div>
         <div class="amt">$0<span> / forever</span></div>
-        <ul>
-          <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 5 5 9-11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Browse every show, everywhere</li>
-          <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 5 5 9-11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Search cards across shows</li>
-          <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 5 5 9-11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Scan &amp; track your collection at market value</li>
-          <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 5 5 9-11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Match, chat, save tables, follow your favorites</li>
+        <ul class="checks">
+          <li>Browse every show</li>
+          <li>Search cards across shows</li>
+          <li>Scan and track your collection at market value</li>
+          <li>Match, chat, save tables, follow sellers</li>
         </ul>
       </div>
-      <div class="plan pro glass reveal">
+      <div class="plan pro reveal">
         <div class="pname">Pro</div>
         <div class="amt">$0<span> / during beta</span></div>
-        <ul>
-          <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 5 5 9-11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Everything in Free</li>
-          <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 5 5 9-11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>List your table at any show</li>
-          <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 5 5 9-11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Inventory-linked listings + market-price pre-fill</li>
-          <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 5 5 9-11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Get surfaced in buyers' searches</li>
+        <ul class="checks">
+          <li>Everything in Free</li>
+          <li>List your table at any show</li>
+          <li>Inventory-linked listings with price prefill</li>
+          <li>Appear in buyer searches</li>
         </ul>
       </div>
     </div>
   </div>
 </section>
 
-<section id="faq" style="padding-top:24px">
+<section id="faq">
   <div class="wrap">
     <div class="sec-head reveal">
       <div class="kicker">FAQ</div>
-      <h2>Quick answers.</h2>
+      <h2>Common questions.</h2>
     </div>
     <div class="faq reveal">
       <details>
         <summary>Is TCGVendr a marketplace?</summary>
-        <p>No — it's discovery. Sellers publish previews of what they're bringing; you browse, search, and chat. There are no payments, shipping, or escrow in the app. Every deal happens in person, at the table.</p>
+        <p>No. Sellers preview what they're bringing and deals happen in person at the show. There are no payments, shipping, or escrow in the app.</p>
       </details>
       <details>
         <summary>Which card games are supported?</summary>
-        <p>Pokémon (English) is the launch focus. The catalog architecture is built multi-TCG, so Magic, Yu-Gi-Oh!, One Piece, and Lorcana can follow as the network grows.</p>
+        <p>Pokémon (English) at launch. The catalog is built to add Magic, Yu-Gi-Oh!, One Piece, and Lorcana later.</p>
       </details>
       <details>
         <summary>How do I get the beta?</summary>
-        <p>Email <a href="mailto:support@tcgvendr.com?subject=TCGVendr%20beta%20access">support@tcgvendr.com</a> and we'll send you a TestFlight invite. iOS is live now; Android is planned — the app is built from one codebase for both.</p>
+        <p>Email <a href="mailto:support@tcgvendr.com?subject=TCGVendr%20beta%20access">support@tcgvendr.com</a> for a TestFlight invite. iOS is live now; Android is planned.</p>
       </details>
       <details>
         <summary>Where do prices come from?</summary>
-        <p>Live market data, refreshed daily, covering raw conditions, grades, and variants. Sellers can keep the market price, set their own sticker price, or leave a card as "Ask."</p>
+        <p>Market data refreshed daily, covering raw conditions, grades, and variants. Sellers can use the market price, set their own, or leave a card as "Ask."</p>
       </details>
       <details>
         <summary>I run a show — can I get it listed?</summary>
-        <p>Yes. Anyone can submit a show from the Shows tab; submissions are reviewed before going public so the calendar stays clean. Organizer-managed show pages are on the roadmap.</p>
+        <p>Yes. Submit it from the Shows tab. Submissions are reviewed before publication.</p>
       </details>
     </div>
   </div>
 </section>
 
-<section style="padding-top:24px">
+<section>
   <div class="wrap">
     <div class="cta reveal">
       <h2>Try it before your next show.</h2>
-      <div class="hero-cta">
-        <a class="btn btn-primary magnetic" href="mailto:support@tcgvendr.com?subject=TCGVendr%20beta%20access">Request beta access</a>
-      </div>
-      <p class="micro">In beta on iOS via TestFlight · coming to the App Store</p>
+      <p>Free during beta on iOS.</p>
+      <a class="btn" href="mailto:support@tcgvendr.com?subject=TCGVendr%20beta%20access">Request beta access</a>
     </div>
   </div>
 </section>
@@ -427,18 +395,17 @@
 <footer>
   <div class="wrap">
     <div class="foot">
-      <div class="foot-col" style="max-width:260px">
-        <div class="brand" style="font-size:19px;margin-bottom:12px">
+      <div class="foot-brand">
+        <div class="brand">
           <span class="mk" aria-hidden="true"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"><path d="M31 81.5A36 36 0 1 1 69 81.5"/><path d="M35.5 39 50 66 64.5 39"/></svg></span>
           TCGVendr
         </div>
-        <p style="color:var(--ink-faint);font-size:13.5px">The trading-card show app. See the shows near you and search every table before you go.</p>
+        <p>Show discovery with real table inventory.</p>
       </div>
       <div class="foot-col">
         <h4>Product</h4>
         <a href="#how">How it works</a>
         <a href="#features">Features</a>
-        <a href="#who">Who it's for</a>
         <a href="#pricing">Pricing</a>
         <a href="#faq">FAQ</a>
       </div>
@@ -453,12 +420,10 @@
         <a href="/privacy">Privacy</a>
       </div>
     </div>
-    <div class="foot-note">© 2026 TCGVendr. Built for the hobby. Not affiliated with or endorsed by The Pokémon Company or any game publisher.</div>
+    <div class="foot-note">© 2026 TCGVendr. Not affiliated with or endorsed by The Pokémon Company or any game publisher.</div>
   </div>
 </footer>
 
-<script src="/vendor/gsap.min.js" defer></script>
-<script src="/vendor/ScrollTrigger.min.js" defer></script>
-<script src="/main.js" defer></script>
+<script src="/main.js?v=5" defer></script>
 </body>
 </html>
