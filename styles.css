@@ -38,6 +38,8 @@ html[data-theme="light"]{
   --cta-btn-ink:#15181c;
   --shadow:0 1px 2px rgba(27,25,20,.05),0 14px 36px -14px rgba(27,25,20,.14);
   --nav-bg:rgba(244,241,234,.86);
+  --panel:linear-gradient(150deg,#e2eaf2 0%,#ece6d8 100%);
+  --band-bg:#15181c;
   --psa-bg:#f7e9e9;
   --psa-ink:#b5302f;
   --psa-line:#e8cccc;
@@ -65,6 +67,8 @@ html[data-theme="dark"]{
   --cta-btn-ink:#12151a;
   --shadow:0 1px 2px rgba(0,0,0,.35),0 18px 44px -18px rgba(0,0,0,.55);
   --nav-bg:rgba(13,15,19,.82);
+  --panel:linear-gradient(150deg,#141c26 0%,#1a1e25 100%);
+  --band-bg:#10151d;
   --psa-bg:#2b1718;
   --psa-ink:#e78f8f;
   --psa-line:#4b2727;
@@ -90,14 +94,24 @@ section{padding:88px 0}
 .skip:focus{left:0}
 
 /* ------------------------------------------------------------------ type --- */
-h1{font-family:var(--display);font-weight:800;letter-spacing:-.03em;line-height:1.02;
-  font-size:clamp(38px,5.6vw,60px)}
-h2{font-family:var(--display);font-weight:800;letter-spacing:-.025em;line-height:1.08;
-  font-size:clamp(27px,3.6vw,38px)}
-.kicker{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--accent);margin-bottom:14px}
-.sec-head{max-width:60ch;margin-bottom:44px}
-.sec-head p{margin-top:14px;color:var(--ink-dim);font-size:17px;max-width:52ch}
+h1{font-family:var(--display);font-weight:800;letter-spacing:-.035em;line-height:1;
+  font-size:clamp(42px,6.4vw,74px)}
+h2{font-family:var(--display);font-weight:800;letter-spacing:-.03em;line-height:1.05;
+  font-size:clamp(30px,4.4vw,46px)}
+.kicker{font-size:12.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:16px}
+.sec-head{max-width:62ch;margin-bottom:52px}
+.sec-head p{margin-top:16px;color:var(--ink-dim);font-size:17.5px;max-width:52ch}
+
+/* full-bleed dark band — section-level contrast. Inner components re-resolve
+   the theme vars, so cards/checks/kickers restyle themselves. */
+.band-dark{background:var(--band-bg);color:var(--ink);
+  --surface:#1c222b;--surface-2:#242b35;--ink:#eef1f4;--ink-dim:#a9b1bb;--ink-faint:#79828d;
+  --line:#2b323d;--line-2:#272d37;--accent:#9cc3e6;--accent-soft:#233140;--accent-line:#3a4d61;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 16px 40px -16px rgba(0,0,0,.5)}
+
+/* tinted product panel — grounds the app mockups */
+.shot{background:var(--panel);border-radius:26px;padding:clamp(22px,3.5vw,46px)}
 
 /* --------------------------------------------------------------- buttons --- */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
@@ -153,7 +167,7 @@ html[data-theme="light"] .ic-sun{display:none}
   border-radius:999px;padding:5px 12px;margin-bottom:22px}
 .nb{display:inline-block}
 .hero .accent{color:var(--accent)}
-.lede{margin-top:22px;font-size:clamp(16.5px,1.8vw,18.5px);color:var(--ink-dim);max-width:46ch}
+.lede{margin-top:24px;font-size:clamp(17px,1.9vw,19.5px);color:var(--ink-dim);max-width:46ch}
 .hero-cta{margin-top:30px;display:flex;gap:12px;flex-wrap:wrap}
 .micro{margin-top:14px;font-size:13.5px;color:var(--ink-faint)}
 
@@ -188,11 +202,10 @@ html[data-theme="light"] .ic-sun{display:none}
   margin-top:72px;padding:44px 0}
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
 @media(max-width:760px){.steps{grid-template-columns:1fr;gap:28px}}
-.step .num{font-family:var(--display);font-weight:800;font-size:13px;color:var(--accent);
-  width:30px;height:30px;border:1px solid var(--accent-line);border-radius:999px;
-  display:grid;place-items:center;background:var(--accent-soft);margin-bottom:14px}
-.step h3{font-family:var(--display);font-weight:700;font-size:17px;letter-spacing:-.01em}
-.step p{font-size:14.5px;color:var(--ink-dim);margin-top:5px;max-width:34ch}
+.step .num{font-family:var(--display);font-weight:800;font-size:clamp(36px,3.4vw,46px);
+  line-height:1;letter-spacing:-.02em;color:var(--accent);margin-bottom:14px}
+.step h3{font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:-.01em}
+.step p{font-size:15px;color:var(--ink-dim);margin-top:6px;max-width:34ch}
 
 /* ------------------------------------------------------------ two sides --- */
 .duo{display:grid;grid-template-columns:1fr 1fr;gap:20px}
@@ -280,7 +293,11 @@ html[data-theme="light"] .ic-sun{display:none}
 .price-band{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 @media(max-width:760px){.price-band{grid-template-columns:1fr}}
 .plan{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:32px}
-.plan.pro{border-color:var(--accent-line);outline:1px solid var(--accent-line)}
+.plan.pro{background:var(--action);border-color:var(--action);color:var(--on-action)}
+html[data-theme="light"] .plan.pro{--accent:#9cc3e6;--accent-soft:rgba(255,255,255,.09);
+  --accent-line:rgba(255,255,255,.2);--ink-faint:#9aa1ab}
+html[data-theme="dark"] .plan.pro{--accent:#3f6f97;--accent-soft:#e9eff5;
+  --accent-line:#c9d7e4;--ink-faint:#7c828a}
 .plan .pname{font-size:12px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-dim)}
 .plan.pro .pname{color:var(--accent)}
 .plan .amt{font-family:var(--display);font-weight:800;font-size:42px;letter-spacing:-.03em;margin:10px 0 2px}
