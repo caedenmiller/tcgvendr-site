@@ -30,7 +30,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/styles.css?v=7" />
+<link rel="stylesheet" href="/styles.css?v=12" />
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -83,18 +83,18 @@
 <main id="main">
 <header class="hero-wrap" id="top">
   <div class="wrap hero">
-    <div>
-      <span class="pill">In beta on iOS via TestFlight</span>
-      <h1><span class="nb">Every show.</span> <span class="nb">Every table.</span> <span class="nb accent">One search.</span></h1>
-      <p class="lede">TCGVendr maps upcoming card shows and what each vendor is bringing. Search any card across every table and compare asking prices before you walk in.</p>
-      <div class="hero-cta">
-        <a class="btn btn-primary" href="mailto:support@tcgvendr.com?subject=TCGVendr%20beta%20access">Request beta access</a>
+    <div data-stagger>
+      <span class="pill reveal">In beta on iOS via TestFlight</span>
+      <h1 class="reveal"><span class="nb">Every show.</span> <span class="nb">Every table.</span> <span class="nb accent">One search.</span></h1>
+      <p class="lede reveal">TCGVendr maps upcoming card shows and what each vendor is bringing. Search any card across every table and compare asking prices before you walk in.</p>
+      <div class="hero-cta reveal">
+        <a class="btn btn-primary" href="mailto:support@tcgvendr.com?subject=TCGVendr%20beta%20access">Request beta access <span class="b-arr" aria-hidden="true">&rarr;</span></a>
         <a class="btn btn-ghost" href="#how">How it works</a>
       </div>
-      <p class="micro">Free during beta. No account needed to browse.</p>
+      <p class="hero-checks reveal"><span>Free during beta</span><span>No account needed to browse</span></p>
     </div>
 
-    <div class="hero-demo shot reveal" aria-hidden="true">
+    <div class="hero-demo shot reveal" style="--d:2" aria-hidden="true">
       <div class="app-card">
         <div class="demo-search">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="m20 20-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
@@ -130,7 +130,7 @@
   </div>
 
   <div class="steps-band" id="how">
-    <div class="wrap steps">
+    <div class="wrap steps" data-stagger>
       <div class="step reveal">
         <div class="num">01</div>
         <h3>Browse shows</h3>
@@ -154,9 +154,9 @@
   <div class="wrap">
     <div class="sec-head reveal">
       <div class="kicker">Who it's for</div>
-      <h2>Built for both sides of the table.</h2>
+      <h2>Built for <span class="accent">both sides</span> of the table.</h2>
     </div>
-    <div class="duo">
+    <div class="duo" data-stagger>
       <div class="side reveal">
         <span class="role">Selling</span>
         <h3>Get found before doors open.</h3>
@@ -189,7 +189,7 @@
       <div class="kicker">Inside the app</div>
       <h2>What's in the app.</h2>
     </div>
-    <div class="features">
+    <div class="features" data-stagger>
       <div class="feat wide reveal">
         <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2.5" stroke="currentColor" stroke-width="1.8"/><path d="M3 9h18M8 2v4M16 2v4" stroke="currentColor" stroke-width="1.8"/></svg></div>
         <h3>Shows</h3>
@@ -219,14 +219,14 @@
   </div>
 </section>
 
-<section aria-label="Product showcase">
+<section aria-label="Product showcase" class="sec-tight">
   <div class="wrap">
     <div class="sec-head reveal">
       <div class="kicker">At the show</div>
-      <h2>Open a show. See every table.</h2>
+      <h2>Open a show. <span class="accent">See every table.</span></h2>
     </div>
 
-    <div class="show">
+    <div class="show" data-stagger>
       <div class="shot reveal" aria-hidden="true">
       <div class="app-card">
         <div class="ui-h">The Chantilly Show (CSA)</div>
@@ -282,7 +282,7 @@
       </div>
     </div>
 
-    <div class="show">
+    <div class="show" data-stagger>
       <div class="reveal copy copy-first">
         <h3 class="feature-h">Build your collection by camera.</h3>
         <p>Scan a card, confirm the match, pick the variant and grade. Market pricing fills in the value, so listing a table later takes minutes.</p>
@@ -311,10 +311,6 @@
             <img class="thumb" src="/cards/sylveon-ex-pre-156.jpg" width="40" height="56" loading="lazy" decoding="async" alt="" />
             <div class="meta"><div class="nm">Sylveon ex</div><div class="st">Prismatic Evolutions · #156</div></div>
           </div>
-          <div class="inv-row">
-            <img class="thumb" src="/cards/pikachu-ex-ah-276.jpg" width="40" height="56" loading="lazy" decoding="async" alt="" />
-            <div class="meta"><div class="nm">Pikachu ex <span class="grade-badge">PSA 10</span></div><div class="st">Ascended Heroes · #276</div></div>
-          </div>
         </div>
       </div>
       </div>
@@ -326,10 +322,10 @@
   <div class="wrap">
     <div class="sec-head reveal">
       <div class="kicker">Pricing</div>
-      <h2>Free while the network grows.</h2>
+      <h2><span class="accent">Free</span> while the network grows.</h2>
       <p>Pro adds the selling tools. Both tiers are free during the beta.</p>
     </div>
-    <div class="price-band">
+    <div class="price-band" data-stagger>
       <div class="plan reveal">
         <div class="pname">Free</div>
         <div class="amt">$0<span> / forever</span></div>
@@ -382,15 +378,20 @@
         <p>Yes. Submit it from the Shows tab. Submissions are reviewed before publication.</p>
       </details>
     </div>
+    <p class="faq-more reveal">Still have questions? <a href="mailto:support@tcgvendr.com">Email support@tcgvendr.com</a></p>
   </div>
 </section>
 
 <section>
   <div class="wrap">
     <div class="cta reveal">
+      <span class="pill">Free during beta on iOS</span>
       <h2>Try it before your next show.</h2>
-      <p>Free during beta on iOS.</p>
-      <a class="btn" href="mailto:support@tcgvendr.com?subject=TCGVendr%20beta%20access">Request beta access</a>
+      <p>Browse shows and search tables in minutes. No account needed.</p>
+      <div class="cta-btns">
+        <a class="btn" href="mailto:support@tcgvendr.com?subject=TCGVendr%20beta%20access">Request beta access <span class="b-arr" aria-hidden="true">&rarr;</span></a>
+        <a class="btn btn-line" href="#how">How it works</a>
+      </div>
     </div>
   </div>
 </section>
@@ -428,6 +429,6 @@
   </div>
 </footer>
 
-<script src="/main.js?v=5" defer></script>
+<script src="/main.js?v=7" defer></script>
 </body>
 </html>
