@@ -5,19 +5,56 @@
    slides, which is what lets the art sit on it with no frame, no card, no seam.
 
    One accent per section, taken from the deck: blue, pink, mint, coral,
-   orange, cyan. A section sets --a and everything tinted inside it follows. */
+   orange, cyan. A section sets --a and everything tinted inside it follows.
+
+   The page is FLAT: black ground, hairline rules, no filled cards. Anything
+   that wants a box gets a rule instead. */
+
+/* ---------- fonts ---------- */
+/* Self-hosted (both OFL). Google's stylesheet was two extra connections and a
+   render-blocking round trip before the first glyph; these are the latin-only
+   woff2 subsets straight off fonts.gstatic.com, with Google's own
+   unicode-range so a stray non-latin character still falls back cleanly.
+   Only the two faces that paint the hero are preloaded (see index.html). */
+@font-face{
+  font-family:"Schibsted Grotesk";font-style:normal;font-weight:700;font-display:swap;
+  src:url(/fonts/schibsted-grotesk-700.woff2) format("woff2");
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face{
+  font-family:"Schibsted Grotesk";font-style:normal;font-weight:800;font-display:swap;
+  src:url(/fonts/schibsted-grotesk-800.woff2) format("woff2");
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face{
+  font-family:"Hanken Grotesk";font-style:normal;font-weight:400;font-display:swap;
+  src:url(/fonts/hanken-grotesk-400.woff2) format("woff2");
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face{
+  font-family:"Hanken Grotesk";font-style:normal;font-weight:600;font-display:swap;
+  src:url(/fonts/hanken-grotesk-600.woff2) format("woff2");
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face{
+  font-family:"Hanken Grotesk";font-style:normal;font-weight:700;font-display:swap;
+  src:url(/fonts/hanken-grotesk-700.woff2) format("woff2");
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
 
 /* ---------- tokens ---------- */
 :root{
+  /* Native UI (scrollbars, form controls, the scroll overflow gutter) has to be
+     told the page is dark, or it renders light chrome over a black page. */
+  color-scheme:dark;
+
   --bg:#08080A;
-  --bg-2:#0F1014;
-  --bg-3:#15161C;
   --line:rgba(255,255,255,.10);
   --line-2:rgba(255,255,255,.06);
 
   --ink:#FFFFFF;
   --ink-2:#A7AEB8;
-  --ink-3:#7A8390;   /* AA on --bg, --bg-2 and a hovered tile */
+  --ink-3:#7A8390;   /* AA on --bg */
 
   --blue:#90C0F0;
   --pink:#F868A8;
@@ -29,10 +66,12 @@
   --a:var(--blue);              /* per-section accent */
 
   --r:14px;
-  --r-lg:24px;
 
   --wrap:1200px;
   --gut:clamp(20px,5vw,40px);
+  /* Landscape on a notched phone puts the cutout inside the page box. */
+  --gut-l:max(var(--gut),env(safe-area-inset-left));
+  --gut-r:max(var(--gut),env(safe-area-inset-right));
   --sec:clamp(78px,8.6vw,132px);
 
   --disp:"Schibsted Grotesk",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
@@ -40,7 +79,21 @@
 }
 
 *,*::before,*::after{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+html{
+  -webkit-text-size-adjust:100%;
+  scroll-behavior:smooth;
+  /* The nav is sticky at 70px. Without this every in-page jump — and every
+     scroll the browser performs to reveal a focused element — lands the
+     target underneath it. One property on the scrollport covers both; adding
+     scroll-margin-top to the targets as well just double-counts (measured:
+     sections landed 172px down instead of 86). */
+  scroll-padding-top:86px;
+  -webkit-tap-highlight-color:rgba(255,255,255,.08);
+}
+/* Drops the double-tap-zoom wait. Pinch zoom is untouched — never disable
+   that. Listed out because touch-action does NOT inherit: on <html> alone it
+   leaves every actual tap target back on `auto`. */
+html,body,a,button,summary,label,input,.btn{touch-action:manipulation}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 
 body{
@@ -60,7 +113,7 @@ a{color:inherit}
 ::selection{background:var(--a);color:#08080A}
 
 /* ---------- type ---------- */
-h1,h2,h3,h4{
+h1,h2,h3{
   font-family:var(--disp);
   font-weight:800;
   letter-spacing:-.032em;
@@ -68,11 +121,13 @@ h1,h2,h3,h4{
   margin:0;
   text-wrap:balance;
 }
-h1{font-size:clamp(36px,6.2vw,80px);line-height:.9;letter-spacing:-.038em}
+h1{font-size:clamp(36px,5.4vw,70px);line-height:.9;letter-spacing:-.038em}
 h2{font-size:clamp(34px,5.2vw,68px)}
 h3{font-size:clamp(20px,2vw,25px);line-height:1.15;letter-spacing:-.02em}
-h4{font-size:17px;line-height:1.3;letter-spacing:-.01em}
 p{margin:0}
+/* Headings balance (even line lengths); prose only needs the last line
+   protected from a one-word widow. Both degrade to normal wrapping. */
+p,li{text-wrap:pretty}
 .hl{color:var(--a)}
 
 .eyebrow{
@@ -89,7 +144,7 @@ p{margin:0}
 }
 .sub{color:var(--ink-2);margin-top:18px;max-width:50ch}
 
-.wrap{max-width:var(--wrap);margin:0 auto;padding:0 var(--gut)}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 var(--gut-r) 0 var(--gut-l)}
 
 .sr-only{
   position:absolute;width:1px;height:1px;padding:0;margin:-1px;
@@ -104,6 +159,8 @@ p{margin:0}
 :focus-visible{outline:2px solid var(--a);outline-offset:3px;border-radius:4px}
 
 /* ---------- buttons ---------- */
+/* Hover changes the fill and nothing else. A lift plus a nudging arrow read as
+   template motion on a page whose only other movement is one 8px reveal. */
 .btn{
   --btn-bg:var(--ink);--btn-fg:#08080A;--btn-line:transparent;
   display:inline-flex;align-items:center;justify-content:center;gap:10px;
@@ -112,17 +169,15 @@ p{margin:0}
   background:var(--btn-bg);color:var(--btn-fg);
   border:1px solid var(--btn-line);
   text-decoration:none;white-space:nowrap;cursor:pointer;
-  transition:transform .18s cubic-bezier(.2,.7,.3,1),background .18s,opacity .18s;
+  transition:background .18s,border-color .18s;
 }
-.btn:hover{transform:translateY(-2px)}
-.btn:active{transform:translateY(0)}
+.btn:hover{--btn-bg:#E6E7EA}
 .btn-line{--btn-bg:transparent;--btn-fg:var(--ink);--btn-line:rgba(255,255,255,.22)}
-.btn-line:hover{--btn-bg:rgba(255,255,255,.06)}
+.btn-line:hover{--btn-bg:rgba(255,255,255,.07);--btn-line:rgba(255,255,255,.34)}
 .btn-a{--btn-bg:var(--a);--btn-fg:#08080A}
-.btn-sm{height:42px;padding:0 20px;font-size:14px}
+.btn-a:hover{--btn-bg:color-mix(in srgb,var(--a) 84%,#fff)}
+.btn-sm{height:44px;padding:0 20px;font-size:14px}
 .btn-full{display:flex;width:100%}
-.arr{transition:transform .2s cubic-bezier(.2,.7,.3,1)}
-.btn:hover .arr{transform:translateX(4px)}
 
 /* ---------- nav ---------- */
 .nav{
@@ -139,18 +194,19 @@ p{margin:0}
   display:inline-flex;align-items:center;gap:10px;
   font-family:var(--disp);font-weight:800;font-size:17px;letter-spacing:-.02em;
   text-decoration:none;color:var(--ink);
+  padding:8px 0;
 }
 .mk{width:24px;height:24px;display:block}
 .mk svg{width:100%;height:100%;display:block}
 .nav-links{display:flex;gap:26px;margin-left:8px}
 .nav-links a{
   font-size:15px;color:var(--ink-2);text-decoration:none;
-  padding:9px 0;transition:color .18s;
+  padding:10px 0;transition:color .18s;
 }
 .nav-links a:hover{color:var(--ink)}
 .nav-actions{margin-left:auto;display:flex;align-items:center;gap:12px}
 .menu-btn{
-  display:none;width:42px;height:42px;align-items:center;justify-content:center;
+  display:none;width:44px;height:44px;align-items:center;justify-content:center;
   background:none;border:1px solid var(--line);border-radius:100px;
   color:var(--ink);cursor:pointer;padding:0;
 }
@@ -158,12 +214,19 @@ p{margin:0}
 .menu-btn .ic-close{display:none}
 .nav.open .menu-btn .ic-burger{display:none}
 .nav.open .menu-btn .ic-close{display:block}
-.mobile-menu{display:none;border-top:1px solid var(--line-2);padding:8px var(--gut) 22px}
+.mobile-menu{
+  display:none;overscroll-behavior:contain;
+  border-top:1px solid var(--line-2);
+  padding:8px var(--gut-r) max(22px,env(safe-area-inset-bottom)) var(--gut-l);
+}
 .mobile-menu a{
   display:block;padding:14px 0;font-family:var(--disp);font-weight:700;
   font-size:19px;text-decoration:none;border-bottom:1px solid var(--line-2);
 }
 .mobile-menu a:last-child{border-bottom:0}
+/* The download link is the whole point of the menu — on desktop it's a filled
+   pill in the bar, so it can't arrive here as one more text row. */
+.mobile-menu .btn{display:flex;margin-top:18px;padding:0 26px;font-size:15px;border-bottom:0}
 .nav.open .mobile-menu{display:block}
 
 @media(max-width:900px){
@@ -173,6 +236,8 @@ p{margin:0}
 }
 
 /* ---------- hero ---------- */
+/* Nothing in here reveals. The first screen is the one thing that must be
+   whole on the first paint. */
 .hero{
   position:relative;
   padding:clamp(56px,7vw,96px) 0 clamp(20px,3vw,40px);
@@ -180,23 +245,16 @@ p{margin:0}
 }
 .hero-in{
   position:relative;
-  display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,.98fr);
+  /* 1.2/.8, not 1/1: at the 1200px cap the second h1 line ("before you walk
+     it.") needs ~592px at the 70px display cap, and an even split gives 531. */
+  display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);
   gap:clamp(28px,4vw,64px);align-items:center;
 }
 .hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
-.hero-note{
-  display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:24px;
-  font-size:14.5px;color:var(--ink-3);
-}
-.hero-note span{display:inline-flex;align-items:center;gap:8px}
-.hero-note span::before{
-  content:"";width:5px;height:5px;border-radius:100px;background:var(--a);flex:none;
-}
-/* Bleed the hero art to the viewport edge on wide screens — the composition
-   is a phone plus two cards spanning the full frame, and boxing it into the
-   text column renders the phone smaller than every phone below it. */
-.hero-art{margin-right:min(0px, calc((var(--wrap) - 100vw) / 2 - var(--gut)))}
-.hero-art img{width:auto;max-width:100%;max-height:640px;margin-left:auto}
+/* The crop carries ~14% of flat page-black on each side, so the phone may run
+   past its column by that much — the overlap is black on black. */
+.hero-art{display:flex;justify-content:center}
+.hero-art img{width:auto;max-width:none;height:min(700px,50vw)}
 
 @media(max-width:900px){
   .hero-in{grid-template-columns:1fr;gap:8px}
@@ -222,28 +280,31 @@ p{margin:0}
 .feat{position:relative;padding:0 0 var(--sec);overflow:hidden}
 /* Half-width columns need a smaller display size than full-bleed centred heads,
    or "collection is worth." wraps onto a fourth line. */
-.feat h2,.pro h2{font-size:clamp(32px,4.4vw,56px)}
-.feat-in{
+.feat h2,.pro h2{font-size:clamp(32px,4.2vw,52px)}
+.feat-in,.pro-in{
   position:relative;
-  display:grid;grid-template-columns:minmax(0,1.04fr) minmax(0,.96fr);
+  display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);
   gap:clamp(32px,5vw,80px);align-items:center;
 }
 .feat.rev .feat-in>.feat-copy{order:2}
+/* The copy always takes the wider track, whichever side it's on. */
+.feat.rev .feat-in{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)}
 /* The crops differ in aspect ratio (one phone, two phones, a card row), so
    they're sized by HEIGHT. Sizing by width would render the narrow portrait
    crops enormous and the wide ones tiny. */
-.feat-art img{width:auto;max-width:100%;max-height:640px;margin:0 auto}
+/* Height-capped; an image whose glow padding makes it wider than the column
+   overflows into the column gap, black on black. */
+.feat-art{display:flex;justify-content:center}
+.feat-art img{width:auto;max-width:none;max-height:640px}
 
-.pts{list-style:none;margin:28px 0 0;padding:0;display:grid;gap:14px}
+/* Bullets are hairline rows, not dotted lists. The rule under each line is the
+   only structure the page draws anywhere else, so a coloured dot and a hanging
+   indent were the one list convention that didn't belong to it. */
+.pts{list-style:none;margin:26px 0 0;padding:0}
 .pts li{
-  position:relative;padding-left:26px;color:var(--ink-2);font-size:16px;line-height:1.5;
+  border-top:1px solid var(--line-2);
+  padding:12px 0;color:var(--ink-2);font-size:16px;line-height:1.5;
 }
-.pts li::before{
-  content:"";position:absolute;left:0;top:.62em;
-  width:8px;height:8px;border-radius:100px;
-  background:var(--a);opacity:.85;
-}
-.pts b{color:var(--ink);font-weight:600}
 
 @media(max-width:900px){
   .feat-in{grid-template-columns:1fr;gap:34px}
@@ -261,62 +322,73 @@ p{margin:0}
    heading ("Common questions." wrapped onto two lines). Constrain the prose,
    let the heading run. */
 .sec-head{margin-bottom:clamp(36px,4vw,60px)}
-.sec-head .lede,.sec-head .sub{max-width:56ch}
+.sec-head .lede{max-width:56ch}
 .sec-head.mid{margin-left:auto;margin-right:auto;text-align:center}
-.sec-head.mid .lede,.sec-head.mid .sub{margin-left:auto;margin-right:auto}
+.sec-head.mid .lede{margin-left:auto;margin-right:auto}
+/* A section that is only its content (pricing) keeps the eyebrow as its label. */
+.eyebrow.mid{text-align:center;margin-bottom:clamp(28px,3vw,40px)}
 
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,1.6vw,22px)}
-.tile{
-  background:var(--bg-2);
-  border:1px solid var(--line-2);
-  border-radius:var(--r-lg);
-  padding:clamp(24px,2.4vw,32px);
-  display:flex;flex-direction:column;
-  transition:border-color .22s,background .22s;
-}
-.tile:hover{border-color:var(--line);background:var(--bg-3)}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(22px,2.6vw,34px)}
+.tile{border-top:1px solid var(--line);padding-top:22px;display:flex;flex-direction:column}
 .tile h3{margin-bottom:10px}
 .tile p{color:var(--ink-2);font-size:15.5px;line-height:1.55}
 @media(max-width:900px){.grid3{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:620px){.grid3{grid-template-columns:1fr}}
 
 /* ---------- pro ---------- */
-.pro{
-  background:var(--bg-2);border:1px solid var(--line-2);
-  border-radius:clamp(20px,2.6vw,34px);
-  padding:clamp(32px,4.4vw,68px);
-  position:relative;overflow:hidden;
+/* Laid out as a feature section, not a slab. The rounded panel was the last
+   filled box on the page and it read as a pricing widget dropped into an
+   editorial layout. */
+.pro{padding:0 0 var(--sec)}
+.pro-list{list-style:none;margin:28px 0 0;padding:0}
+/* Always stacked. Inline-when-it-fits made every row a different shape,
+   because the label lengths differ by twenty characters. */
+.pro-list li{
+  display:grid;gap:3px;
+  border-top:1px solid var(--line-2);padding:14px 0;
 }
-.pro-in{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.8fr);gap:clamp(30px,4vw,60px);align-items:center}
-.pro-list{list-style:none;margin:30px 0 0;padding:0;display:grid;gap:20px}
-.pro-list li{display:grid;gap:3px}
-.pro-list b{font-family:var(--disp);font-weight:700;font-size:16.5px;letter-spacing:-.01em}
-.pro-list span{color:var(--ink-2);font-size:15.5px;line-height:1.5}
+.pro-list b{font-family:var(--disp);font-weight:700;font-size:16px;letter-spacing:-.01em}
+.pro-list span{color:var(--ink-2);font-size:15.5px;line-height:1.45}
 .pro-art{display:flex;justify-content:center}
 .pro-art img{width:min(100%,320px)}
-@media(max-width:860px){.pro-in{grid-template-columns:1fr}.pro-art{display:none}}
+/* Hiding this left the section a wall of six text rows with nothing to look
+   at. Keep it, smaller, closing the list. */
+@media(max-width:860px){
+  .pro-in{grid-template-columns:1fr}
+  .pro-art img{width:min(100%,250px)}
+}
 
 /* ---------- pricing ---------- */
+/* The one place a border still earns a box: two plans have to be read against
+   each other, and the outline is what pairs them. Outline only, no fill. */
 .plans{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(16px,1.8vw,24px);max-width:900px;margin:0 auto}
 .plan{
-  background:var(--bg-2);border:1px solid var(--line-2);
-  border-radius:var(--r-lg);padding:clamp(26px,3vw,38px);
+  background:transparent;border:1px solid var(--line);
+  border-radius:var(--r);padding:clamp(26px,3vw,38px);
   display:flex;flex-direction:column;
 }
 .plan.hi{border-color:color-mix(in srgb,var(--a) 40%,transparent)}
 .plan-top{display:flex;align-items:center;gap:10px;margin-bottom:16px}
 .pname{font-family:var(--disp);font-weight:800;font-size:15px;letter-spacing:.1em;text-transform:uppercase}
-.tag{
-  font-family:var(--disp);font-size:11px;font-weight:800;letter-spacing:.1em;
-  padding:5px 9px;border-radius:100px;background:var(--a);color:#08080A;
-}
+/* No tabular-nums here. Schibsted Grotesk gives the decimal point a full
+   figure width in that mode, so $44.99 set as $44 . 99 (seen on device
+   2026-08-26). The two prices sit in separate cards, not a column being
+   compared digit by digit, so the guideline's number-comparison case
+   doesn't apply anyway. */
 .amt{font-family:var(--disp);font-weight:800;font-size:clamp(38px,4.2vw,54px);letter-spacing:-.035em;line-height:1}
 .amt span{font-size:17px;font-weight:600;color:var(--ink-3);letter-spacing:-.01em}
 .plan .alt{color:var(--ink-3);font-size:14.5px;margin-top:10px}
-.plan .pts{margin-top:26px;flex:1}
+.plan .pts{margin-top:22px;flex:1}
 .plan .btn{margin-top:30px}
 .price-foot{text-align:center;color:var(--ink-3);font-size:14.5px;margin-top:26px;max-width:56ch;margin-left:auto;margin-right:auto}
 @media(max-width:720px){.plans{grid-template-columns:1fr}}
+
+/* Hug-width pills side by side leave a phone user aiming at half the row.
+   Below this the primary action spans the thumb. */
+@media(max-width:560px){
+  .hero-cta,.close-cta{flex-direction:column;align-items:stretch;gap:10px}
+  .hero-cta .btn,.close-cta .btn{width:100%}
+}
 
 /* ---------- faq ---------- */
 .faq{max-width:820px;margin:0 auto;border-top:1px solid var(--line-2)}
@@ -335,27 +407,38 @@ p{margin:0}
 .faq details[open] summary::after{transform:rotate(-135deg);margin-top:-2px;border-color:var(--a)}
 .faq details p{color:var(--ink-2);padding:0 40px 24px 0;margin-top:-4px;font-size:16px}
 .faq-more{text-align:center;color:var(--ink-3);margin-top:28px;font-size:15px}
-.faq-more a{color:var(--a);text-decoration:none}
+.faq-more a{color:var(--a);text-decoration:none;padding:12px 0}
 .faq-more a:hover{text-decoration:underline}
 
 /* ---------- closing ---------- */
+/* The closing art opens on the logo, so the section before it hands over with
+   half the usual gap — the full --sec read as a hole under the pricing note. */
+#pricing{padding-bottom:clamp(40px,4.4vw,68px)}
 .close{position:relative;padding:0 0 var(--sec);text-align:center;overflow:hidden}
 .close-in{position:relative}
-.close-art{max-width:760px;margin:0 auto clamp(18px,2.4vw,34px)}
+/* Capped at the width the @2x file can actually cover on a 2x screen (1100px). */
+.close-art{max-width:830px;margin:0 auto clamp(18px,2.4vw,34px)}
 .close-art img{width:100%}
+/* The art carries its glow out to flat black on both sides, so on a phone it
+   runs to the screen edge instead of stopping at the gutter. */
+@media(max-width:900px){.close-art{margin-left:calc(var(--gut) * -1);margin-right:calc(var(--gut) * -1)}}
 .close h2{max-width:16ch;margin:0 auto}
 .close .lede{margin-left:auto;margin-right:auto}
 .close-cta{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin-top:34px}
 
 /* ---------- footer ---------- */
-footer{border-top:1px solid var(--line-2);padding:clamp(48px,5vw,72px) 0 40px;margin-top:auto}
+footer{
+  border-top:1px solid var(--line-2);
+  padding:clamp(48px,5vw,72px) 0 max(40px,env(safe-area-inset-bottom));
+  margin-top:auto;
+}
 .foot{display:grid;grid-template-columns:1.6fr repeat(3,1fr);gap:clamp(28px,3vw,40px)}
 .foot-brand p{color:var(--ink-3);font-size:15px;margin-top:14px;max-width:30ch}
 .foot-col h3{
   font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;
   color:var(--ink-3);margin-bottom:16px;
 }
-.foot-col a{display:block;color:var(--ink-2);text-decoration:none;font-size:15px;padding:5px 0;transition:color .18s}
+.foot-col a{display:block;color:var(--ink-2);text-decoration:none;font-size:15px;padding:10px 0;transition:color .18s}
 .foot-col a:hover{color:var(--ink)}
 .foot-note{
   margin-top:clamp(40px,4vw,60px);padding-top:26px;border-top:1px solid var(--line-2);
@@ -369,7 +452,7 @@ footer{border-top:1px solid var(--line-2);padding:clamp(48px,5vw,72px) 0 40px;ma
 .legal .back{
   display:inline-flex;align-items:center;gap:7px;
   color:var(--ink-3);text-decoration:none;font-size:14.5px;
-  margin-bottom:26px;transition:color .18s;
+  margin-bottom:26px;padding:12px 0;transition:color .18s;
 }
 .legal .back:hover{color:var(--ink)}
 .legal h1{font-size:clamp(38px,5.4vw,64px);margin-bottom:14px}
@@ -379,7 +462,7 @@ footer{border-top:1px solid var(--line-2);padding:clamp(48px,5vw,72px) 0 40px;ma
 .legal p+p{margin-top:14px}
 .legal ul{padding-left:22px;margin:14px 0}
 .legal li{margin-bottom:8px}
-.legal a{color:var(--a);text-decoration:none}
+.legal a{color:var(--a);text-decoration:none;padding:11px 0}
 .legal a:hover{text-decoration:underline}
 .legal strong{color:var(--ink);font-weight:600}
 
@@ -393,14 +476,16 @@ footer{border-top:1px solid var(--line-2);padding:clamp(48px,5vw,72px) 0 40px;ma
 .nf-links{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin-top:34px}
 
 /* ---------- reveal ---------- */
-/* Scoped to .js (set by a one-liner in <head>) so the page renders fully with
+/* One reveal, below the fold only: 8px and 450ms, staggered 60ms inside a
+   group. Anything longer or taller turns scrolling into a slideshow.
+   Scoped to .js (set by a one-liner in <head>) so the page renders fully with
    scripting off. Defaulting .reveal to opacity:0 left a blank page for anyone
    without JS. */
-.js .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.2,.7,.3,1),transform .7s cubic-bezier(.2,.7,.3,1)}
+.js .reveal{opacity:0;transform:translateY(8px);transition:opacity .45s ease-out,transform .45s ease-out}
 .js .reveal.in{opacity:1;transform:none}
-[data-stagger]>*{transition-delay:calc(var(--i,0) * 80ms)}
+[data-stagger]>*{transition-delay:calc(var(--i,0) * 60ms)}
 @media(prefers-reduced-motion:reduce){
   /* must out-specify `.js .reveal` above, hence the .js prefix here too */
   .js .reveal,.reveal{opacity:1;transform:none;transition:none}
-  .btn,.btn .arr{transition:none}
+  .btn{transition:none}
 }
