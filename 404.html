@@ -1,32 +1,50 @@
 <!doctype html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#f4f1ea" id="meta-theme">
-<title>TCGVendr — Page not found</title>
+<meta name="theme-color" content="#08080A">
+<title>TCGVendr: Page not found</title>
+<meta name="robots" content="noindex" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=5">
 <link rel="icon" type="image/png" href="/favicon.png?v=5">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=4">
-<script>
-  (function () {
-    var t = null;
-    try { t = localStorage.getItem('tcgv-theme'); } catch (e) {}
-    if (t !== 'light' && t !== 'dark') { t = 'light'; }
-    document.documentElement.dataset.theme = t;
-  })();
-</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/styles.css?v=12" />
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@700;800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<script>document.documentElement.className="js"</script>
+<link rel="stylesheet" href="/styles.css?v=53" />
 </head>
 <body>
-<main class="wrap nf">
+<a class="skip" href="#main">Skip to content</a>
+<div class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="/" aria-label="TCGVendr home">
+      <span class="mk" aria-hidden="true"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"><path d="M31 81.5A36 36 0 1 1 69 81.5"/><path d="M35.5 39 50 66 64.5 39"/></svg></span>
+      TCGVendr
+    </a>
+    <div class="nav-actions">
+      <a class="btn btn-line btn-sm" href="/">Back to site</a>
+    </div>
+  </div>
+</div>
+
+<main id="main" class="wrap nf">
   <div class="code">404</div>
   <h1>Page not found</h1>
-  <p>There's nothing at this address. It may have moved or never existed.</p>
-  <a class="btn btn-primary" href="/">Back to tcgvendr.com</a>
+  <p>There’s nothing at this address. It may have moved, or it may never have existed.</p>
+  <div class="nf-links">
+    <a class="btn" href="/">Back to tcgvendr.com</a>
+    <a class="btn btn-line" href="mailto:support@tcgvendr.com">Email support</a>
+  </div>
 </main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-note bare">&copy; 2026 TCGVendr. Not affiliated with or endorsed by The Pokémon Company or any game publisher.</div>
+  </div>
+</footer>
+
+<script src="/main.js?v=12" defer></script>
 </body>
 </html>

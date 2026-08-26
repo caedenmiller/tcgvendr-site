@@ -1,40 +1,29 @@
 <!doctype html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#f4f1ea" id="meta-theme">
-<title>TCGVendr — Privacy Policy</title>
+<meta name="theme-color" content="#08080A">
+<title>TCGVendr: Privacy Policy</title>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=5">
 <link rel="icon" type="image/png" href="/favicon.png?v=5">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=4">
-<script>
-  (function () {
-    var t = null;
-    try { t = localStorage.getItem('tcgv-theme'); } catch (e) {}
-    if (t !== 'light' && t !== 'dark') { t = 'light'; }
-    document.documentElement.dataset.theme = t;
-  })();
-</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/styles.css?v=12" />
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@700;800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<script>document.documentElement.className="js"</script>
+<link rel="stylesheet" href="/styles.css?v=53" />
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<div class="nav">
+<div class="nav" id="nav">
   <div class="wrap nav-in">
     <a class="brand" href="/" aria-label="TCGVendr home">
       <span class="mk" aria-hidden="true"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"><path d="M31 81.5A36 36 0 1 1 69 81.5"/><path d="M35.5 39 50 66 64.5 39"/></svg></span>
       TCGVendr
     </a>
     <div class="nav-actions">
-      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to light mode">
-        <svg class="ic-moon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
-        <svg class="ic-sun" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.8"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M5 5l1.8 1.8M17.2 17.2 19 19M19 5l-1.8 1.8M6.8 17.2 5 19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-      </button>
-      <a class="btn btn-ghost btn-sm" href="/">Back to site</a>
+      <a class="btn btn-line btn-sm" href="/">Back to site</a>
     </div>
   </div>
 </div>
@@ -73,7 +62,7 @@ turn on notifications we store a push-notification device token so we can delive
 them. Our infrastructure providers keep standard operational logs (such as IP
 addresses and request timestamps) to run and secure the service. We use a
 third-party crash-reporting tool that collects technical crash data (device
-model, OS version, stack traces) to diagnose problems — never your content, and
+model, OS version, stack traces) to diagnose problems, never your content, and
 configured not to attach identifying information.</p>
 
 <h2>What other users can see</h2>
@@ -83,7 +72,7 @@ by design:</p>
   <li>Your display name, profile photo, and published show tables are public.</li>
   <li>RSVP'ing "I'm going" to a show places you on that show's public attendee
   list and makes your collection (card names, images, quantities, and asking
-  prices — <strong>never</strong> what you paid) browsable by signed-in users
+  prices, <strong>never</strong> what you paid) browsable by signed-in users
   while the RSVP is active. The app asks you to confirm before this happens.</li>
   <li>Marking "Interested" on someone's card lets that person browse your
   collection under the same rules. The app explains this the first time.</li>
@@ -108,21 +97,21 @@ to other users.</p>
 receiving only what its function requires and processing it solely on our
 behalf:</p>
 <ul>
-  <li><strong>Cloud hosting</strong> — stores the data described above and
+  <li><strong>Cloud hosting</strong>: stores the data described above and
   delivers messages.</li>
-  <li><strong>Transactional email</strong> — sends sign-in code emails.</li>
-  <li><strong>Card catalog and market-price data</strong> — catalog queries
+  <li><strong>Transactional email</strong>: sends sign-in code emails.</li>
+  <li><strong>Card catalog and market-price data</strong>: catalog queries
   are proxied through our servers and are not tied to your profile by the
   data provider.</li>
-  <li><strong>Card image recognition</strong> — when you scan a card, the photo is
+  <li><strong>Card image recognition</strong>: when you scan a card, the photo is
   relayed through our servers to a third-party recognition service solely to identify
   the card; the provider is not given your account or profile.</li>
-  <li><strong>Error monitoring</strong> — receives crash diagnostics (device
+  <li><strong>Error monitoring</strong>: receives crash diagnostics (device
   model, OS version, stack traces) to help us fix bugs, with identifying
   information stripped before it is sent.</li>
-  <li><strong>Push notifications</strong> — delivers notifications to your
+  <li><strong>Push notifications</strong>: delivers notifications to your
   device when you enable them.</li>
-  <li><strong>Apple</strong> — app distribution (TestFlight / App Store).</li>
+  <li><strong>Apple</strong>: app distribution (TestFlight / App Store).</li>
 </ul>
 <p>We do not sell personal information to anyone, and we do not share it with
 third parties for their own marketing.</p>
@@ -163,6 +152,6 @@ updated policy.</p>
   </div>
 </footer>
 
-<script src="/main.js?v=7" defer></script>
+<script src="/main.js?v=12" defer></script>
 </body>
 </html>
