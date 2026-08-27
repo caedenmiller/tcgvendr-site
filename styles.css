@@ -179,34 +179,6 @@ p,li{text-wrap:pretty}
 .btn-sm{height:44px;padding:0 20px;font-size:14px}
 .btn-full{display:flex;width:100%}
 
-/* ---------- market ticker ---------- */
-/* A one-line marquee of the month's biggest moves across cards people hold,
-   above the nav (Double Holo's move; ours is baked at deploy from
-   card_prices, 1M = live market vs the stored 30-day baseline). The track
-   holds the list TWICE and slides by half its width, so the loop is seamless.
-   Pauses on hover; under reduced motion it's a plain scroll row. */
-.ticker{
-  border-bottom:1px solid var(--line-2);overflow:hidden;
-  font-size:13px;line-height:32px;height:33px;
-  -webkit-mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);
-  mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);
-}
-.ticker-track{display:flex;gap:0;width:max-content;animation:ticker var(--tk-dur,90s) linear infinite;will-change:transform}
-.ticker:hover .ticker-track{animation-play-state:paused}
-.tk{display:inline-flex;gap:8px;align-items:baseline;padding:0 18px;white-space:nowrap;color:var(--ink-2);text-decoration:none}
-.tk b{font-family:var(--disp);font-weight:700;color:var(--ink);letter-spacing:-.01em}
-.tk-set{color:var(--ink-3)}
-.tk-p{color:var(--ink);font-weight:600}
-.tk-d{font-weight:700}
-.tk-d.up{color:var(--mint)}
-.tk-d.down{color:var(--coral)}
-@keyframes ticker{to{transform:translateX(-50%)}}
-@media(prefers-reduced-motion:reduce){
-  .ticker{-webkit-mask-image:none;mask-image:none}
-  .ticker-track{animation:none;width:auto;overflow-x:auto;scrollbar-width:none}
-  .ticker-track .tk-dup{display:none}
-}
-
 /* ---------- nav ---------- */
 .nav{
   position:sticky;top:0;z-index:100;
@@ -300,6 +272,7 @@ p,li{text-wrap:pretty}
    The tile is the pricing plan's outline box, not a filled card - same rule,
    same radius; the card art carries its own rounded corners. */
 .strip{padding:clamp(28px,4vw,56px) 0 clamp(40px,5vw,64px)}
+.feat + .strip{padding-top:0;padding-bottom:var(--sec)}
 .strip-head{display:flex;flex-direction:column;gap:0;margin-bottom:clamp(18px,2.4vw,28px)}
 /* Baked by scripts/website-tables.py from prod before each deploy: real items
    on real upcoming tables, Scrydex art, the vendor's own sticker price, and
@@ -345,7 +318,6 @@ p,li{text-wrap:pretty}
 .tc-trend.up{color:var(--mint)}
 .tc-trend.down{color:var(--coral)}
 .tc-show{color:var(--ink-3);font-size:12px;line-height:1.3;margin-top:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.strip-aside{color:var(--ink-3);font-size:15px;margin-top:10px}
 
 /* ---------- steps ---------- */
 .steps{
@@ -437,7 +409,14 @@ p,li{text-wrap:pretty}
      Body copy steps to 15.5/1.5, the hairline lists tighten, and the section
      gap drops with them. Headings keep their sizes. */
   body{font-size:15.5px;line-height:1.5}
-  :root{--sec:52px}
+  :root{--sec:48px}
+  /* Headings a step down and the sub line gone: a section is its heading and
+     three bullets (Caeden, device 2026-08-27 — "our title fonts are too big,
+     the subtext is too much"). */
+  h3{font-size:18px}
+  .eyebrow{font-size:11px;margin-bottom:12px}
+  .feat .sub,.pro .sub{display:none}
+  .sec-head .lede{font-size:15.5px}
   .lede{font-size:16.5px;line-height:1.5;margin-top:14px}
   .sub{margin-top:12px}
   .pts{margin-top:18px}
@@ -451,7 +430,6 @@ p,li{text-wrap:pretty}
   .faq details p{font-size:15px;padding-bottom:18px}
   .plan{padding:22px}
   .price-foot{font-size:14px}
-  .ticker{font-size:12.5px}
 }
 
 /* ---------- grid of smaller features ---------- */
@@ -626,12 +604,16 @@ p,li{text-wrap:pretty}
      every side. Span .86 = a 338px phone on a 393 screen, 38px of black glow
      past each edge. */
   .feat-art  img[src*="/history"]  {--fill:.72;--span:.86}
-  .feat-art  img[src*="/value"]    {--fill:.565;--span:.875}
+  /* value and match are the only single-phone sections with nothing beside
+     the phone; at .875 they read as a wall (Caeden, device 2026-08-27). */
+  .feat-art  img[src*="/value"]    {--fill:.565;--span:.68}
   .feat-art  img[src*="/scan"]     {--fill:.72;--span:.86}
-  .feat-art  img[src*="/match"]    {--fill:.55;--span:.80;--shift:-3.5%}
+  .feat-art  img[src*="/match"]    {--fill:.55;--span:.66;--shift:-3.5%}
   /* Pro's phone is a closing illustration for a six-row list, not the subject:
      Caeden asked for it smaller (2026-08-27). */
-  .pro-art   img[src*="/insights"] {--fill:.90;--span:.62}
+  /* Pro on a phone is the list alone — the screen under six rows read as
+     bulk, not illustration (Caeden, device 2026-08-27). */
+  .pro-art{display:none}
   .close-art img[src*="/cards"]    {--fill:.794;--span:.86}
   /* .pro is the one art section with no clip of its own, and its art is the
      only one still boxed inside the gutter. */
@@ -645,8 +627,10 @@ p,li{text-wrap:pretty}
      <br> that sets its shape, and at the desktop floor (36/34px) the longest
      line - "Years of sales history", "Show up with a plan." - overflowed a
      320px column and wrapped to four and five lines. */
-  .hero h1{font-size:clamp(28px,8.2vw,36px)}
-  .feat h2,.pro h2,.sec h2,.close h2{font-size:clamp(28px,7.6vw,34px)}
+  .hero h1{font-size:clamp(27px,7.4vw,31px)}
+  /* A step down from round one (28–34): Caeden on device 2026-08-27, "our
+     title fonts are too big". Still exactly two lines per <br> heading. */
+  .feat h2,.pro h2,.sec h2,.close h2,.strip h2{font-size:clamp(23px,6.4vw,27px)}
   /* 16ch of a display face is ~256px, so "Show up with a plan." wrapped to
      three lines inside its own cap before the column ever ran out. */
   .close h2{max-width:none}

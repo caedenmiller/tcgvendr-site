@@ -1,0 +1,118 @@
+{
+ "baked": "2026-08-27",
+ "universe": 362,
+ "moves": [
+  {
+   "id": "xy12-53",
+   "name": "Mew",
+   "set": "Evolutions",
+   "price": 129.99,
+   "pct": 56.6
+  },
+  {
+   "id": "sv6pt5-72",
+   "name": "Munkidori",
+   "set": "Shrouded Fable",
+   "price": 31.11,
+   "pct": -25.2
+  },
+  {
+   "id": "swsh8-113",
+   "name": "Mew V",
+   "set": "Fusion Strike",
+   "price": 108.01,
+   "pct": 56.0
+  },
+  {
+   "id": "me2pt5-274",
+   "name": "Mega Feraligatr ex",
+   "set": "Ascended Heroes",
+   "price": 132.58,
+   "pct": -22.3
+  },
+  {
+   "id": "dpp-DP47",
+   "name": "Rayquaza C LV.X",
+   "set": "DP Black Star Promos",
+   "price": 471.25,
+   "pct": 30.9
+  },
+  {
+   "id": "me2pt5-294",
+   "name": "Mega Charizard Y ex",
+   "set": "Ascended Heroes",
+   "price": 399.29,
+   "pct": -21.8
+  },
+  {
+   "id": "swsh4-43",
+   "name": "Pikachu V",
+   "set": "Vivid Voltage",
+   "price": 218.68,
+   "pct": 29.1
+  },
+  {
+   "id": "sv4pt5-174",
+   "name": "Lucario",
+   "set": "Paldean Fates",
+   "price": 25.79,
+   "pct": -19.6
+  },
+  {
+   "id": "dpp-DP17",
+   "name": "Dialga LV.X",
+   "set": "DP Black Star Promos",
+   "price": 115.86,
+   "pct": 23.9
+  },
+  {
+   "id": "me2pt5-284",
+   "name": "Mega Gengar ex",
+   "set": "Ascended Heroes",
+   "price": 1037.83,
+   "pct": -17.8
+  },
+  {
+   "id": "sm3-20",
+   "name": "Charizard-GX",
+   "set": "Burning Shadows",
+   "price": 28.48,
+   "pct": 12.9
+  },
+  {
+   "id": "xy12-13",
+   "name": "M Charizard-EX",
+   "set": "Evolutions",
+   "price": 41.4,
+   "pct": -11.5
+  },
+  {
+   "id": "neo4-46",
+   "name": "Light Flareon",
+   "set": "Neo Destiny",
+   "price": 61.11,
+   "pct": 10.0
+  },
+  {
+   "id": "sv8pt5-30",
+   "name": "Jolteon ex",
+   "set": "Prismatic Evolutions",
+   "price": 19.5,
+   "pct": -11.2
+  },
+  {
+   "id": "base6-72",
+   "name": "Dratini",
+   "set": "Legendary Collection",
+   "price": 319.99,
+   "pct": 9.1
+  },
+  {
+   "id": "me2-125",
+   "name": "Mega Charizard X ex",
+   "set": "Phantasmal Flames",
+   "price": 700.2,
+   "pct": -10.8
+  }
+ ]
+}
