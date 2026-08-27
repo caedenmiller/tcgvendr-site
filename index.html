@@ -25,7 +25,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/schibsted-grotesk-800.woff2">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/hanken-grotesk-400.woff2">
 <script>document.documentElement.className="js"</script>
-<link rel="stylesheet" href="/styles.css?v=69">
+<link rel="stylesheet" href="/styles.css?v=70">
 <link rel="preload" as="image" href="/art/shows.webp?v=2" imagesrcset="/art/shows.webp?v=2 550w, /art/shows@2x.webp?v=2 1100w" imagesizes="(max-width:900px) 100vw, 522px" fetchpriority="high">
 <script type="application/ld+json">
 {
@@ -101,6 +101,81 @@
   </div>
 </header>
 
+<!-- ON THE TABLES -->
+<section class="strip" style="--a:var(--mint)" aria-labelledby="strip-h">
+  <div class="wrap strip-head reveal">
+    <p class="eyebrow">On the tables</p>
+    <h2 id="strip-h">Published before the doors open.</h2>
+  </div>
+  <div class="strip-scroll reveal" style="--i:1">
+    <ul class="tc-list">
+      <li class="tc">
+        <div class="tc-art"><img src="/cards/umbreon-vmax-es.webp?v=1" width="440" height="755" loading="lazy" decoding="async" alt=""></div>
+        <div class="tc-body">
+          <b>Umbreon VMAX</b>
+          <span class="tc-meta">Evolving Skies · NM</span>
+          <span class="tc-price">$2,348</span>
+          <span class="tc-show">Las Vegas Card Show</span>
+        </div>
+      </li>
+      <li class="tc">
+        <div class="tc-art"><img src="/cards/mega-gengar-ex-ah-284.webp?v=1" width="440" height="614" loading="lazy" decoding="async" alt=""></div>
+        <div class="tc-body">
+          <b>Mega Gengar ex</b>
+          <span class="tc-meta">Ascended Heroes · PSA 10</span>
+          <span class="tc-price">$1,905</span>
+          <span class="tc-show">Dallas Card Show</span>
+        </div>
+      </li>
+      <li class="tc">
+        <div class="tc-art"><img src="/cards/sylveon-vmax-es.webp?v=1" width="440" height="858" loading="lazy" decoding="async" alt=""></div>
+        <div class="tc-body">
+          <b>Sylveon VMAX</b>
+          <span class="tc-meta">Evolving Skies · NM</span>
+          <span class="tc-price">$402</span>
+          <span class="tc-show">Front Row Pasadena</span>
+        </div>
+      </li>
+      <li class="tc">
+        <div class="tc-art"><img src="/cards/mega-charizard-x-ex-pf-125.webp?v=1" width="440" height="614" loading="lazy" decoding="async" alt=""></div>
+        <div class="tc-body">
+          <b>Mega Charizard X ex</b>
+          <span class="tc-meta">Phantasmal Flames · NM</span>
+          <span class="tc-price ask">Ask</span>
+          <span class="tc-show">Collect-A-Con</span>
+        </div>
+      </li>
+      <li class="tc">
+        <div class="tc-art"><img src="/cards/evolving-skies-pack.webp?v=1" width="440" height="1100" loading="lazy" decoding="async" alt=""></div>
+        <div class="tc-body">
+          <b>Booster Pack</b>
+          <span class="tc-meta">Evolving Skies · Sealed</span>
+          <span class="tc-price">$64.84</span>
+          <span class="tc-show">Front Row San Diego</span>
+        </div>
+      </li>
+      <li class="tc">
+        <div class="tc-art"><img src="/cards/sylveon-ex-pre-156.webp?v=1" width="440" height="614" loading="lazy" decoding="async" alt=""></div>
+        <div class="tc-body">
+          <b>Sylveon ex</b>
+          <span class="tc-meta">Prismatic Evolutions · NM</span>
+          <span class="tc-price ask">Ask</span>
+          <span class="tc-show">LA EXPO Card Show</span>
+        </div>
+      </li>
+      <li class="tc">
+        <div class="tc-art"><img src="/cards/pikachu-ex-ah-276.webp?v=1" width="440" height="614" loading="lazy" decoding="async" alt=""></div>
+        <div class="tc-body">
+          <b>Pikachu ex</b>
+          <span class="tc-meta">Ascended Heroes · NM</span>
+          <span class="tc-price">$3.21</span>
+          <span class="tc-show">Las Vegas Card Show</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
 <!-- STEPS -->
 <section class="steps" id="how">
   <h2 class="sr-only">How it works</h2>
@@ -157,13 +232,21 @@
         <li>PSA population counts beside the price.</li>
       </ul>
     </div>
-    <div class="feat-art reveal" style="--i:1">
-      <picture>
-        <source media="(max-width:560px)" srcset="/art/history-m.webp?v=1 1x, /art/history-m@2x.webp?v=1 2x">
-        <img src="/art/history.webp?v=2" srcset="/art/history.webp?v=2 550w, /art/history@2x.webp?v=2 1100w" sizes="(max-width:900px) 100vw, 466px"
-           width="550" height="755" loading="lazy" decoding="async"
-           alt="Mega Gengar ex PSA 10 at $1,988 with a one-month price chart, next to the same card showing PSA population counts and the recent sales the price was built from.">
-      </picture>
+    <div class="feat-art phones-art reveal" style="--i:1">
+      <div class="phones" data-phones>
+        <picture>
+          <source media="(max-width:560px)" srcset="/art/history-m.webp?v=2 1x, /art/history-m@2x.webp?v=2 2x">
+          <img src="/art/history.webp?v=2" srcset="/art/history.webp?v=2 550w, /art/history@2x.webp?v=2 1100w" sizes="(max-width:900px) 100vw, 466px"
+             width="550" height="755" loading="lazy" decoding="async"
+             alt="Mega Gengar ex PSA 10 at $1,988 with a one-month price chart, next to the same card showing PSA population counts and the recent sales the price was built from.">
+        </picture>
+        <picture class="phone-m">
+          <img src="/art/history-m2.webp?v=1" srcset="/art/history-m2.webp?v=1 1x, /art/history-m2@2x.webp?v=1 2x"
+               width="419" height="835" loading="lazy" decoding="async"
+               alt="The same card with PSA population counts beside the price and the recent sales the average was built from.">
+        </picture>
+      </div>
+      <div class="phone-dots" aria-hidden="true"><span class="on"></span><span></span></div>
     </div>
   </div>
 </section>
@@ -202,13 +285,21 @@
         <li>25&nbsp;scans a week free. Pro takes the cap off.</li>
       </ul>
     </div>
-    <div class="feat-art reveal" style="--i:1">
-      <picture>
-        <source media="(max-width:560px)" srcset="/art/scan-m.webp?v=1 1x, /art/scan-m@2x.webp?v=1 2x">
-        <img src="/art/scan.webp?v=2" srcset="/art/scan.webp?v=2 550w, /art/scan@2x.webp?v=2 1100w" sizes="(max-width:900px) 100vw, 465px"
-           width="550" height="757" loading="lazy" decoding="async"
-           alt="The Scan tab ready to read a single card, a stack or a whole spread, beside a catalog search for Charizard returning 113 printings with variant counts.">
-      </picture>
+    <div class="feat-art phones-art reveal" style="--i:1">
+      <div class="phones" data-phones>
+        <picture>
+          <source media="(max-width:560px)" srcset="/art/scan-m.webp?v=2 1x, /art/scan-m@2x.webp?v=2 2x">
+          <img src="/art/scan.webp?v=2" srcset="/art/scan.webp?v=2 550w, /art/scan@2x.webp?v=2 1100w" sizes="(max-width:900px) 100vw, 465px"
+             width="550" height="757" loading="lazy" decoding="async"
+             alt="The Scan tab ready to read a single card, a stack or a whole spread, beside a catalog search for Charizard returning 113 printings with variant counts.">
+        </picture>
+        <picture class="phone-m">
+          <img src="/art/scan-m2.webp?v=1" srcset="/art/scan-m2.webp?v=1 1x, /art/scan-m2@2x.webp?v=1 2x"
+               width="419" height="835" loading="lazy" decoding="async"
+               alt="A catalog search for Charizard returning 113 printings, each with its variant count.">
+        </picture>
+      </div>
+      <div class="phone-dots" aria-hidden="true"><span class="on"></span><span></span></div>
     </div>
   </div>
 </section>
@@ -405,6 +496,6 @@
   </div>
 </footer>
 
-<script src="/main.js?v=13" defer></script>
+<script src="/main.js?v=14" defer></script>
 </body>
 </html>

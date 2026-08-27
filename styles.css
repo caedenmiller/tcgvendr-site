@@ -265,6 +265,53 @@ p,li{text-wrap:pretty}
   .hero-art img{width:100%;height:auto;max-width:100%;max-height:none;margin:0 auto}
 }
 
+/* ---------- on the tables: the card strip ---------- */
+/* Real table inventory as a horizontal row of card tiles, straight under the
+   hero. Scrolls on every width (Double Holo's move): the page's one place
+   where content runs off the edge on purpose, and the peek is the cue.
+   The tile is the pricing plan's outline box, not a filled card - same rule,
+   same radius; the card art carries its own rounded corners. */
+.strip{padding:clamp(28px,4vw,56px) 0 clamp(40px,5vw,64px)}
+.strip-head{display:flex;flex-direction:column;gap:0;margin-bottom:clamp(18px,2.4vw,28px)}
+.strip-head .eyebrow{margin-bottom:12px}
+.strip h2{font-size:clamp(26px,3vw,40px)}
+.strip-scroll{
+  overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x proximity;
+  scrollbar-width:none;-webkit-overflow-scrolling:touch;
+  /* must equal the list's start padding, or the snap parks the first tile on
+     the container edge and the padding scrolls away (measured: tile at x=0) */
+  scroll-padding:0 max(var(--gut-r),calc((100% - var(--wrap)) / 2 + var(--gut-r)))
+                 0 max(var(--gut-l),calc((100% - var(--wrap)) / 2 + var(--gut-l)));
+}
+.strip-scroll::-webkit-scrollbar{display:none}
+.tc-list{
+  list-style:none;margin:0;display:flex;gap:12px;
+  width:max-content;min-width:100%;max-width:none;
+  /* The row is wider than the page, so it can't be a centred .wrap. Its
+     start/end padding is computed instead: the gutter on a phone, and on a
+     wide screen the distance from the edge to where the 1200px wrap begins,
+     so the first tile lines up with the heading and the last one can scroll
+     fully in. Percentages resolve against the scroll container. */
+  padding:2px max(var(--gut-r),calc((100% - var(--wrap)) / 2 + var(--gut-r)))
+          2px max(var(--gut-l),calc((100% - var(--wrap)) / 2 + var(--gut-l)));
+}
+.tc{
+  flex:0 0 clamp(156px,15.5vw,196px);scroll-snap-align:start;
+  border:1px solid var(--line);border-radius:var(--r);
+  display:flex;flex-direction:column;overflow:hidden;
+}
+.tc-art{aspect-ratio:5/7;min-height:0;padding:10px 10px 0;display:flex;align-items:flex-end;justify-content:center}
+/* Sized by max-*, not object-fit: a percentage HEIGHT on the img resolved to
+   auto here and every tile came out a different height (the pack ran 90px
+   taller than the cards). max-height against the aspect-ratio box is definite. */
+.tc-art img{width:auto;height:auto;max-width:100%;max-height:100%}
+.tc-body{display:grid;gap:2px;padding:10px 12px 12px}
+.tc-body b{font-family:var(--disp);font-weight:700;font-size:14.5px;letter-spacing:-.01em;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tc-meta{color:var(--ink-3);font-size:12.5px;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tc-price{font-family:var(--disp);font-weight:800;font-size:17px;letter-spacing:-.02em;margin-top:6px}
+.tc-price.ask{color:var(--a)}
+.tc-show{color:var(--ink-3);font-size:12px;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
 /* ---------- steps ---------- */
 .steps{
   border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2);
@@ -306,6 +353,12 @@ p,li{text-wrap:pretty}
    img on desktop (measured: everything below shifted 4px). As a flex box it is
    exactly the wrapper the img already had. */
 .feat-art picture{display:flex;justify-content:center}
+/* history + scan carry BOTH phones on a phone (Caeden 2026-08-27: "I really
+   need both screens") as a swipeable snap track, one phone per slide, the
+   next one peeking. Above 560 the wrapper dissolves (display:contents) and the
+   second slide + dots don't exist, so desktop keeps its one two-phone file. */
+.phones{display:contents}
+.phone-m,.phone-dots{display:none}
 
 /* Bullets are hairline rows, not dotted lists. The rule under each line is the
    only structure the page draws anywhere else, so a coloured dot and a hanging
@@ -328,12 +381,30 @@ p,li{text-wrap:pretty}
   /* The picture shrink-wraps its img by default, which turns the img's
      percentage width into a cycle Chromium resolves to intrinsic size. */
   .feat-art picture{width:100%}
+  /* the phone carousel (history, scan) */
+  .phones-art{flex-direction:column;align-items:stretch}
+  .phones{
+    display:flex;gap:10px;width:100%;
+    padding:0 var(--gut-r) 0 var(--gut-l);
+    overflow-x:auto;overscroll-behavior-x:contain;
+    scroll-snap-type:x mandatory;scroll-padding:0 var(--gut-r) 0 var(--gut-l);
+    scrollbar-width:none;-webkit-overflow-scrolling:touch;
+  }
+  .phones::-webkit-scrollbar{display:none}
+  .phones picture{flex:0 0 84%;width:84%;scroll-snap-align:start;scroll-snap-stop:always;display:flex;align-items:center}
+  .phone-m{display:flex}
+  .phones img,.feat-art .phones img{width:100%;max-width:none;transform:none;margin:0}
+  .phone-dots{display:flex;justify-content:center;gap:6px;margin-top:6px}
+  .phone-dots span{width:6px;height:6px;border-radius:3px;background:var(--line);transition:width .2s,background-color .2s}
+  .phone-dots span.on{width:18px;background:var(--a)}
 }
 
 /* ---------- grid of smaller features ---------- */
 .sec{padding:0 0 var(--sec)}
 /* The steps band is the last thing with its own top padding — from there down
-   every section carries bottom padding only, so the gaps stay even. */
+   every section carries bottom padding only, so the gaps stay even. (The strip
+   above it carries its own bottom padding, so the band's border-top reads as
+   the strip's closing rule.) */
 .steps + .feat,.steps + .sec{padding-top:var(--sec)}
 /* The 62ch cap was measured against body text, so it clipped a display-size
    heading ("Common questions." wrapped onto two lines). Constrain the prose,
@@ -503,7 +574,9 @@ p,li{text-wrap:pretty}
   .feat-art  img[src*="/value"]    {--fill:.565;--span:.875}
   .feat-art  img[src*="/scan"]     {--fill:.72;--span:.86}
   .feat-art  img[src*="/match"]    {--fill:.55;--span:.80;--shift:-3.5%}
-  .pro-art   img[src*="/insights"] {--fill:.90;--span:.86}
+  /* Pro's phone is a closing illustration for a six-row list, not the subject:
+     Caeden asked for it smaller (2026-08-27). */
+  .pro-art   img[src*="/insights"] {--fill:.90;--span:.62}
   .close-art img[src*="/cards"]    {--fill:.794;--span:.86}
   /* .pro is the one art section with no clip of its own, and its art is the
      only one still boxed inside the gutter. */

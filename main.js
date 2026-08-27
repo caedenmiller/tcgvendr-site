@@ -30,6 +30,24 @@
     revealables.forEach(function (el) { io.observe(el); });
   }
 
+  /* Phone carousels (history, scan on phones): the dots follow the snap. */
+  document.querySelectorAll('[data-phones]').forEach(function (track) {
+    var dots = track.parentElement.querySelectorAll('.phone-dots span');
+    if (!dots.length) return;
+    var ticking = false;
+    var update = function () {
+      ticking = false;
+      var slides = track.children;
+      if (!slides.length) return;
+      var step = slides[0].offsetWidth + (slides[1] ? slides[1].offsetLeft - slides[0].offsetLeft - slides[0].offsetWidth : 0);
+      var i = Math.min(dots.length - 1, Math.max(0, Math.round(track.scrollLeft / step)));
+      dots.forEach(function (d, k) { d.classList.toggle('on', k === i); });
+    };
+    track.addEventListener('scroll', function () {
+      if (!ticking) { ticking = true; requestAnimationFrame(update); }
+    }, { passive: true });
+  });
+
   /* Nav gets a hairline once the page has moved. */
   var nav = document.getElementById('nav');
   if (nav) {
