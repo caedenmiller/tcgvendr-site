@@ -259,7 +259,10 @@ p,li{text-wrap:pretty}
 @media(max-width:900px){
   .hero-in{grid-template-columns:1fr;gap:8px}
   .hero-art{margin:8px calc(var(--gut) * -1) 0;order:2}
-  .hero-art img{max-width:100%;max-height:none;margin:0 auto}
+  /* width and HEIGHT both have to come back: the desktop rule sizes this crop
+     by height (`height:min(700px,50vw)`) with `width:auto`, and resetting only
+     the max-* pair left 50vw driving it — a 160x196 phone on a 393pt screen. */
+  .hero-art img{width:100%;height:auto;max-width:100%;max-height:none;margin:0 auto}
 }
 
 /* ---------- steps ---------- */
@@ -307,10 +310,14 @@ p,li{text-wrap:pretty}
 }
 
 @media(max-width:900px){
-  .feat-in{grid-template-columns:1fr;gap:34px}
+  /* `.feat.rev .feat-in` above is (0,3,0) and beats a bare `.feat-in` (0,1,0),
+     so the reversed sections (Price history, Scan) kept their desktop
+     two-column track on phones: a 143px copy column beside 215px of art.
+     The override has to match that specificity, not just come later. */
+  .feat-in,.feat.rev .feat-in{grid-template-columns:1fr;gap:30px}
   .feat.rev .feat-in>.feat-copy{order:0}
   .feat-art{margin:0 calc(var(--gut) * -1)}
-  .feat-art img{max-width:100%;max-height:none;margin:0 auto}
+  .feat-art img{width:100%;max-width:100%;max-height:none;margin:0 auto}
 }
 
 /* ---------- grid of smaller features ---------- */
@@ -425,6 +432,99 @@ p,li{text-wrap:pretty}
 .close h2{max-width:16ch;margin:0 auto}
 .close .lede{margin-left:auto;margin-right:auto}
 .close-cta{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin-top:34px}
+
+/* ---------- mobile: the art is the focal point ---------- */
+/* Every crop is mostly glow padding. Measured off the files, the DEVICE inside
+   each one is .45-.90 of the file's width, so `width:100%` drew a phone across
+   55% of a 393pt screen and nothing in it could be read. Below 560 the art
+   therefore runs WIDER than the viewport and the section's own overflow:hidden
+   trims it at the SCREEN EDGE. That trim is safe: every file's left and right
+   edge column measures #08080A, the page background, so the cut is black on
+   black. Cut left/right only, and only at the screen edge - the top and bottom
+   of these crops are where a hard edge would show, and an image edge landing
+   INSIDE the page is the seam problem from the last website pass.
+     --fill   fraction of the FILE the device occupies
+     --span   fraction of the VIEWPORT that device should cover
+     --shift  nudge, in % of the image width, for crops whose subject is
+              off-centre. The two-phone crops centre the LEFT phone and let the
+              right one run off the screen; a second phone cropped by the edge
+              reads as composition, a second phone shrunk to fit reads as small.
+   The 700px cap stops a 560px-wide window rendering a 1000px-tall phone.
+   Keyed off the file name rather than an inline --fill so the values live with
+   the measurements that produced them. */
+@media(max-width:560px){
+  /* The desktop rhythm is tuned to art that sits inside its column. Once the
+     art runs to both screen edges the phone's own black padding is doing part
+     of the spacing job, so the section gap reads long: measured at 393pt, a
+     phone's last pixel to the next eyebrow was ~115pt. 64 brings that back to
+     roughly the gap between an eyebrow and its heading. */
+  :root{--sec:64px}
+
+  .hero-art img,.feat-art img,.pro-art img,.close-art img{
+    width:calc(100% * var(--span,.86) / var(--fill,1));
+    max-width:700px;
+    transform:translateX(var(--shift,0%));
+  }
+  .hero-art  img[src*="/shows"]    {--fill:.54;--span:.70;--shift:4%}
+  /* tables carries a SECOND subject: the pink "Price history" card hangs off
+     the phone's right shoulder and its border is the file's own right edge
+     (measured on tables@2x: outermost non-black column 929 of 1024 = .9077).
+     Centred on the phone it landed at x=399 on a 393pt screen and the sale
+     rows read "eBay" cut mid-glyph, which is the one crop where the trim
+     stops being black-on-black. Shifted left instead of shrunk: the card now
+     clears the edge by ~13px (measured on the rendered pixels, not just the
+     geometry) and the phone's left FRAME bleeds ~6px, the same peek the
+     two-phone crops use. .695 rather than .70 buys that last pixel on both
+     sides at a cost of 2pt of phone. */
+  .feat-art  img[src*="/tables"]   {--fill:.48;--span:.695;--shift:-8.7%}
+  /* The two-phone crops (measured on history@2x/scan@2x, both 1100 wide:
+     left phone .012-.486, gap, right phone .514-.989). At span .70 the right
+     phone kept ~66pt on screen - enough to render half-words ("Meg", "cha",
+     "CONDITIO"), which reads as a text bug rather than a second screen. At
+     .78 the left phone is unmistakably the subject (~11pt margin) and the
+     right one is down to ~40pt: frame, bezel and a sliver, no cut words. */
+  .feat-art  img[src*="/history"]  {--fill:.45;--span:.78;--shift:21.6%}
+  .feat-art  img[src*="/value"]    {--fill:.565;--span:.875}
+  .feat-art  img[src*="/scan"]     {--fill:.45;--span:.78;--shift:21.6%}
+  .feat-art  img[src*="/match"]    {--fill:.55;--span:.80;--shift:-3.5%}
+  .pro-art   img[src*="/insights"] {--fill:.90;--span:.86}
+  .close-art img[src*="/cards"]    {--fill:.794;--span:.86}
+  /* .pro is the one art section with no clip of its own, and its art is the
+     only one still boxed inside the gutter. */
+  .pro{overflow:hidden}
+  .pro-art{margin:0 calc(var(--gut) * -1)}
+  /* .close-art is a plain block, so an image wider than it would hang off the
+     right instead of overflowing evenly the way the flex art wrappers do. */
+  .close-art{display:flex;justify-content:center}
+
+  /* Authored line breaks have to survive. Every h1/h2 on this page carries a
+     <br> that sets its shape, and at the desktop floor (36/34px) the longest
+     line - "Years of sales history", "Show up with a plan." - overflowed a
+     320px column and wrapped to four and five lines. */
+  .hero h1{font-size:clamp(28px,8.2vw,36px)}
+  .feat h2,.pro h2,.sec h2,.close h2{font-size:clamp(28px,7.6vw,34px)}
+  /* 16ch of a display face is ~256px, so "Show up with a plan." wrapped to
+     three lines inside its own cap before the column ever ran out. */
+  .close h2{max-width:none}
+
+  /* One thumb target in the hero, not two stacked 52px pills. The App Store
+     pill is the action; "How it works" is a link under it, which is what lifts
+     the phone into the first screen. */
+  .hero{padding-top:28px}
+  .hero .eyebrow{margin-bottom:10px}
+  .hero .lede{margin-top:14px}
+  .hero-cta{margin-top:22px;gap:2px}
+  .hero-art{margin-top:2px}
+  .hero-cta .btn-line{
+    --btn-bg:transparent;--btn-line:transparent;--btn-fg:var(--ink-2);
+    align-self:center;width:auto;height:auto;min-height:44px;
+    padding:10px 14px;border-radius:8px;
+    font-family:var(--text);font-size:15px;font-weight:600;letter-spacing:0;
+    text-decoration:underline;text-underline-offset:4px;
+    text-decoration-color:rgba(255,255,255,.28);
+  }
+  .hero-cta .btn-line:hover{--btn-bg:transparent;--btn-line:transparent;--btn-fg:var(--ink)}
+}
 
 /* ---------- footer ---------- */
 footer{
