@@ -274,6 +274,17 @@ p,li{text-wrap:pretty}
 .strip{padding:clamp(28px,4vw,56px) 0 clamp(40px,5vw,64px)}
 .feat + .strip{padding-top:0;padding-bottom:var(--sec)}
 .strip-head{display:flex;flex-direction:column;gap:0;margin-bottom:clamp(18px,2.4vw,28px)}
+.strip-head.split{flex-direction:row;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap}
+/* Gainers | Losers — the ring segment from the app, hairline track, one lit pill. */
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:100px;padding:3px;gap:2px}
+.seg button{
+  font-family:var(--disp);font-weight:700;font-size:13px;letter-spacing:-.01em;
+  background:none;border:0;border-radius:100px;color:var(--ink-2);cursor:pointer;
+  height:32px;padding:0 14px;min-width:44px;transition:background .18s,color .18s;
+}
+.seg button[aria-pressed="true"]{background:var(--ink);color:#08080A}
+.seg button:hover:not([aria-pressed="true"]){color:var(--ink)}
+.tc-list[hidden]{display:none}
 /* Baked by scripts/website-tables.py from prod before each deploy: real items
    on real upcoming tables, Scrydex art, the vendor's own sticker price, and
    the 1M market move in the app's trendDelta form (live market − stored d30). */
@@ -365,7 +376,10 @@ p,li{text-wrap:pretty}
    next one peeking. Above 560 the wrapper dissolves (display:contents) and the
    second slide + dots don't exist, so desktop keeps its one two-phone file. */
 .phones{display:contents}
-.phone-m,.phone-dots{display:none}
+/* Specificity matters here: `.feat-art picture{display:flex}` above is (0,1,1),
+   so a bare `.phone-m{display:none}` LOST to it and the second slide rendered
+   beside the two-phone file on desktop (shipped 2026-08-27, caught by Caeden). */
+.feat-art picture.phone-m,.phone-dots{display:none}
 
 /* Bullets are hairline rows, not dotted lists. The rule under each line is the
    only structure the page draws anywhere else, so a coloured dot and a hanging
@@ -399,7 +413,7 @@ p,li{text-wrap:pretty}
   }
   .phones::-webkit-scrollbar{display:none}
   .phones picture{flex:0 0 84%;width:84%;scroll-snap-align:start;scroll-snap-stop:always;display:flex;align-items:center}
-  .phone-m{display:flex}
+  .feat-art picture.phone-m{display:flex}
   .phones img,.feat-art .phones img{width:100%;max-width:none;transform:none;margin:0}
   .phone-dots{display:flex;justify-content:center;gap:6px;margin-top:6px}
   .phone-dots span{width:6px;height:6px;border-radius:3px;background:var(--line);transition:width .2s,background-color .2s}

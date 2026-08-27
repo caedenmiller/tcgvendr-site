@@ -48,6 +48,18 @@
     }, { passive: true });
   });
 
+  /* Top movers: Gainers | Losers swap the baked lists. */
+  document.querySelectorAll('[data-movers-toggle]').forEach(function (seg) {
+    var lists = seg.closest('section').querySelectorAll('.tc-movers');
+    seg.querySelectorAll('button').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var set = btn.getAttribute('data-set');
+        seg.querySelectorAll('button').forEach(function (b) { b.setAttribute('aria-pressed', String(b === btn)); });
+        lists.forEach(function (ul) { ul.hidden = ul.getAttribute('data-set') !== set; if (!ul.hidden) ul.parentElement.scrollLeft = 0; });
+      });
+    });
+  });
+
   /* Nav gets a hairline once the page has moved. */
   var nav = document.getElementById('nav');
   if (nav) {

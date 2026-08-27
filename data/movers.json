@@ -1,118 +1,168 @@
 {
  "baked": "2026-08-27",
  "universe": 362,
- "moves": [
-  {
-   "id": "xy12-53",
-   "name": "Mew",
-   "set": "Evolutions",
-   "price": 129.99,
-   "pct": 56.6
-  },
-  {
-   "id": "sv6pt5-72",
-   "name": "Munkidori",
-   "set": "Shrouded Fable",
-   "price": 31.11,
-   "pct": -25.2
-  },
-  {
-   "id": "swsh8-113",
-   "name": "Mew V",
-   "set": "Fusion Strike",
-   "price": 108.01,
-   "pct": 56.0
-  },
-  {
-   "id": "me2pt5-274",
-   "name": "Mega Feraligatr ex",
-   "set": "Ascended Heroes",
-   "price": 132.58,
-   "pct": -22.3
-  },
-  {
-   "id": "dpp-DP47",
-   "name": "Rayquaza C LV.X",
-   "set": "DP Black Star Promos",
-   "price": 471.25,
-   "pct": 30.9
-  },
-  {
-   "id": "me2pt5-294",
-   "name": "Mega Charizard Y ex",
-   "set": "Ascended Heroes",
-   "price": 399.29,
-   "pct": -21.8
-  },
-  {
-   "id": "swsh4-43",
-   "name": "Pikachu V",
-   "set": "Vivid Voltage",
-   "price": 218.68,
-   "pct": 29.1
-  },
-  {
-   "id": "sv4pt5-174",
-   "name": "Lucario",
-   "set": "Paldean Fates",
-   "price": 25.79,
-   "pct": -19.6
-  },
+ "gainers": [
   {
    "id": "dpp-DP17",
+   "variant": "holofoil",
    "name": "Dialga LV.X",
    "set": "DP Black Star Promos",
    "price": 115.86,
-   "pct": 23.9
+   "pct": 18.4
   },
   {
-   "id": "me2pt5-284",
-   "name": "Mega Gengar ex",
-   "set": "Ascended Heroes",
-   "price": 1037.83,
-   "pct": -17.8
+   "id": "svp-129",
+   "variant": "pokemonCenterStamp",
+   "name": "Pecharunt",
+   "set": "Scarlet & Violet Black Star Promos",
+   "price": 20.67,
+   "pct": 8.8
+  },
+  {
+   "id": "xyp-XY124",
+   "variant": "holofoil",
+   "name": "Pikachu-EX",
+   "set": "XY Black Star Promos",
+   "price": 455.8,
+   "pct": 6.2
+  },
+  {
+   "id": "g1-RC30",
+   "variant": "holofoil",
+   "name": "Gardevoir-EX",
+   "set": "Generations",
+   "price": 105.04,
+   "pct": 5.9
+  },
+  {
+   "id": "swsh12pt5gg-GG22",
+   "variant": "holofoil",
+   "name": "Ditto",
+   "set": "Crown Zenith Galarian Gallery",
+   "price": 18.03,
+   "pct": 4.5
+  },
+  {
+   "id": "sm9-189",
+   "variant": "holofoil",
+   "name": "Cobalion-GX",
+   "set": "Team Up",
+   "price": 16.72,
+   "pct": 3.5
   },
   {
    "id": "sm3-20",
+   "variant": "holofoil",
    "name": "Charizard-GX",
    "set": "Burning Shadows",
-   "price": 28.48,
-   "pct": 12.9
-  },
-  {
-   "id": "xy12-13",
-   "name": "M Charizard-EX",
-   "set": "Evolutions",
-   "price": 41.4,
-   "pct": -11.5
+   "price": 28.33,
+   "pct": 3.3
   },
   {
    "id": "neo4-46",
+   "variant": "firstEdition",
    "name": "Light Flareon",
    "set": "Neo Destiny",
    "price": 61.11,
-   "pct": 10.0
+   "pct": 3.3
   },
   {
-   "id": "sv8pt5-30",
-   "name": "Jolteon ex",
-   "set": "Prismatic Evolutions",
-   "price": 19.5,
-   "pct": -11.2
+   "id": "g1-26",
+   "variant": "reverseHolofoil",
+   "name": "Pikachu",
+   "set": "Generations",
+   "price": 16.69,
+   "pct": 3.0
   },
   {
-   "id": "base6-72",
-   "name": "Dratini",
-   "set": "Legendary Collection",
-   "price": 319.99,
-   "pct": 9.1
+   "id": "sv3pt5-7",
+   "variant": "pokemonCenterStamp",
+   "name": "Squirtle",
+   "set": "151",
+   "price": 98.69,
+   "pct": 2.6
+  }
+ ],
+ "losers": [
+  {
+   "id": "xy12-53",
+   "variant": "normal",
+   "name": "Mew",
+   "set": "Evolutions",
+   "price": 23.45,
+   "pct": -10.4
   },
   {
-   "id": "me2-125",
-   "name": "Mega Charizard X ex",
-   "set": "Phantasmal Flames",
-   "price": 700.2,
-   "pct": -10.8
+   "id": "me2pt5-277",
+   "variant": "holofoil",
+   "name": "Pikachu ex",
+   "set": "Ascended Heroes",
+   "price": 349.37,
+   "pct": -4.2
+  },
+  {
+   "id": "swsh12pt5gg-GG30",
+   "variant": "holofoil",
+   "name": "Pikachu",
+   "set": "Crown Zenith Galarian Gallery",
+   "price": 46.41,
+   "pct": -3.9
+  },
+  {
+   "id": "mep-22",
+   "variant": "pokemonCenterStamp",
+   "name": "Charcadet",
+   "set": "Mega Evolution Black Star Promos",
+   "price": 44.97,
+   "pct": -3.5
+  },
+  {
+   "id": "sv4pt5-232",
+   "variant": "holofoil",
+   "name": "Mew ex",
+   "set": "Paldean Fates",
+   "price": 964.98,
+   "pct": -3.2
+  },
+  {
+   "id": "me2pt5-284",
+   "variant": "holofoil",
+   "name": "Mega Gengar ex",
+   "set": "Ascended Heroes",
+   "price": 1001.83,
+   "pct": -3.2
+  },
+  {
+   "id": "me2pt5-274",
+   "variant": "holofoil",
+   "name": "Mega Feraligatr ex",
+   "set": "Ascended Heroes",
+   "price": 132.06,
+   "pct": -3.1
+  },
+  {
+   "id": "swsh8-245",
+   "variant": "holofoil",
+   "name": "Celebi V",
+   "set": "Fusion Strike",
+   "price": 76.33,
+   "pct": -3.1
+  },
+  {
+   "id": "sv4-199",
+   "variant": "holofoil",
+   "name": "Groudon",
+   "set": "Paradox Rift",
+   "price": 120.26,
+   "pct": -2.8
+  },
+  {
+   "id": "xyp-XY116",
+   "variant": "holofoil",
+   "name": "Arceus",
+   "set": "XY Black Star Promos",
+   "price": 56.75,
+   "pct": -2.7
   }
  ]
 }
