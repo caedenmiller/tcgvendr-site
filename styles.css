@@ -179,6 +179,34 @@ p,li{text-wrap:pretty}
 .btn-sm{height:44px;padding:0 20px;font-size:14px}
 .btn-full{display:flex;width:100%}
 
+/* ---------- market ticker ---------- */
+/* A one-line marquee of the month's biggest moves across cards people hold,
+   above the nav (Double Holo's move; ours is baked at deploy from
+   card_prices, 1M = live market vs the stored 30-day baseline). The track
+   holds the list TWICE and slides by half its width, so the loop is seamless.
+   Pauses on hover; under reduced motion it's a plain scroll row. */
+.ticker{
+  border-bottom:1px solid var(--line-2);overflow:hidden;
+  font-size:13px;line-height:32px;height:33px;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);
+}
+.ticker-track{display:flex;gap:0;width:max-content;animation:ticker var(--tk-dur,90s) linear infinite;will-change:transform}
+.ticker:hover .ticker-track{animation-play-state:paused}
+.tk{display:inline-flex;gap:8px;align-items:baseline;padding:0 18px;white-space:nowrap;color:var(--ink-2);text-decoration:none}
+.tk b{font-family:var(--disp);font-weight:700;color:var(--ink);letter-spacing:-.01em}
+.tk-set{color:var(--ink-3)}
+.tk-p{color:var(--ink);font-weight:600}
+.tk-d{font-weight:700}
+.tk-d.up{color:var(--mint)}
+.tk-d.down{color:var(--coral)}
+@keyframes ticker{to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){
+  .ticker{-webkit-mask-image:none;mask-image:none}
+  .ticker-track{animation:none;width:auto;overflow-x:auto;scrollbar-width:none}
+  .ticker-track .tk-dup{display:none}
+}
+
 /* ---------- nav ---------- */
 .nav{
   position:sticky;top:0;z-index:100;
@@ -404,6 +432,26 @@ p,li{text-wrap:pretty}
   .phone-dots{display:flex;justify-content:center;gap:6px;margin-top:6px}
   .phone-dots span{width:6px;height:6px;border-radius:3px;background:var(--line);transition:width .2s,background-color .2s}
   .phone-dots span.on{width:18px;background:var(--a)}
+
+  /* Density (Double Holo pass): a phone reads a 17px/1.65 paragraph as air.
+     Body copy steps to 15.5/1.5, the hairline lists tighten, and the section
+     gap drops with them. Headings keep their sizes. */
+  body{font-size:15.5px;line-height:1.5}
+  :root{--sec:52px}
+  .lede{font-size:16.5px;line-height:1.5;margin-top:14px}
+  .sub{margin-top:12px}
+  .pts{margin-top:18px}
+  .pts li{font-size:15px;line-height:1.45;padding:10px 0}
+  .step p,.tile p{font-size:15px}
+  .steps{padding:36px 0}
+  .steps-in{gap:22px}
+  .pro-list li{padding:11px 0}
+  .pro-list span{font-size:15px}
+  .faq summary{padding:16px 40px 16px 0}
+  .faq details p{font-size:15px;padding-bottom:18px}
+  .plan{padding:22px}
+  .price-foot{font-size:14px}
+  .ticker{font-size:12.5px}
 }
 
 /* ---------- grid of smaller features ---------- */
