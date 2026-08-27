@@ -299,6 +299,13 @@ p,li{text-wrap:pretty}
    overflows into the column gap, black on black. */
 .feat-art{display:flex;justify-content:center}
 .feat-art img{width:auto;max-width:none;max-height:640px}
+/* history + scan serve a phone-only file below 560 through <picture>. The
+   picture has to be a flex box itself, not display:contents: Chromium resolved
+   the img's percentage width against nothing under display:contents and drew
+   it at its intrinsic size, and an inline picture put a line-box gap under the
+   img on desktop (measured: everything below shifted 4px). As a flex box it is
+   exactly the wrapper the img already had. */
+.feat-art picture{display:flex;justify-content:center}
 
 /* Bullets are hairline rows, not dotted lists. The rule under each line is the
    only structure the page draws anywhere else, so a coloured dot and a hanging
@@ -318,6 +325,9 @@ p,li{text-wrap:pretty}
   .feat.rev .feat-in>.feat-copy{order:0}
   .feat-art{margin:0 calc(var(--gut) * -1)}
   .feat-art img{width:100%;max-width:100%;max-height:none;margin:0 auto}
+  /* The picture shrink-wraps its img by default, which turns the img's
+     percentage width into a cycle Chromium resolves to intrinsic size. */
+  .feat-art picture{width:100%}
 }
 
 /* ---------- grid of smaller features ---------- */
@@ -433,25 +443,29 @@ p,li{text-wrap:pretty}
 .close .lede{margin-left:auto;margin-right:auto}
 .close-cta{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin-top:34px}
 
-/* ---------- mobile: the art is the focal point ---------- */
+/* ---------- mobile: the art is the focal point, and NOTHING is cut ---------- */
 /* Every crop is mostly glow padding. Measured off the files, the DEVICE inside
    each one is .45-.90 of the file's width, so `width:100%` drew a phone across
-   55% of a 393pt screen and nothing in it could be read. Below 560 the art
-   therefore runs WIDER than the viewport and the section's own overflow:hidden
-   trims it at the SCREEN EDGE. That trim is safe: every file's left and right
-   edge column measures #08080A, the page background, so the cut is black on
-   black. Cut left/right only, and only at the screen edge - the top and bottom
-   of these crops are where a hard edge would show, and an image edge landing
-   INSIDE the page is the seam problem from the last website pass.
+   55% of a 393pt screen and nothing in it could be read. Below 560 the art may
+   run WIDER than the viewport - but only its black glow padding ever crosses
+   the screen edge (every file's edge columns measure #08080A). THE RULE, set
+   by Caeden on device 2026-08-27: no phone, card or pop-out is ever clipped
+   by the viewport. The first pass let the hero's cards and a second phone run
+   off the edge and it read as broken, not as composition. So the two-phone
+   crops (history, scan) swap to single-phone files below 560 via <picture>
+   (`art/*-m.webp`, built by scratch build-mobile-art.py from the slides: the
+   left phone cut out and set on a synthetic glow, phone = .72 of the file),
+   the hero shows its whole composition, and tables is sized so the pink
+   pop-out fits.
      --fill   fraction of the FILE the device occupies
      --span   fraction of the VIEWPORT that device should cover
      --shift  nudge, in % of the image width, for crops whose subject is
-              off-centre. The two-phone crops centre the LEFT phone and let the
-              right one run off the screen; a second phone cropped by the edge
-              reads as composition, a second phone shrunk to fit reads as small.
+              off-centre - used only to centre the CONTENT, never to push part
+              of it off screen.
    The 700px cap stops a 560px-wide window rendering a 1000px-tall phone.
    Keyed off the file name rather than an inline --fill so the values live with
-   the measurements that produced them. */
+   the measurements that produced them (the selector matches the <img>'s src
+   attribute, which stays the desktop file even when <picture> serves -m). */
 @media(max-width:560px){
   /* The desktop rhythm is tuned to art that sits inside its column. Once the
      art runs to both screen edges the phone's own black padding is doing part
@@ -463,29 +477,31 @@ p,li{text-wrap:pretty}
   .hero-art img,.feat-art img,.pro-art img,.close-art img{
     width:calc(100% * var(--span,.86) / var(--fill,1));
     max-width:700px;
+    /* The img is a flex item and a flex item's automatic minimum is
+       min(specified, natural) width, so an image whose 1x file is narrower
+       than its computed width (the -m files: 438px natural, 469 computed)
+       got shrunk back to natural. The wide desktop files never hit it. */
+    flex:none;
     transform:translateX(var(--shift,0%));
   }
-  .hero-art  img[src*="/shows"]    {--fill:.54;--span:.70;--shift:4%}
+  /* Phone + two cards + their connector lines, whole: the composition is .95
+     of the file, so width:100% (span == fill) lands it 10px inside each edge. */
+  .hero-art  img[src*="/shows"]    {--fill:.54;--span:.54}
   /* tables carries a SECOND subject: the pink "Price history" card hangs off
      the phone's right shoulder and its border is the file's own right edge
      (measured on tables@2x: outermost non-black column 929 of 1024 = .9077).
      Centred on the phone it landed at x=399 on a 393pt screen and the sale
-     rows read "eBay" cut mid-glyph, which is the one crop where the trim
-     stops being black-on-black. Shifted left instead of shrunk: the card now
-     clears the edge by ~13px (measured on the rendered pixels, not just the
-     geometry) and the phone's left FRAME bleeds ~6px, the same peek the
-     two-phone crops use. .695 rather than .70 buys that last pixel on both
-     sides at a cost of 2pt of phone. */
-  .feat-art  img[src*="/tables"]   {--fill:.48;--span:.695;--shift:-8.7%}
-  /* The two-phone crops (measured on history@2x/scan@2x, both 1100 wide:
-     left phone .012-.486, gap, right phone .514-.989). At span .70 the right
-     phone kept ~66pt on screen - enough to render half-words ("Meg", "cha",
-     "CONDITIO"), which reads as a text bug rather than a second screen. At
-     .78 the left phone is unmistakably the subject (~11pt margin) and the
-     right one is down to ~40pt: frame, bezel and a sliver, no cut words. */
-  .feat-art  img[src*="/history"]  {--fill:.45;--span:.78;--shift:21.6%}
+     rows read "eBay" cut mid-glyph. Phone frame .2305 to pop-out border
+     .9077 = .677 of the file, centred at .569: at span .63 the image is 516px
+     on a 393 screen, the content 349px, and the -6.9% shift centres it - 21px
+     clear on both sides, nothing bleeds but glow. */
+  .feat-art  img[src*="/tables"]   {--fill:.48;--span:.63;--shift:-6.9%}
+  /* history-m / scan-m: one phone, .72 of the file, glow to flat black on
+     every side. Span .86 = a 338px phone on a 393 screen, 38px of black glow
+     past each edge. */
+  .feat-art  img[src*="/history"]  {--fill:.72;--span:.86}
   .feat-art  img[src*="/value"]    {--fill:.565;--span:.875}
-  .feat-art  img[src*="/scan"]     {--fill:.45;--span:.78;--shift:21.6%}
+  .feat-art  img[src*="/scan"]     {--fill:.72;--span:.86}
   .feat-art  img[src*="/match"]    {--fill:.55;--span:.80;--shift:-3.5%}
   .pro-art   img[src*="/insights"] {--fill:.90;--span:.86}
   .close-art img[src*="/cards"]    {--fill:.794;--span:.86}
