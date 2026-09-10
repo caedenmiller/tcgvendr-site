@@ -1,6 +1,9 @@
 # /go/<name> — campaign redirects
 
-One folder per channel/persona, each an instant redirect to the App Store campaign link
+One folder per channel/persona, each a redirect to the App Store campaign link. Instant in a real
+browser; inside the Instagram / Facebook / Threads / TikTok in-app browsers (user agent sniffed) the
+page shows an "Open in App Store" BUTTON instead, because those web views drop an automatic
+navigation to apps.apple.com (blank page) but honor a user tap. No `<meta refresh>` for that reason
 (App Store Connect → Analytics → Acquisition → Campaigns). The bio holds the short address;
 the campaign token lives here, so a token change never touches a bio.
 

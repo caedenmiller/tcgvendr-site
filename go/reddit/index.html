@@ -2,12 +2,38 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>TCGVendr</title>
 <meta name="robots" content="noindex">
-<meta http-equiv="refresh" content="0; url=https://apps.apple.com/app/apple-store/id6778956833?pt=129011221&ct=reddit&mt=8">
 <link rel="canonical" href="https://apps.apple.com/app/apple-store/id6778956833?pt=129011221&ct=reddit&mt=8">
-<script>location.replace("https://apps.apple.com/app/apple-store/id6778956833?pt=129011221&ct=reddit&mt=8");</script>
-<style>body{margin:0;font:16px -apple-system,system-ui,sans-serif;background:#0c0e11;color:#eef1f4;display:flex;min-height:100vh;align-items:center;justify-content:center}a{color:#7ba0bf}</style>
+<style>
+body{margin:0;font:17px/1.4 -apple-system,system-ui,sans-serif;background:#0c0e11;color:#eef1f4;display:flex;min-height:100vh;align-items:center;justify-content:center;text-align:center;padding:24px}
+p{margin:0}
+a{color:#7ba0bf}
+.btn{display:inline-block;margin-top:18px;padding:16px 28px;border-radius:14px;background:#7ba0bf;color:#0c0e11;font-weight:600;text-decoration:none;font-size:18px}
+.hint{margin-top:14px;font-size:14px;color:#8b95a1}
+</style>
 </head>
-<body><p>Opening the App Store… <a href="https://apps.apple.com/app/apple-store/id6778956833?pt=129011221&ct=reddit&mt=8">tap here</a> if it doesn't.</p></body>
+<body>
+<div id="auto"><p>Opening the App Store… <a href="https://apps.apple.com/app/apple-store/id6778956833?pt=129011221&ct=reddit&mt=8">tap here</a> if it doesn't.</p></div>
+<div id="inapp" hidden>
+<p>TCGVendr is on the App Store.</p>
+<a class="btn" href="https://apps.apple.com/app/apple-store/id6778956833?pt=129011221&ct=reddit&mt=8">Open in App Store</a>
+<p class="hint">Or use the ⋯ menu and choose Open in browser.</p>
+</div>
+<script>
+(function(){
+  var url="https://apps.apple.com/app/apple-store/id6778956833?pt=129011221&ct=reddit&mt=8";
+  // Instagram, Facebook, Messenger, Threads, TikTok in-app browsers can't hand an
+  // automatic navigation off to the App Store — the page stalls. A user tap can.
+  var inApp=/Instagram|FBAN|FBAV|FB_IAB|Barcelona|TikTok|musical_ly|BytedanceWebview/i.test(navigator.userAgent);
+  if(inApp){
+    document.getElementById("auto").hidden=true;
+    document.getElementById("inapp").hidden=false;
+  }else{
+    location.replace(url);
+  }
+})();
+</script>
+</body>
 </html>
