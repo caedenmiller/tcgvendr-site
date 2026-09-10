@@ -1,3 +1,8 @@
+#!/bin/sh
+# usage: gen-go.sh <dir> <ct>
+dir=$1; ct=$2
+url="https://apps.apple.com/app/apple-store/id6778956833?pt=129011221&ct=${ct}&mt=8"
+cat > "$dir/index.html" <<EOF
 <!doctype html>
 <html lang="en">
 <head>
@@ -7,7 +12,7 @@
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#08080A">
 <link rel="icon" href="/favicon.svg?v=5" type="image/svg+xml">
-<link rel="canonical" href="https://apps.apple.com/app/apple-store/id6778956833?pt=129011221&ct=ugc-maya&mt=8">
+<link rel="canonical" href="${url}">
 <style>
 @font-face{font-family:"Schibsted Grotesk";font-weight:800;font-display:swap;src:url(/fonts/schibsted-grotesk-800.woff2) format("woff2")}
 @font-face{font-family:"Hanken Grotesk";font-weight:400;font-display:swap;src:url(/fonts/hanken-grotesk-400.woff2) format("woff2")}
@@ -31,7 +36,7 @@ p{margin:0;color:var(--ink-2);max-width:30ch}
 <img class="icon" src="/apple-touch-icon.png?v=4" width="96" height="96" alt="">
 <h1>TCGVendr</h1>
 <p>Card shows, vendor tables, and what your cards actually sold for.</p>
-<a class="btn" href="https://apps.apple.com/app/apple-store/id6778956833?pt=129011221&ct=ugc-maya&mt=8">
+<a class="btn" href="${url}">
 <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.37 12.64c-.02-2.1 1.72-3.11 1.8-3.16-.98-1.43-2.5-1.63-3.04-1.65-1.3-.13-2.53.76-3.19.76-.66 0-1.67-.74-2.75-.72-1.41.02-2.72.82-3.44 2.09-1.47 2.55-.38 6.32 1.05 8.39.7 1.01 1.53 2.15 2.62 2.11 1.05-.04 1.45-.68 2.72-.68s1.63.68 2.74.66c1.13-.02 1.85-1.03 2.54-2.05.8-1.17 1.13-2.3 1.15-2.36-.03-.01-2.2-.85-2.2-3.39zM14.28 6.46c.58-.7.97-1.68.86-2.66-.83.03-1.85.56-2.45 1.26-.54.62-1.01 1.62-.88 2.57.93.07 1.88-.47 2.47-1.17z"/></svg>
 Open in App Store
 </a>
@@ -39,7 +44,7 @@ Open in App Store
 <div class="hint" id="hint" hidden>Not opening? Tap ⋯ and choose Open in browser.</div>
 <script>
 (function(){
-  var url="https://apps.apple.com/app/apple-store/id6778956833?pt=129011221&ct=ugc-maya&mt=8";
+  var url="${url}";
   // Instagram / Facebook / Threads / TikTok web views drop an automatic
   // navigation to apps.apple.com (blank page) but honor a user tap, so those
   // get this page and the button. Everyone else redirects on load.
@@ -50,3 +55,4 @@ Open in App Store
 </script>
 </body>
 </html>
+EOF
