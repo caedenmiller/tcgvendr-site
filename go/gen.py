@@ -10,8 +10,8 @@ def tile(m):
     up = m["pct"] >= 0
     price = f"${m['price']:,.0f}" if m["price"] >= 100 else f"${m['price']:,.2f}"
     return (f'<li class="t"><div class="ta"><img src="/cards/{m["id"]}.webp?v={m["id"]}" loading="lazy" decoding="async" alt=""></div>'
-            f'<div class="tb"><b>{html.escape(m["name"])}</b><span class="tp">{price}</span>'
-            f'<span class="tt {"up" if up else "down"}">{"+" if up else ""}{m["pct"]:.1f}%</span></div></li>')
+            f'<div class="tb"><b>{html.escape(m["name"])}</b><span class="tr"><span class="tp">{price}</span>'
+            f'<span class="tt {"up" if up else "down"}">{abs(m["pct"]):.1f}%</span></span></div></li>')
 tiles = "".join(tile(m) for m in movers["gainers"][:8] + movers["losers"][:4])
 page = f'''<!doctype html>
 <html lang="en">
@@ -33,18 +33,19 @@ page = f'''<!doctype html>
 :root{{color-scheme:dark;--bg:#08080A;--ink:#fff;--ink-2:#A7AEB8;--ink-3:#7A8390;--line:rgba(255,255,255,.12);--mint:#28D8B0;--coral:#F06068;--disp:"Schibsted Grotesk",-apple-system,system-ui,sans-serif;--text:"Hanken Grotesk",-apple-system,system-ui,sans-serif}}
 *{{box-sizing:border-box}}
 html,body{{height:100%}}
-body{{margin:0;background:var(--bg);color:var(--ink);font:17px/1.5 var(--text);-webkit-font-smoothing:antialiased;display:flex;flex-direction:column;min-height:100%;touch-action:manipulation}}
+body{{margin:0;background:var(--bg);color:var(--ink);font:17px/1.5 var(--text);-webkit-font-smoothing:antialiased;display:flex;flex-direction:column;min-height:100%;touch-action:manipulation;overflow-x:hidden}}
 .strip{{padding-top:max(18px,env(safe-area-inset-top))}}
 .eyebrow{{font:800 11px/1 var(--disp);letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);padding:0 24px;margin:0 0 10px}}
-.scroll{{overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x proximity;scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-padding:0 24px}}
+.scroll{{overflow-x:auto;overscroll-behavior-x:none;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-padding:0 24px}}
 .scroll::-webkit-scrollbar{{display:none}}
 .list{{list-style:none;margin:0;padding:1px 24px;display:flex;gap:8px;width:max-content}}
-.t{{flex:0 0 88px;scroll-snap-align:start;border:1px solid var(--line);border-radius:10px;overflow:hidden;display:flex;flex-direction:column}}
+.t{{flex:0 0 calc((100vw - 48px) / 3);scroll-snap-align:start;border:1px solid var(--line);border-radius:10px;overflow:hidden;display:flex;flex-direction:column}}
 .ta{{aspect-ratio:5/7;padding:6px 6px 0;display:flex;align-items:flex-end;justify-content:center}}
 .ta img{{width:auto;height:auto;max-width:100%;max-height:100%}}
-.tb{{display:grid;gap:1px;padding:6px 7px 7px}}
+.tb{{display:grid;gap:2px;padding:6px 8px 8px}}
+.tr{{display:flex;align-items:baseline;justify-content:space-between;gap:6px;margin-top:2px}}
 .tb b{{font:700 11px/1.25 var(--disp);letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}}
-.tp{{font:800 12.5px/1.2 var(--disp);letter-spacing:-.02em;margin-top:3px}}
+.tp{{font:800 13px/1.2 var(--disp);letter-spacing:-.02em}}
 .tt{{font-size:10.5px;font-weight:600;line-height:1.3}}
 .tt.up{{color:var(--mint)}}.tt.down{{color:var(--coral)}}
 main{{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:28px max(24px,env(safe-area-inset-left)) max(56px,env(safe-area-inset-bottom))}}
@@ -78,7 +79,7 @@ p{{margin:0;color:var(--ink-2);max-width:30ch}}
 <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.37 12.64c-.02-2.1 1.72-3.11 1.8-3.16-.98-1.43-2.5-1.63-3.04-1.65-1.3-.13-2.53.76-3.19.76-.66 0-1.67-.74-2.75-.72-1.41.02-2.72.82-3.44 2.09-1.47 2.55-.38 6.32 1.05 8.39.7 1.01 1.53 2.15 2.62 2.11 1.05-.04 1.45-.68 2.72-.68s1.63.68 2.74.66c1.13-.02 1.85-1.03 2.54-2.05.8-1.17 1.13-2.3 1.15-2.36-.03-.01-2.2-.85-2.2-3.39zM14.28 6.46c.58-.7.97-1.68.86-2.66-.83.03-1.85.56-2.45 1.26-.54.62-1.01 1.62-.88 2.57.93.07 1.88-.47 2.47-1.17z"/></svg>
 <span><small>Download on the</small><b>App Store</b></span>
 </a>
-<div class="sub" id="sub"><span class="stars" aria-label="5 stars">★★★★★</span>5.0 on the App Store · Free</div>
+<div class="sub" id="sub"><span class="stars" aria-label="5 stars on the App Store">★★★★★</span>Free</div>
 </main>
 <div class="foot" id="hint" hidden>Not opening? Tap ⋯ and choose Open in browser.</div>
 <script>
