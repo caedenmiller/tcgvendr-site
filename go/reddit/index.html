@@ -23,17 +23,21 @@ body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.5 var(--text);-w
 .eyebrow{font:800 11px/1 var(--disp);letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);padding:0 24px;margin:0 0 10px}
 .scroll{overflow-x:auto;overscroll-behavior-x:none;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-padding:0 24px}
 .scroll::-webkit-scrollbar{display:none}
+.dots{display:flex;justify-content:center;gap:6px;margin-top:12px}
+.dots i{width:5px;height:5px;border-radius:50%;background:var(--ink-3);opacity:.45;transition:opacity .18s,transform .18s}
+.dots i.on{opacity:1;background:var(--ink);transform:scale(1.2)}
 .list{list-style:none;margin:0;padding:1px 24px;display:flex;gap:8px;width:max-content}
-.t{flex:0 0 calc((100vw - 48px) / 3);scroll-snap-align:start;border:1px solid var(--line);border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
+.t{border-radius:10px;flex:0 0 calc((100vw - 48px) / 3);scroll-snap-align:start;border:1px solid var(--line);border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
 .ta{aspect-ratio:5/7;padding:6px 6px 0;display:flex;align-items:flex-end;justify-content:center}
 .ta img{width:auto;height:auto;max-width:100%;max-height:100%}
 .tb{display:grid;gap:2px;padding:6px 8px 8px}
 .tr{display:flex;align-items:baseline;justify-content:space-between;gap:6px;margin-top:2px}
 .tb b{font:700 11px/1.25 var(--disp);letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tp{font:800 13px/1.2 var(--disp);letter-spacing:-.02em}
-.tt{font-size:10.5px;font-weight:600;line-height:1.3}
+.tt{font-size:10.5px;font-weight:600;line-height:1.3;display:inline-flex;align-items:center;gap:3px}
+.tt svg{width:7px;height:7px;fill:currentColor}
 .tt.up{color:var(--mint)}.tt.down{color:var(--coral)}
-main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:28px max(24px,env(safe-area-inset-left)) max(56px,env(safe-area-inset-bottom))}
+main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;text-align:center;padding:34px max(24px,env(safe-area-inset-left)) max(56px,env(safe-area-inset-bottom))}
 .icon{width:96px;height:96px;border-radius:22px;display:block;margin:0 auto 24px;box-shadow:0 0 0 1px var(--line)}
 h1{font:700 26px/1 var(--text);letter-spacing:.14em;text-transform:uppercase;margin:0 0 16px}
 p{margin:0;color:var(--ink-2);max-width:30ch}
@@ -42,8 +46,8 @@ p{margin:0;color:var(--ink-2);max-width:30ch}
 .badge svg{width:26px;height:26px;flex:none;margin-top:-2px}
 .badge small{display:block;font-size:11px;line-height:1;letter-spacing:.01em;margin-bottom:3px}
 .badge b{display:block;font-size:22px;line-height:1;font-weight:600;letter-spacing:-.01em}
-.sub{margin-top:16px;font-size:14px;color:var(--ink-3)}
-.stars{color:var(--ink);letter-spacing:.08em;margin-right:6px}
+.sub{margin-top:14px;font-size:14px;color:var(--ink-3);text-align:center}
+.stars{color:var(--ink);letter-spacing:.1em;font-size:15px}
 .foot{position:fixed;left:0;right:0;bottom:max(20px,env(safe-area-inset-bottom));font-size:13px;color:var(--ink-3);padding:0 24px;text-align:center}
 @keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 .wrap{animation:in .32s ease-out both}
@@ -54,7 +58,8 @@ p{margin:0;color:var(--ink-2);max-width:30ch}
 <body>
 <div class="strip wrap">
 <div class="eyebrow">This week's top movers</div>
-<div class="scroll"><ul class="list"><li class="t"><div class="ta"><img src="/cards/dpp-DP17.webp?v=dpp-DP17" loading="lazy" decoding="async" alt=""></div><div class="tb"><b>Dialga LV.X</b><span class="tr"><span class="tp">$116</span><span class="tt up">18.4%</span></span></div></li><li class="t"><div class="ta"><img src="/cards/svp-129.webp?v=svp-129" loading="lazy" decoding="async" alt=""></div><div class="tb"><b>Pecharunt</b><span class="tr"><span class="tp">$20.67</span><span class="tt up">8.8%</span></span></div></li><li class="t"><div class="ta"><img src="/cards/xyp-XY124.webp?v=xyp-XY124" loading="lazy" decoding="async" alt=""></div><div class="tb"><b>Pikachu-EX</b><span class="tr"><span class="tp">$456</span><span class="tt up">6.2%</span></span></div></li><li class="t"><div class="ta"><img src="/cards/g1-RC30.webp?v=g1-RC30" loading="lazy" decoding="async" alt=""></div><div class="tb"><b>Gardevoir-EX</b><span class="tr"><span class="tp">$105</span><span class="tt up">5.9%</span></span></div></li><li class="t"><div class="ta"><img src="/cards/swsh12pt5gg-GG22.webp?v=swsh12pt5gg-GG22" loading="lazy" decoding="async" alt=""></div><div class="tb"><b>Ditto</b><span class="tr"><span class="tp">$18.03</span><span class="tt up">4.5%</span></span></div></li><li class="t"><div class="ta"><img src="/cards/sm9-189.webp?v=sm9-189" loading="lazy" decoding="async" alt=""></div><div class="tb"><b>Cobalion-GX</b><span class="tr"><span class="tp">$16.72</span><span class="tt up">3.5%</span></span></div></li><li class="t"><div class="ta"><img src="/cards/sm3-20.webp?v=sm3-20" loading="lazy" decoding="async" alt=""></div><div class="tb"><b>Charizard-GX</b><span class="tr"><span class="tp">$28.33</span><span class="tt up">3.3%</span></span></div></li><li class="t"><div class="ta"><img src="/cards/neo4-46.webp?v=neo4-46" loading="lazy" decoding="async" alt=""></div><div class="tb"><b>Light Flareon</b><span class="tr"><span class="tp">$61.11</span><span class="tt up">3.3%</span></span></div></li><li class="t"><div class="ta"><img src="/cards/xy12-53.webp?v=xy12-53" loading="lazy" decoding="async" alt=""></div><div class="tb"><b>Mew</b><span class="tr"><span class="tp">$23.45</span><span class="tt down">10.4%</span></span></div></li><li class="t"><div class="ta"><img src="/cards/me2pt5-277.webp?v=me2pt5-277" loading="lazy" decoding="async" alt=""></div><div class="tb"><b>Pikachu ex</b><span class="tr"><span class="tp">$349</span><span class="tt down">4.2%</span></span></div></li><li class="t"><div class="ta"><img src="/cards/swsh12pt5gg-GG30.webp?v=swsh12pt5gg-GG30" loading="lazy" decoding="async" alt=""></div><div class="tb"><b>Pikachu</b><span class="tr"><span class="tp">$46.41</span><span class="tt down">3.9%</span></span></div></li><li class="t"><div class="ta"><img src="/cards/mep-22.webp?v=mep-22" loading="lazy" decoding="async" alt=""></div><div class="tb"><b>Charcadet</b><span class="tr"><span class="tp">$44.97</span><span class="tt down">3.5%</span></span></div></li></ul></div>
+<div class="scroll" id="scroll"><ul class="list"><li class="t"><div class="ta"><img src="/cards/dpp-DP17.webp?v=dpp-DP17" loading="lazy" decoding="async" alt=""></div><div class="tb"><b>Dialga LV.X</b><span class="tr"><span class="tp">$116</span><span class="tt up"><svg viewBox="0 0 8 8" aria-hidden="true"><path d="M1 6.5h6L4 1.5z"/></svg>18.4%</span></span></div></li><li class="t"><div class="ta"><img src="/cards/svp-129.webp?v=svp-129" loading="lazy" decoding="async" alt=""></div><div class="tb"><b>Pecharunt</b><span class="tr"><span class="tp">$20.67</span><span class="tt up"><svg viewBox="0 0 8 8" aria-hidden="true"><path d="M1 6.5h6L4 1.5z"/></svg>8.8%</span></span></div></li><li class="t"><div class="ta"><img src="/cards/xyp-XY124.webp?v=xyp-XY124" loading="lazy" decoding="async" alt=""></div><div class="tb"><b>Pikachu-EX</b><span class="tr"><span class="tp">$456</span><span class="tt up"><svg viewBox="0 0 8 8" aria-hidden="true"><path d="M1 6.5h6L4 1.5z"/></svg>6.2%</span></span></div></li><li class="t"><div class="ta"><img src="/cards/g1-RC30.webp?v=g1-RC30" loading="lazy" decoding="async" alt=""></div><div class="tb"><b>Gardevoir-EX</b><span class="tr"><span class="tp">$105</span><span class="tt up"><svg viewBox="0 0 8 8" aria-hidden="true"><path d="M1 6.5h6L4 1.5z"/></svg>5.9%</span></span></div></li><li class="t"><div class="ta"><img src="/cards/swsh12pt5gg-GG22.webp?v=swsh12pt5gg-GG22" loading="lazy" decoding="async" alt=""></div><div class="tb"><b>Ditto</b><span class="tr"><span class="tp">$18.03</span><span class="tt up"><svg viewBox="0 0 8 8" aria-hidden="true"><path d="M1 6.5h6L4 1.5z"/></svg>4.5%</span></span></div></li><li class="t"><div class="ta"><img src="/cards/sm9-189.webp?v=sm9-189" loading="lazy" decoding="async" alt=""></div><div class="tb"><b>Cobalion-GX</b><span class="tr"><span class="tp">$16.72</span><span class="tt up"><svg viewBox="0 0 8 8" aria-hidden="true"><path d="M1 6.5h6L4 1.5z"/></svg>3.5%</span></span></div></li><li class="t"><div class="ta"><img src="/cards/sm3-20.webp?v=sm3-20" loading="lazy" decoding="async" alt=""></div><div class="tb"><b>Charizard-GX</b><span class="tr"><span class="tp">$28.33</span><span class="tt up"><svg viewBox="0 0 8 8" aria-hidden="true"><path d="M1 6.5h6L4 1.5z"/></svg>3.3%</span></span></div></li><li class="t"><div class="ta"><img src="/cards/neo4-46.webp?v=neo4-46" loading="lazy" decoding="async" alt=""></div><div class="tb"><b>Light Flareon</b><span class="tr"><span class="tp">$61.11</span><span class="tt up"><svg viewBox="0 0 8 8" aria-hidden="true"><path d="M1 6.5h6L4 1.5z"/></svg>3.3%</span></span></div></li><li class="t"><div class="ta"><img src="/cards/xy12-53.webp?v=xy12-53" loading="lazy" decoding="async" alt=""></div><div class="tb"><b>Mew</b><span class="tr"><span class="tp">$23.45</span><span class="tt down"><svg viewBox="0 0 8 8" aria-hidden="true"><path d="M1 1.5h6L4 6.5z"/></svg>10.4%</span></span></div></li><li class="t"><div class="ta"><img src="/cards/me2pt5-277.webp?v=me2pt5-277" loading="lazy" decoding="async" alt=""></div><div class="tb"><b>Pikachu ex</b><span class="tr"><span class="tp">$349</span><span class="tt down"><svg viewBox="0 0 8 8" aria-hidden="true"><path d="M1 1.5h6L4 6.5z"/></svg>4.2%</span></span></div></li><li class="t"><div class="ta"><img src="/cards/swsh12pt5gg-GG30.webp?v=swsh12pt5gg-GG30" loading="lazy" decoding="async" alt=""></div><div class="tb"><b>Pikachu</b><span class="tr"><span class="tp">$46.41</span><span class="tt down"><svg viewBox="0 0 8 8" aria-hidden="true"><path d="M1 1.5h6L4 6.5z"/></svg>3.9%</span></span></div></li><li class="t"><div class="ta"><img src="/cards/mep-22.webp?v=mep-22" loading="lazy" decoding="async" alt=""></div><div class="tb"><b>Charcadet</b><span class="tr"><span class="tp">$44.97</span><span class="tt down"><svg viewBox="0 0 8 8" aria-hidden="true"><path d="M1 1.5h6L4 6.5z"/></svg>3.5%</span></span></div></li></ul></div>
+<div class="dots" id="dots" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></div>
 </div>
 <main class="wrap">
 <img class="icon" src="/go/icon.png?v=1" width="96" height="96" alt="">
@@ -64,11 +69,16 @@ p{margin:0;color:var(--ink-2);max-width:30ch}
 <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.37 12.64c-.02-2.1 1.72-3.11 1.8-3.16-.98-1.43-2.5-1.63-3.04-1.65-1.3-.13-2.53.76-3.19.76-.66 0-1.67-.74-2.75-.72-1.41.02-2.72.82-3.44 2.09-1.47 2.55-.38 6.32 1.05 8.39.7 1.01 1.53 2.15 2.62 2.11 1.05-.04 1.45-.68 2.72-.68s1.63.68 2.74.66c1.13-.02 1.85-1.03 2.54-2.05.8-1.17 1.13-2.3 1.15-2.36-.03-.01-2.2-.85-2.2-3.39zM14.28 6.46c.58-.7.97-1.68.86-2.66-.83.03-1.85.56-2.45 1.26-.54.62-1.01 1.62-.88 2.57.93.07 1.88-.47 2.47-1.17z"/></svg>
 <span><small>Download on the</small><b>App Store</b></span>
 </a>
-<div class="sub" id="sub"><span class="stars" aria-label="5 stars on the App Store">★★★★★</span>Free</div>
+<div class="sub" id="sub"><span class="stars" aria-label="5 stars on the App Store">★★★★★</span></div>
 </main>
 <div class="foot" id="hint" hidden>Not opening? Tap ⋯ and choose Open in browser.</div>
 <script>
 (function(){
+  var sc=document.getElementById("scroll"),dots=document.getElementById("dots").children,tile=sc.querySelector(".t");
+  sc.addEventListener("scroll",function(){
+    var step=(tile.offsetWidth+8)*3,i=Math.min(dots.length-1,Math.round(sc.scrollLeft/step));
+    for(var k=0;k<dots.length;k++)dots[k].className=k===i?"on":"";
+  },{passive:true});
   var url="https://apps.apple.com/app/apple-store/id6778956833?pt=129011221&ct=reddit&mt=8";
   if(/Android/i.test(navigator.userAgent)){
     document.querySelector(".badge").hidden=true;
