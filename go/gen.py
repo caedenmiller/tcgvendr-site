@@ -56,7 +56,7 @@ body{{margin:0;background:var(--bg);color:var(--ink);font:17px/1.5 var(--text);-
 .tt svg{{width:7px;height:7px;fill:currentColor}}
 .tt.up{{color:var(--mint)}}.tt.down{{color:var(--coral)}}
 main{{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;text-align:center;padding:34px max(24px,env(safe-area-inset-left)) max(56px,env(safe-area-inset-bottom))}}
-.icon{{width:96px;height:96px;border-radius:22px;display:block;margin:0 auto 24px;box-shadow:0 0 0 1px var(--line)}}
+.icon{{width:96px;height:96px;border-radius:22px;display:block;margin:0 auto 24px;box-shadow:0 0 0 1.5px rgba(255,255,255,.34),0 0 28px rgba(255,255,255,.07)}}
 h1{{font:700 26px/1 var(--text);letter-spacing:.14em;text-transform:uppercase;margin:0 0 16px}}
 p{{margin:0;color:var(--ink-2);max-width:30ch}}
 .badge{{display:inline-flex;align-items:center;gap:10px;margin-top:30px;height:60px;padding:0 20px 0 16px;border-radius:12px;background:#000;border:1px solid rgba(255,255,255,.55);color:#fff;text-decoration:none;text-align:left;font-family:-apple-system,"SF Pro Text",system-ui,sans-serif;transition:border-color .18s}}
