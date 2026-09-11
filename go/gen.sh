@@ -13,17 +13,19 @@ cat > "$dir/index.html" <<EOF
 <meta name="theme-color" content="#08080A">
 <link rel="icon" href="/favicon.svg?v=5" type="image/svg+xml">
 <link rel="canonical" href="${url}">
+<link rel="preconnect" href="https://apps.apple.com">
+<meta name="apple-itunes-app" content="app-id=6778956833">
 <style>
 @font-face{font-family:"Schibsted Grotesk";font-weight:800;font-display:swap;src:url(/fonts/schibsted-grotesk-800.woff2) format("woff2")}
 @font-face{font-family:"Hanken Grotesk";font-weight:400;font-display:swap;src:url(/fonts/hanken-grotesk-400.woff2) format("woff2")}
+@font-face{font-family:"Hanken Grotesk";font-weight:700;font-display:swap;src:url(/fonts/hanken-grotesk-700.woff2) format("woff2")}
 @font-face{font-family:"Hanken Grotesk";font-weight:600;font-display:swap;src:url(/fonts/hanken-grotesk-600.woff2) format("woff2")}
 :root{color-scheme:dark;--bg:#08080A;--ink:#fff;--ink-2:#A7AEB8;--ink-3:#7A8390;--line:rgba(255,255,255,.12)}
 *{box-sizing:border-box}
 html,body{height:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.5 "Hanken Grotesk",-apple-system,system-ui,sans-serif;-webkit-font-smoothing:antialiased;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px max(24px,env(safe-area-inset-left)) max(32px,env(safe-area-inset-bottom));touch-action:manipulation}
 .icon{width:104px;height:104px;border-radius:24px;display:block;margin:0 auto 28px;box-shadow:0 0 0 1px var(--line)}
-h1{font:800 34px/1 "Schibsted Grotesk",-apple-system,system-ui,sans-serif;letter-spacing:-.025em;margin:0 0 8px}
-.kicker{font:600 13px/1 "Hanken Grotesk",-apple-system,system-ui,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin:0 0 22px}
+h1{font:700 28px/1 "Hanken Grotesk",-apple-system,system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;margin:0 0 18px}
 p{margin:0;color:var(--ink-2);max-width:30ch}
 .badge{display:inline-flex;align-items:center;gap:10px;margin-top:36px;height:60px;padding:0 20px 0 16px;border-radius:12px;background:#000;border:1px solid rgba(255,255,255,.55);color:#fff;text-decoration:none;text-align:left;font-family:-apple-system,"SF Pro Text",system-ui,sans-serif;transition:border-color .18s}
 .badge:active{border-color:#fff}
@@ -32,19 +34,23 @@ p{margin:0;color:var(--ink-2);max-width:30ch}
 .badge b{display:block;font-size:22px;line-height:1;font-weight:600;letter-spacing:-.01em}
 .sub{margin-top:16px;font-size:14px;color:var(--ink-3)}
 .foot{position:fixed;left:0;right:0;bottom:max(20px,env(safe-area-inset-bottom));font-size:13px;color:var(--ink-3);padding:0 24px}
+@keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.wrap{animation:in .32s ease-out both}
+@media(prefers-reduced-motion:reduce){.wrap{animation:none}}
 [hidden]{display:none!important}
 </style>
 </head>
 <body>
+<div class="wrap">
 <img class="icon" src="/go/icon.png?v=1" width="104" height="104" alt="">
 <h1>TCGVendr</h1>
-<div class="kicker">Card Show Finder</div>
-<p>Card shows, vendor tables, and what your cards actually sold for.</p>
+<p>The portfolio and card show app. Know the floor before you walk it.</p>
 <a class="badge" href="${url}" aria-label="Download on the App Store">
 <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.37 12.64c-.02-2.1 1.72-3.11 1.8-3.16-.98-1.43-2.5-1.63-3.04-1.65-1.3-.13-2.53.76-3.19.76-.66 0-1.67-.74-2.75-.72-1.41.02-2.72.82-3.44 2.09-1.47 2.55-.38 6.32 1.05 8.39.7 1.01 1.53 2.15 2.62 2.11 1.05-.04 1.45-.68 2.72-.68s1.63.68 2.74.66c1.13-.02 1.85-1.03 2.54-2.05.8-1.17 1.13-2.3 1.15-2.36-.03-.01-2.2-.85-2.2-3.39zM14.28 6.46c.58-.7.97-1.68.86-2.66-.83.03-1.85.56-2.45 1.26-.54.62-1.01 1.62-.88 2.57.93.07 1.88-.47 2.47-1.17z"/></svg>
 <span><small>Download on the</small><b>App Store</b></span>
 </a>
-<div class="sub">Free for iPhone</div>
+<div class="sub" id="sub">Free for iPhone</div>
+</div>
 <div class="foot" id="hint" hidden>Not opening? Tap ⋯ and choose Open in browser.</div>
 <script>
 (function(){
@@ -52,6 +58,11 @@ p{margin:0;color:var(--ink-2);max-width:30ch}
   // Instagram / Facebook / Threads / TikTok web views drop an automatic
   // navigation to apps.apple.com (blank page) but honor a user tap, so those
   // get this page and the badge. Everyone else redirects on load.
+  if(/Android/i.test(navigator.userAgent)){
+    document.querySelector(".badge").hidden=true;
+    document.getElementById("sub").textContent="iPhone only right now";
+    return;
+  }
   var inApp=/Instagram|FBAN|FBAV|FB_IAB|Barcelona|TikTok|musical_ly|BytedanceWebview/i.test(navigator.userAgent);
   if(inApp){document.getElementById("hint").hidden=false;}
   else{location.replace(url);}
