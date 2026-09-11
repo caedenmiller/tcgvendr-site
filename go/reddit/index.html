@@ -13,22 +13,37 @@
 <style>
 @font-face{font-family:"Schibsted Grotesk";font-weight:800;font-display:swap;src:url(/fonts/schibsted-grotesk-800.woff2) format("woff2")}
 @font-face{font-family:"Hanken Grotesk";font-weight:400;font-display:swap;src:url(/fonts/hanken-grotesk-400.woff2) format("woff2")}
-@font-face{font-family:"Hanken Grotesk";font-weight:700;font-display:swap;src:url(/fonts/hanken-grotesk-700.woff2) format("woff2")}
 @font-face{font-family:"Hanken Grotesk";font-weight:600;font-display:swap;src:url(/fonts/hanken-grotesk-600.woff2) format("woff2")}
-:root{color-scheme:dark;--bg:#08080A;--ink:#fff;--ink-2:#A7AEB8;--ink-3:#7A8390;--line:rgba(255,255,255,.12)}
+@font-face{font-family:"Hanken Grotesk";font-weight:700;font-display:swap;src:url(/fonts/hanken-grotesk-700.woff2) format("woff2")}
+:root{color-scheme:dark;--bg:#08080A;--ink:#fff;--ink-2:#A7AEB8;--ink-3:#7A8390;--line:rgba(255,255,255,.12);--mint:#28D8B0;--coral:#F06068;--disp:"Schibsted Grotesk",-apple-system,system-ui,sans-serif;--text:"Hanken Grotesk",-apple-system,system-ui,sans-serif}
 *{box-sizing:border-box}
 html,body{height:100%}
-body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.5 "Hanken Grotesk",-apple-system,system-ui,sans-serif;-webkit-font-smoothing:antialiased;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px max(24px,env(safe-area-inset-left)) max(32px,env(safe-area-inset-bottom));touch-action:manipulation}
-.icon{width:104px;height:104px;border-radius:24px;display:block;margin:0 auto 28px;box-shadow:0 0 0 1px var(--line)}
-h1{font:700 28px/1 "Hanken Grotesk",-apple-system,system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;margin:0 0 18px}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.5 var(--text);-webkit-font-smoothing:antialiased;display:flex;flex-direction:column;min-height:100%;touch-action:manipulation}
+.strip{padding-top:max(18px,env(safe-area-inset-top))}
+.eyebrow{font:800 11px/1 var(--disp);letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);padding:0 24px;margin:0 0 10px}
+.scroll{overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x proximity;scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-padding:0 24px}
+.scroll::-webkit-scrollbar{display:none}
+.list{list-style:none;margin:0;padding:1px 24px;display:flex;gap:8px;width:max-content}
+.t{flex:0 0 88px;scroll-snap-align:start;border:1px solid var(--line);border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
+.ta{aspect-ratio:5/7;padding:6px 6px 0;display:flex;align-items:flex-end;justify-content:center}
+.ta img{width:auto;height:auto;max-width:100%;max-height:100%}
+.tb{display:grid;gap:1px;padding:6px 7px 7px}
+.tb b{font:700 11px/1.25 var(--disp);letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tp{font:800 12.5px/1.2 var(--disp);letter-spacing:-.02em;margin-top:3px}
+.tt{font-size:10.5px;font-weight:600;line-height:1.3}
+.tt.up{color:var(--mint)}.tt.down{color:var(--coral)}
+main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:28px max(24px,env(safe-area-inset-left)) max(56px,env(safe-area-inset-bottom))}
+.icon{width:96px;height:96px;border-radius:22px;display:block;margin:0 auto 24px;box-shadow:0 0 0 1px var(--line)}
+h1{font:700 26px/1 var(--text);letter-spacing:.14em;text-transform:uppercase;margin:0 0 16px}
 p{margin:0;color:var(--ink-2);max-width:30ch}
-.badge{display:inline-flex;align-items:center;gap:10px;margin-top:36px;height:60px;padding:0 20px 0 16px;border-radius:12px;background:#000;border:1px solid rgba(255,255,255,.55);color:#fff;text-decoration:none;text-align:left;font-family:-apple-system,"SF Pro Text",system-ui,sans-serif;transition:border-color .18s}
+.badge{display:inline-flex;align-items:center;gap:10px;margin-top:30px;height:60px;padding:0 20px 0 16px;border-radius:12px;background:#000;border:1px solid rgba(255,255,255,.55);color:#fff;text-decoration:none;text-align:left;font-family:-apple-system,"SF Pro Text",system-ui,sans-serif;transition:border-color .18s}
 .badge:active{border-color:#fff}
 .badge svg{width:26px;height:26px;flex:none;margin-top:-2px}
 .badge small{display:block;font-size:11px;line-height:1;letter-spacing:.01em;margin-bottom:3px}
 .badge b{display:block;font-size:22px;line-height:1;font-weight:600;letter-spacing:-.01em}
 .sub{margin-top:16px;font-size:14px;color:var(--ink-3)}
-.foot{position:fixed;left:0;right:0;bottom:max(20px,env(safe-area-inset-bottom));font-size:13px;color:var(--ink-3);padding:0 24px}
+.stars{color:var(--ink);letter-spacing:.08em;margin-right:6px}
+.foot{position:fixed;left:0;right:0;bottom:max(20px,env(safe-area-inset-bottom));font-size:13px;color:var(--ink-3);padding:0 24px;text-align:center}
 @keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 .wrap{animation:in .32s ease-out both}
 @media(prefers-reduced-motion:reduce){.wrap{animation:none}}
@@ -36,28 +51,32 @@ p{margin:0;color:var(--ink-2);max-width:30ch}
 </style>
 </head>
 <body>
-<div class="wrap">
-<img class="icon" src="/go/icon.png?v=1" width="104" height="104" alt="">
+<div class="strip wrap">
+<div class="eyebrow">This week's top movers</div>
+<div class="scroll"><ul class="list"><li class="t"><div class="ta"><img src="/cards/dpp-DP17.webp?v=dpp-DP17" loading="lazy" decoding="async" alt=""></div><div class="tb"><b>Dialga LV.X</b><span class="tp">$116</span><span class="tt up">+18.4%</span></div></li><li class="t"><div class="ta"><img src="/cards/svp-129.webp?v=svp-129" loading="lazy" decoding="async" alt=""></div><div class="tb"><b>Pecharunt</b><span class="tp">$20.67</span><span class="tt up">+8.8%</span></div></li><li class="t"><div class="ta"><img src="/cards/xyp-XY124.webp?v=xyp-XY124" loading="lazy" decoding="async" alt=""></div><div class="tb"><b>Pikachu-EX</b><span class="tp">$456</span><span class="tt up">+6.2%</span></div></li><li class="t"><div class="ta"><img src="/cards/g1-RC30.webp?v=g1-RC30" loading="lazy" decoding="async" alt=""></div><div class="tb"><b>Gardevoir-EX</b><span class="tp">$105</span><span class="tt up">+5.9%</span></div></li><li class="t"><div class="ta"><img src="/cards/swsh12pt5gg-GG22.webp?v=swsh12pt5gg-GG22" loading="lazy" decoding="async" alt=""></div><div class="tb"><b>Ditto</b><span class="tp">$18.03</span><span class="tt up">+4.5%</span></div></li><li class="t"><div class="ta"><img src="/cards/sm9-189.webp?v=sm9-189" loading="lazy" decoding="async" alt=""></div><div class="tb"><b>Cobalion-GX</b><span class="tp">$16.72</span><span class="tt up">+3.5%</span></div></li><li class="t"><div class="ta"><img src="/cards/sm3-20.webp?v=sm3-20" loading="lazy" decoding="async" alt=""></div><div class="tb"><b>Charizard-GX</b><span class="tp">$28.33</span><span class="tt up">+3.3%</span></div></li><li class="t"><div class="ta"><img src="/cards/neo4-46.webp?v=neo4-46" loading="lazy" decoding="async" alt=""></div><div class="tb"><b>Light Flareon</b><span class="tp">$61.11</span><span class="tt up">+3.3%</span></div></li><li class="t"><div class="ta"><img src="/cards/xy12-53.webp?v=xy12-53" loading="lazy" decoding="async" alt=""></div><div class="tb"><b>Mew</b><span class="tp">$23.45</span><span class="tt down">-10.4%</span></div></li><li class="t"><div class="ta"><img src="/cards/me2pt5-277.webp?v=me2pt5-277" loading="lazy" decoding="async" alt=""></div><div class="tb"><b>Pikachu ex</b><span class="tp">$349</span><span class="tt down">-4.2%</span></div></li><li class="t"><div class="ta"><img src="/cards/swsh12pt5gg-GG30.webp?v=swsh12pt5gg-GG30" loading="lazy" decoding="async" alt=""></div><div class="tb"><b>Pikachu</b><span class="tp">$46.41</span><span class="tt down">-3.9%</span></div></li><li class="t"><div class="ta"><img src="/cards/mep-22.webp?v=mep-22" loading="lazy" decoding="async" alt=""></div><div class="tb"><b>Charcadet</b><span class="tp">$44.97</span><span class="tt down">-3.5%</span></div></li></ul></div>
+</div>
+<main class="wrap">
+<img class="icon" src="/go/icon.png?v=1" width="96" height="96" alt="">
 <h1>TCGVendr</h1>
 <p>The portfolio and card show app. Know the floor before you walk it.</p>
 <a class="badge" href="https://apps.apple.com/app/apple-store/id6778956833?pt=129011221&ct=reddit&mt=8" aria-label="Download on the App Store">
 <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.37 12.64c-.02-2.1 1.72-3.11 1.8-3.16-.98-1.43-2.5-1.63-3.04-1.65-1.3-.13-2.53.76-3.19.76-.66 0-1.67-.74-2.75-.72-1.41.02-2.72.82-3.44 2.09-1.47 2.55-.38 6.32 1.05 8.39.7 1.01 1.53 2.15 2.62 2.11 1.05-.04 1.45-.68 2.72-.68s1.63.68 2.74.66c1.13-.02 1.85-1.03 2.54-2.05.8-1.17 1.13-2.3 1.15-2.36-.03-.01-2.2-.85-2.2-3.39zM14.28 6.46c.58-.7.97-1.68.86-2.66-.83.03-1.85.56-2.45 1.26-.54.62-1.01 1.62-.88 2.57.93.07 1.88-.47 2.47-1.17z"/></svg>
 <span><small>Download on the</small><b>App Store</b></span>
 </a>
-<div class="sub" id="sub">Free for iPhone</div>
-</div>
+<div class="sub" id="sub"><span class="stars" aria-label="5 stars">★★★★★</span>5.0 on the App Store · Free</div>
+</main>
 <div class="foot" id="hint" hidden>Not opening? Tap ⋯ and choose Open in browser.</div>
 <script>
 (function(){
   var url="https://apps.apple.com/app/apple-store/id6778956833?pt=129011221&ct=reddit&mt=8";
-  // Instagram / Facebook / Threads / TikTok web views drop an automatic
-  // navigation to apps.apple.com (blank page) but honor a user tap, so those
-  // get this page and the badge. Everyone else redirects on load.
   if(/Android/i.test(navigator.userAgent)){
     document.querySelector(".badge").hidden=true;
     document.getElementById("sub").textContent="iPhone only right now";
     return;
   }
+  // Instagram / Facebook / Threads / TikTok web views drop an automatic
+  // navigation to apps.apple.com (blank page) but honor a user tap, so those
+  // get this page and the badge. Everyone else redirects on load.
   var inApp=/Instagram|FBAN|FBAV|FB_IAB|Barcelona|TikTok|musical_ly|BytedanceWebview/i.test(navigator.userAgent);
   if(inApp){document.getElementById("hint").hidden=false;}
   else{location.replace(url);}

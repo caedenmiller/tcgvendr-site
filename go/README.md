@@ -11,3 +11,7 @@ the campaign token lives here, so a token change never touches a bio.
 |---|---|---|
 | /go/maya | ugc-maya | @maya.collects Instagram bio (TikTok bio points at the Instagram until 1,000 followers) |
 | /go/reddit | reddit | u/C333343 Reddit profile. Per-subreddit splits, if ever wanted, follow as /go/reddit-<sub> with ct=reddit-<sub>, leaving plain `reddit` as the profile/catch-all. |
+
+
+**Regenerate** after editing the template or re-baking movers: `python3 go/gen.py maya ugc-maya && python3 go/gen.py reddit reddit`.
+The strip at the top reads `data/movers.json`, the same bake the landing page uses (scripts/website-tables.py).
