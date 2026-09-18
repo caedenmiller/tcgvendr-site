@@ -31,7 +31,7 @@
 <article class="legal">
 <a class="back" href="/"><svg viewBox="0 0 24 24" width="15" height="15" fill="none"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Back to tcgvendr.com</a>
 <h1>Privacy Policy</h1>
-<p class="updated">Effective date: August 26, 2026</p>
+<p class="updated">Effective date: September 17, 2026</p>
 
 <p>TCGVendr (“the app”, “we”) is a discovery platform for trading-card shows:
 vendors publish the inventory they’re bringing to upcoming shows, and attendees
@@ -81,12 +81,24 @@ be in one account at a time. The app says which of the two you are doing.</p>
 </ul>
 
 <h2>Information collected automatically</h2>
-<p>The app has no advertising or analytics SDKs, no advertising identifier, and
-no access to your location. Each session is tied to an account identifier. If
-you turn on notifications we store a push token for your device so we can
-deliver them. Supabase, which hosts our database and servers, keeps standard
-operational logs such as IP addresses and request timestamps to run and secure
-the service.</p>
+<p>The app has no advertising SDKs, no advertising identifier, and no access to
+your location. Each session is tied to an account identifier. If you turn on
+notifications we store a push token for your device so we can deliver them.
+Supabase, which hosts our database and servers, keeps standard operational logs
+such as IP addresses and request timestamps to run and secure the service.</p>
+<p>We use PostHog for product analytics so we can see which parts of the app get
+used and where people get stuck. It records the screens you open, the actions
+you take (for example adding a card, opening a show, or starting a
+subscription), and when they happened, along with the device model, OS version,
+and app version. It also records session replays: a low-frame-rate recording of
+the screen that shows taps and navigation. Everything you type is masked in
+those replays, and so are photos, profile pictures, and chat messages. Analytics
+data is tied to your account identifier so we can follow one session across
+screens; it never includes your email address, the prices you type, or the
+contents of your messages. PostHog stores this data in the United States.
+Session replays are deleted after 30 days; event data is kept for as long as it
+stays useful for improving the app. You can ask us to delete it at any time (see
+below).</p>
 <p>We use Sentry for crash and error reporting. It receives the device model, OS
 version, app version, and stack traces so we can find bugs. It is configured not
 to attach user identifiers, email addresses are stripped from error text before
@@ -160,6 +172,8 @@ only what its job requires and processes it on our behalf:</p>
   not given your account or profile.</li>
   <li><strong>Sentry</strong>: crash and error reporting, as described
   above.</li>
+  <li><strong>PostHog</strong>: product analytics and session replays, as
+  described above.</li>
   <li><strong>Expo</strong>: delivers push notifications to your device through
   Apple’s push service.</li>
   <li><strong>Brevo</strong>: sends the email carrying your sign-in code. It also
