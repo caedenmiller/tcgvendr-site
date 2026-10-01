@@ -1,97 +1,88 @@
-// tcgvendr.com — reveal on scroll, sticky-nav state, mobile menu.
-// No theme switching: the site is dark only (see the note at the top of styles.css).
+// tcgvendr.com: reveal on scroll, nav state, mobile menu, and the "On the
+// tables" strip (arrows + hiding cards from shows that have already ended).
+// The page must read fine without any of this.
 (function () {
   'use strict';
 
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hasIO = 'IntersectionObserver' in window;
 
-  /* Stagger: give each child of a [data-stagger] group an index so the CSS
-     transition-delay can fan them out. */
-  document.querySelectorAll('[data-stagger]').forEach(function (group) {
-    Array.prototype.forEach.call(group.children, function (child, i) {
-      if (!child.style.getPropertyValue('--i')) child.style.setProperty('--i', i);
-    });
-  });
-
-  /* Reveal. Without IntersectionObserver (or with reduced motion) everything
-     is simply shown — the page must never depend on JS to be readable. */
+  /* Reveal */
   var revealables = document.querySelectorAll('.reveal');
-  if (reduce || !('IntersectionObserver' in window)) {
+  if (reduce || !hasIO) {
     revealables.forEach(function (el) { el.classList.add('in'); });
   } else {
     var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in');
-          io.unobserve(entry.target);
-        }
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
       });
-    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.06 });
     revealables.forEach(function (el) { io.observe(el); });
   }
 
-  /* Phone carousels (history, scan on phones): the dots follow the snap. */
-  document.querySelectorAll('[data-phones]').forEach(function (track) {
-    var dots = track.parentElement.querySelectorAll('.phone-dots span');
-    if (!dots.length) return;
-    var ticking = false;
-    var update = function () {
-      ticking = false;
-      var slides = track.children;
-      if (!slides.length) return;
-      var step = slides[0].offsetWidth + (slides[1] ? slides[1].offsetLeft - slides[0].offsetLeft - slides[0].offsetWidth : 0);
-      var i = Math.min(dots.length - 1, Math.max(0, Math.round(track.scrollLeft / step)));
-      dots.forEach(function (d, k) { d.classList.toggle('on', k === i); });
-    };
-    track.addEventListener('scroll', function () {
-      if (!ticking) { ticking = true; requestAnimationFrame(update); }
-    }, { passive: true });
-  });
-
-  /* Top movers: Gainers | Losers swap the baked lists. */
-  document.querySelectorAll('[data-movers-toggle]').forEach(function (seg) {
-    var lists = seg.closest('section').querySelectorAll('.tc-movers');
-    seg.querySelectorAll('button').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var set = btn.getAttribute('data-set');
-        seg.querySelectorAll('button').forEach(function (b) { b.setAttribute('aria-pressed', String(b === btn)); });
-        lists.forEach(function (ul) { ul.hidden = ul.getAttribute('data-set') !== set; if (!ul.hidden) ul.parentElement.scrollLeft = 0; });
-      });
-    });
-  });
-
-  /* Nav gets a hairline once the page has moved. */
+  /* Nav goes solid once the page leaves the top */
   var nav = document.getElementById('nav');
-  if (nav) {
-    var onScroll = function () {
-      nav.classList.toggle('stuck', window.scrollY > 8);
-    };
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
+  var sentinel = document.querySelector('.nav-sentinel');
+  if (nav && sentinel && hasIO) {
+    new IntersectionObserver(function (entries) {
+      nav.classList.toggle('solid', !entries[0].isIntersecting);
+    }).observe(sentinel);
+  } else if (nav) {
+    nav.classList.add('solid');
   }
 
-  /* Mobile menu. */
-  var btn = document.getElementById('menu-btn');
-  if (btn && nav) {
-    var close = function () {
-      nav.classList.remove('open');
-      btn.setAttribute('aria-expanded', 'false');
-      btn.setAttribute('aria-label', 'Open menu');
-    };
-    btn.addEventListener('click', function () {
-      var open = !nav.classList.contains('open');
+  /* Mobile menu */
+  var btn = document.querySelector('.menu-btn');
+  var menu = document.getElementById('menu');
+  if (btn && menu && nav) {
+    var setOpen = function (open) {
+      menu.hidden = !open;
       nav.classList.toggle('open', open);
       btn.setAttribute('aria-expanded', String(open));
       btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-    });
-    nav.querySelectorAll('.mobile-menu a').forEach(function (a) {
-      a.addEventListener('click', close);
-    });
+    };
+    btn.addEventListener('click', function () { setOpen(menu.hidden); });
+    menu.addEventListener('click', function (e) { if (e.target.closest('a')) setOpen(false); });
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && nav.classList.contains('open')) { close(); btn.focus(); }
+      if (e.key === 'Escape' && !menu.hidden) { setOpen(false); btn.focus(); }
     });
-    document.addEventListener('click', function (e) {
-      if (nav.classList.contains('open') && !nav.contains(e.target)) close();
+    window.matchMedia('(min-width: 901px)').addEventListener('change', function (m) { if (m.matches) setOpen(false); });
+  }
+
+  /* On the tables: each card carries its show's last day (data-end). Once that
+     day has passed the card hides itself, and with fewer than four left the
+     whole strip goes, so an old bake never advertises a past show. */
+  var list = document.querySelector('[data-tiles]');
+  if (list) {
+    var d = new Date();
+    var today = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+    var live = 0;
+    list.querySelectorAll('.tile').forEach(function (t) {
+      var end = t.getAttribute('data-end');
+      if (end && end < today) t.remove(); else live++;
     });
+    var strip = list.closest('.strip');
+    if (live < 4 && strip) { strip.remove(); return; }
+
+    var prev = document.querySelector('[data-scroll="-1"]');
+    var next = document.querySelector('[data-scroll="1"]');
+    var sync = function () {
+      if (!prev || !next) return;
+      prev.disabled = list.scrollLeft < 8;
+      next.disabled = list.scrollLeft + list.clientWidth > list.scrollWidth - 8;
+    };
+    [prev, next].forEach(function (b) {
+      if (!b) return;
+      b.addEventListener('click', function () {
+        var step = Math.max(list.clientWidth * 0.8, 200) * Number(b.getAttribute('data-scroll'));
+        list.scrollBy({ left: step, behavior: reduce ? 'auto' : 'smooth' });
+      });
+    });
+    var ticking = false;
+    list.addEventListener('scroll', function () {
+      if (!ticking) { ticking = true; requestAnimationFrame(function () { ticking = false; sync(); }); }
+    }, { passive: true });
+    window.addEventListener('resize', sync);
+    sync();
   }
 })();

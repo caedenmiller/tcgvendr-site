@@ -1,733 +1,850 @@
-/* TCGVendr — tcgvendr.com
-   Dark only, on purpose. The brand deck is black (#08080A) and every screenshot
-   is a dark-mode capture, so a light theme meant painting black slabs onto a
-   cream page. The page background is the EXACT background of the marketing
-   slides, which is what lets the art sit on it with no frame, no card, no seam.
+/* tcgvendr.com (rebuilt 2026-10-01 to match the 1.4.2 App Store screenshots)
 
-   One accent per section, taken from the deck: blue, pink, mint, coral,
-   orange, cyan. A section sets --a and everything tinted inside it follows.
+   Dark only. #08080A is the App Store slides' backdrop, and every image in
+   /art is windowed to exactly that color at its edges, which is what lets the
+   phones sit on the page with no frame around them.
 
-   The page is FLAT: black ground, hairline rules, no filled cards. Anything
-   that wants a box gets a rule instead. */
+   Rulings carried over from earlier rounds (memory: website-*):
+   - No CSS glows behind the art. The glow is baked into each image
+     (scripts/website-art.py); CSS radial glows clipped into hard shapes.
+   - No font-variant-numeric: tabular-nums anywhere (it spaced "$44.99" as
+     "$44 . 99").
+   - Nothing clipped on phones: only flat background may cross the viewport.
+   - scroll-padding-top lives on html only (it ADDS to any scroll-margin-top).
+   - <picture> is display:flex and its img is flex:none.
 
-/* ---------- fonts ---------- */
-/* Self-hosted (both OFL). Google's stylesheet was two extra connections and a
-   render-blocking round trip before the first glyph; these are the latin-only
-   woff2 subsets straight off fonts.gstatic.com, with Google's own
-   unicode-range so a stray non-latin character still falls back cleanly.
-   Only the two faces that paint the hero are preloaded (see index.html). */
-@font-face{
-  font-family:"Schibsted Grotesk";font-style:normal;font-weight:700;font-display:swap;
-  src:url(/fonts/schibsted-grotesk-700.woff2) format("woff2");
-  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
-}
-@font-face{
-  font-family:"Schibsted Grotesk";font-style:normal;font-weight:800;font-display:swap;
-  src:url(/fonts/schibsted-grotesk-800.woff2) format("woff2");
-  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
-}
-@font-face{
-  font-family:"Hanken Grotesk";font-style:normal;font-weight:400;font-display:swap;
-  src:url(/fonts/hanken-grotesk-400.woff2) format("woff2");
-  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
-}
-@font-face{
-  font-family:"Hanken Grotesk";font-style:normal;font-weight:600;font-display:swap;
-  src:url(/fonts/hanken-grotesk-600.woff2) format("woff2");
-  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
-}
-@font-face{
-  font-family:"Hanken Grotesk";font-style:normal;font-weight:700;font-display:swap;
-  src:url(/fonts/hanken-grotesk-700.woff2) format("woff2");
-  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+   Shape scale: pills are fully round, panels and cards are 20px, the App
+   Store badge keeps Apple's 12px. */
+
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  font-style: normal;
+  font-weight: 500 800;
+  font-display: swap;
+  src: url(/fonts/plus-jakarta-sans-latin.woff2) format("woff2");
 }
 
-/* ---------- tokens ---------- */
-:root{
-  /* Native UI (scrollbars, form controls, the scroll overflow gutter) has to be
-     told the page is dark, or it renders light chrome over a black page. */
-  color-scheme:dark;
-
-  --bg:#08080A;
-  --line:rgba(255,255,255,.10);
-  --line-2:rgba(255,255,255,.06);
-
-  --ink:#FFFFFF;
-  --ink-2:#A7AEB8;
-  --ink-3:#7A8390;   /* AA on --bg */
-
-  --blue:#90C0F0;
-  --pink:#F868A8;
-  --mint:#28D8B0;
-  --coral:#F06068;
-  --orange:#F89848;
-  --cyan:#68D0D0;
-
-  --a:var(--blue);              /* per-section accent */
-
-  --r:14px;
-
-  --wrap:1200px;
-  --gut:clamp(20px,5vw,40px);
-  /* Landscape on a notched phone puts the cutout inside the page box. */
-  --gut-l:max(var(--gut),env(safe-area-inset-left));
-  --gut-r:max(var(--gut),env(safe-area-inset-right));
-  --sec:clamp(78px,8.6vw,132px);
-
-  --disp:"Schibsted Grotesk",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  --text:"Hanken Grotesk",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+:root {
+  color-scheme: dark;
+  --bg: #08080A;
+  --bg-2: #101013;
+  --ink: #fff;
+  --body: #C5C9CF;
+  --ink-2: #969CA4;
+  --ink-3: #7E858E;
+  --line: rgba(255, 255, 255, .09);
+  --line-2: rgba(255, 255, 255, .18);
+  /* the slides' accents, one per section, exactly as source/slides.json */
+  --blue: rgb(147, 197, 240);
+  --pink: rgb(255, 111, 168);
+  --mint: rgb(47, 216, 182);
+  --coral: rgb(242, 98, 107);
+  --orange: rgb(255, 154, 77);
+  --teal: rgb(105, 213, 207);
+  --acc: var(--blue);
+  --font: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --apple: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", system-ui, sans-serif;
+  --gut-l: max(24px, env(safe-area-inset-left));
+  --gut-r: max(24px, env(safe-area-inset-right));
+  --nav-h: 64px;
+  --sec: 128px;
+  --ease: cubic-bezier(.16, 1, .3, 1);
 }
 
-*,*::before,*::after{box-sizing:border-box}
-html{
-  -webkit-text-size-adjust:100%;
-  scroll-behavior:smooth;
-  /* The nav is sticky at 70px. Without this every in-page jump — and every
-     scroll the browser performs to reveal a focused element — lands the
-     target underneath it. One property on the scrollport covers both; adding
-     scroll-margin-top to the targets as well just double-counts (measured:
-     sections landed 172px down instead of 86). */
-  scroll-padding-top:86px;
-  -webkit-tap-highlight-color:rgba(255,255,255,.08);
-}
-/* Drops the double-tap-zoom wait. Pinch zoom is untouched — never disable
-   that. Listed out because touch-action does NOT inherit: on <html> alone it
-   leaves every actual tap target back on `auto`. */
-html,body,a,button,summary,label,input,.btn{touch-action:manipulation}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+*, *::before, *::after { box-sizing: border-box; }
 
-body{
-  margin:0;
-  background:var(--bg);
-  color:var(--ink);
-  font-family:var(--text);
-  font-size:17px;
-  line-height:1.65;
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-  overflow-x:hidden;
+html {
+  background: var(--bg);
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--nav-h) + 20px);
+  -webkit-text-size-adjust: 100%;
+  overflow-x: clip;
 }
 
-img{max-width:100%;height:auto;display:block}
-a{color:inherit}
-::selection{background:var(--a);color:#08080A}
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 500 17px/1.55 var(--font);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+img, svg { display: block; }
+a { color: inherit; }
+button { font: inherit; color: inherit; }
+[hidden] { display: none !important; }
+
+:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.wrap {
+  max-width: 1188px;
+  margin: 0 auto;
+  padding-left: var(--gut-l);
+  padding-right: var(--gut-r);
+}
+
+.skip {
+  position: absolute;
+  left: -9999px;
+  top: 12px;
+  z-index: 100;
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: #fff;
+  color: var(--bg);
+  font-weight: 700;
+  text-decoration: none;
+}
+.skip:focus { left: 16px; }
 
 /* ---------- type ---------- */
-h1,h2,h3{
-  font-family:var(--disp);
-  font-weight:800;
-  letter-spacing:-.032em;
-  line-height:.94;
-  margin:0;
-  text-wrap:balance;
-}
-h1{font-size:clamp(36px,5.4vw,70px);line-height:.9;letter-spacing:-.038em}
-h2{font-size:clamp(34px,5.2vw,68px)}
-h3{font-size:clamp(20px,2vw,25px);line-height:1.15;letter-spacing:-.02em}
-p{margin:0}
-/* Headings balance (even line lengths); prose only needs the last line
-   protected from a one-word widow. Both degrade to normal wrapping. */
-p,li{text-wrap:pretty}
-.hl{color:var(--a)}
 
-.eyebrow{
-  font-family:var(--disp);
-  font-size:12px;font-weight:800;
-  letter-spacing:.2em;text-transform:uppercase;
-  color:var(--a);
-  margin:0 0 20px;
-}
-.lede{
-  font-size:clamp(17px,1.35vw,20px);
-  line-height:1.55;color:var(--ink-2);
-  max-width:50ch;margin-top:22px;
-}
-.sub{color:var(--ink-2);margin-top:18px;max-width:50ch}
+h1, h2, h3 { margin: 0; font-weight: 700; }
 
-.wrap{max-width:var(--wrap);margin:0 auto;padding:0 var(--gut-r) 0 var(--gut-l)}
+h1, h2 {
+  letter-spacing: -.03em;
+  line-height: 1.04;
+  text-wrap: balance;
+}
+h1 span, h2 span { display: block; color: var(--acc); }
 
-.sr-only{
-  position:absolute;width:1px;height:1px;padding:0;margin:-1px;
-  overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0;
-}
-.skip{
-  position:absolute;left:-9999px;top:0;z-index:200;
-  background:var(--ink);color:#08080A;padding:12px 18px;
-  border-radius:0 0 var(--r) 0;font-weight:700;
-}
-.skip:focus{left:0}
-:focus-visible{outline:2px solid var(--a);outline-offset:3px;border-radius:4px}
+h1 { font-size: clamp(40px, 4.7vw, 62px); }
+h2 { font-size: clamp(32px, 3.9vw, 52px); }
 
-/* ---------- buttons ---------- */
-/* Hover changes the fill and nothing else. A lift plus a nudging arrow read as
-   template motion on a page whose only other movement is one 8px reveal. */
-.btn{
-  --btn-bg:var(--ink);--btn-fg:#08080A;--btn-line:transparent;
-  display:inline-flex;align-items:center;justify-content:center;gap:10px;
-  font-family:var(--disp);font-size:15px;font-weight:700;letter-spacing:-.01em;
-  padding:0 26px;height:52px;border-radius:100px;
-  background:var(--btn-bg);color:var(--btn-fg);
-  border:1px solid var(--btn-line);
-  text-decoration:none;white-space:nowrap;cursor:pointer;
-  transition:background .18s,border-color .18s;
+.lede {
+  margin: 20px 0 0;
+  max-width: 32ch;
+  font-size: clamp(17px, 1.45vw, 20px);
+  line-height: 1.5;
+  color: var(--ink-2);
+  text-wrap: pretty;
 }
-.btn:hover{--btn-bg:#E6E7EA}
-.btn-line{--btn-bg:transparent;--btn-fg:var(--ink);--btn-line:rgba(255,255,255,.22)}
-.btn-line:hover{--btn-bg:rgba(255,255,255,.07);--btn-line:rgba(255,255,255,.34)}
-.btn-a{--btn-bg:var(--a);--btn-fg:#08080A}
-.btn-a:hover{--btn-bg:color-mix(in srgb,var(--a) 84%,#fff)}
-.btn-sm{height:44px;padding:0 20px;font-size:14px}
-.btn-full{display:flex;width:100%}
+
+.eyebrow {
+  margin: 0 0 18px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--acc);
+}
+
+/* ---------- controls ---------- */
+
+.pill {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  padding: 0 20px;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--bg);
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: transform .2s var(--ease), background-color .2s;
+}
+.pill:hover { background: #E8EBEF; }
+.pill:active { transform: scale(.97); }
+.pill-sm { height: 40px; padding: 0 16px; font-size: 14px; }
+.pill-sm::before { content: ""; position: absolute; inset: -3px 0; }
+
+.store {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: 56px;
+  padding: 0 22px 0 16px;
+  border-radius: 12px;
+  background: #000;
+  border: 1px solid rgba(255, 255, 255, .45);
+  color: #fff;
+  font-family: var(--apple);
+  text-decoration: none;
+  text-align: left;
+  transition: border-color .2s, transform .2s var(--ease);
+}
+.store:hover { border-color: #fff; }
+.store:active { transform: scale(.98); }
+.store svg { width: 26px; height: 26px; flex: none; margin-top: -3px; }
+.store small { display: block; font-size: 11px; line-height: 1; letter-spacing: .01em; margin-bottom: 3px; font-weight: 500; }
+.store b { display: block; font-size: 22px; line-height: 1; font-weight: 600; letter-spacing: -.01em; }
+
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--ink);
+  background: linear-gradient(var(--line-2), var(--line-2)) left calc(50% + 13px) / 100% 1.5px no-repeat;
+  transition: background-size .2s;
+}
+.text-link:hover { background-image: linear-gradient(var(--ink), var(--ink)); }
+
+.round {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1px solid var(--line-2);
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  transition: border-color .2s, opacity .2s, transform .2s var(--ease);
+}
+.round:hover { border-color: rgba(255, 255, 255, .5); }
+.round:active { transform: scale(.95); }
+.round:disabled { opacity: .3; cursor: default; }
+.round svg { width: 20px; height: 20px; }
 
 /* ---------- nav ---------- */
-.nav{
-  position:sticky;top:0;z-index:100;
-  background:rgba(8,8,10,.72);
-  backdrop-filter:saturate(180%) blur(18px);
-  -webkit-backdrop-filter:saturate(180%) blur(18px);
-  border-bottom:1px solid transparent;
-  transition:border-color .25s,background .25s;
-}
-.nav.stuck{border-bottom-color:var(--line-2);background:rgba(8,8,10,.9)}
-.nav-in{display:flex;align-items:center;gap:28px;height:70px}
-.brand{
-  display:inline-flex;align-items:center;gap:10px;
-  font-family:var(--disp);font-weight:800;font-size:17px;letter-spacing:-.02em;
-  text-decoration:none;color:var(--ink);
-  padding:8px 0;
-}
-.mk{width:24px;height:24px;display:block}
-.mk svg{width:100%;height:100%;display:block}
-.nav-links{display:flex;gap:26px;margin-left:8px}
-.nav-links a{
-  font-size:15px;color:var(--ink-2);text-decoration:none;
-  padding:10px 0;transition:color .18s;
-}
-.nav-links a:hover{color:var(--ink)}
-.nav-actions{margin-left:auto;display:flex;align-items:center;gap:12px}
-.menu-btn{
-  display:none;width:44px;height:44px;align-items:center;justify-content:center;
-  background:none;border:1px solid var(--line);border-radius:100px;
-  color:var(--ink);cursor:pointer;padding:0;
-}
-.menu-btn svg{width:20px;height:20px}
-.menu-btn .ic-close{display:none}
-.nav.open .menu-btn .ic-burger{display:none}
-.nav.open .menu-btn .ic-close{display:block}
-.mobile-menu{
-  display:none;overscroll-behavior:contain;
-  border-top:1px solid var(--line-2);
-  padding:8px var(--gut-r) max(22px,env(safe-area-inset-bottom)) var(--gut-l);
-}
-.mobile-menu a{
-  display:block;padding:14px 0;font-family:var(--disp);font-weight:700;
-  font-size:19px;text-decoration:none;border-bottom:1px solid var(--line-2);
-}
-.mobile-menu a:last-child{border-bottom:0}
-/* The download link is the whole point of the menu — on desktop it's a filled
-   pill in the bar, so it can't arrive here as one more text row. */
-.mobile-menu .btn{display:flex;margin-top:18px;padding:0 26px;font-size:15px;border-bottom:0}
-.nav.open .mobile-menu{display:block}
 
-@media(max-width:900px){
-  .nav-links{display:none}
-  .menu-btn{display:inline-flex}
-  .nav-cta{display:none}
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  padding-top: env(safe-area-inset-top);
+  border-bottom: 1px solid transparent;
+  transition: background-color .25s, border-color .25s;
 }
+.nav.solid,
+.nav.open {
+  background: rgba(8, 8, 10, .8);
+  -webkit-backdrop-filter: saturate(160%) blur(18px);
+  backdrop-filter: saturate(160%) blur(18px);
+  border-bottom-color: var(--line);
+}
+.nav-sentinel { position: absolute; top: 0; left: 0; width: 1px; height: 24px; }
+
+.nav-in {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  height: var(--nav-h);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -.01em;
+  color: var(--ink);
+  text-decoration: none;
+}
+.mark { width: 26px; height: 26px; }
+
+.nav-links { display: flex; gap: 28px; margin-left: auto; }
+.nav-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink-2);
+  text-decoration: none;
+  transition: color .2s;
+}
+.nav-links a:hover { color: var(--ink); }
+
+.menu-btn {
+  display: none;
+  position: relative;
+  width: 44px;
+  height: 44px;
+  margin-right: -10px;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+.menu-btn span {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--ink);
+  transition: transform .3s var(--ease);
+}
+.menu-btn span:first-child { top: 17px; }
+.menu-btn span:last-child { top: 25px; }
+.nav.open .menu-btn span:first-child { transform: translateY(4px) rotate(45deg); }
+.nav.open .menu-btn span:last-child { transform: translateY(-4px) rotate(-45deg); }
+
+.menu {
+  display: grid;
+  padding: 4px var(--gut-r) 24px var(--gut-l);
+}
+.menu a {
+  display: flex;
+  align-items: center;
+  min-height: 52px;
+  font-size: 19px;
+  font-weight: 700;
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+}
+.menu .pill { margin-top: 20px; height: 50px; font-size: 16px; justify-content: center; border: 0; }
 
 /* ---------- hero ---------- */
-/* Nothing in here reveals. The first screen is the one thing that must be
-   whole on the first paint. */
-.hero{
-  position:relative;
-  padding:clamp(56px,7vw,96px) 0 clamp(20px,3vw,40px);
-  overflow:hidden;
-}
-.hero-in{
-  position:relative;
-  /* 1.2/.8, not 1/1: at the 1200px cap the second h1 line ("before you walk
-     it.") needs ~592px at the 70px display cap, and an even split gives 531. */
-  display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);
-  gap:clamp(28px,4vw,64px);align-items:center;
-}
-.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
-/* The crop carries ~14% of flat page-black on each side, so the phone may run
-   past its column by that much — the overlap is black on black. */
-.hero-art{display:flex;justify-content:center}
-.hero-art img{width:auto;max-width:none;height:min(700px,50vw)}
 
-@media(max-width:900px){
-  .hero-in{grid-template-columns:1fr;gap:8px}
-  .hero-art{margin:8px calc(var(--gut) * -1) 0;order:2}
-  /* width and HEIGHT both have to come back: the desktop rule sizes this crop
-     by height (`height:min(700px,50vw)`) with `width:auto`, and resetting only
-     the max-* pair left 50vw driving it — a 160x196 phone on a 393pt screen. */
-  .hero-art img{width:100%;height:auto;max-width:100%;max-height:none;margin:0 auto}
+.hero { padding: calc(var(--nav-h) + 48px) 0 24px; }
+.hero-in {
+  display: grid;
+  grid-template-columns: 1.12fr .88fr;
+  align-items: center;
+  gap: 32px;
 }
+.hero .lede { max-width: 30ch; }
+.cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 28px;
+  margin-top: 36px;
+}
+.hero-art { display: flex; justify-content: flex-end; }
+.hero-art img { flex: none; width: 100%; max-width: 560px; height: auto; }
 
-/* ---------- on the tables: the card strip ---------- */
-/* Real table inventory as a horizontal row of card tiles, straight under the
-   hero. Scrolls on every width (Double Holo's move): the page's one place
-   where content runs off the edge on purpose, and the peek is the cue.
-   The tile is the pricing plan's outline box, not a filled card - same rule,
-   same radius; the card art carries its own rounded corners. */
-.strip{padding:clamp(28px,4vw,56px) 0 clamp(40px,5vw,64px)}
-.feat + .strip{padding-top:0;padding-bottom:var(--sec)}
-.strip-head{display:flex;flex-direction:column;gap:0;margin-bottom:clamp(18px,2.4vw,28px)}
-.strip-head.split{flex-direction:row;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap}
-/* Gainers | Losers — the ring segment from the app, hairline track, one lit pill. */
-.seg{display:inline-flex;border:1px solid var(--line);border-radius:100px;padding:3px;gap:2px}
-.seg button{
-  font-family:var(--disp);font-weight:700;font-size:13px;letter-spacing:-.01em;
-  background:none;border:0;border-radius:100px;color:var(--ink-2);cursor:pointer;
-  height:32px;padding:0 14px;min-width:44px;transition:background .18s,color .18s;
-}
-.seg button[aria-pressed="true"]{background:var(--ink);color:#08080A}
-.seg button:hover:not([aria-pressed="true"]){color:var(--ink)}
-.tc-list[hidden]{display:none}
-/* Baked by scripts/website-tables.py from prod before each deploy: real items
-   on real upcoming tables, Scrydex art, the vendor's own sticker price, and
-   the 1M market move in the app's trendDelta form (live market − stored d30). */
-.strip-head .eyebrow{margin-bottom:12px}
-.strip h2{font-size:clamp(26px,3vw,40px)}
-.strip-scroll{
-  overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x proximity;
-  scrollbar-width:none;-webkit-overflow-scrolling:touch;
-  /* must equal the list's start padding, or the snap parks the first tile on
-     the container edge and the padding scrolls away (measured: tile at x=0) */
-  scroll-padding:0 max(var(--gut-r),calc((100% - var(--wrap)) / 2 + var(--gut-r)))
-                 0 max(var(--gut-l),calc((100% - var(--wrap)) / 2 + var(--gut-l)));
-}
-.strip-scroll::-webkit-scrollbar{display:none}
-.tc-list{
-  list-style:none;margin:0;display:flex;gap:12px;
-  width:max-content;min-width:100%;max-width:none;
-  /* The row is wider than the page, so it can't be a centred .wrap. Its
-     start/end padding is computed instead: the gutter on a phone, and on a
-     wide screen the distance from the edge to where the 1200px wrap begins,
-     so the first tile lines up with the heading and the last one can scroll
-     fully in. Percentages resolve against the scroll container. */
-  padding:2px max(var(--gut-r),calc((100% - var(--wrap)) / 2 + var(--gut-r)))
-          2px max(var(--gut-l),calc((100% - var(--wrap)) / 2 + var(--gut-l)));
-}
-.tc{
-  flex:0 0 clamp(156px,15.5vw,196px);scroll-snap-align:start;
-  border:1px solid var(--line);border-radius:var(--r);
-  display:flex;flex-direction:column;overflow:hidden;
-}
-.tc-art{aspect-ratio:5/7;min-height:0;padding:10px 10px 0;display:flex;align-items:flex-end;justify-content:center}
-/* Sized by max-*, not object-fit: a percentage HEIGHT on the img resolved to
-   auto here and every tile came out a different height (the pack ran 90px
-   taller than the cards). max-height against the aspect-ratio box is definite. */
-.tc-art img{width:auto;height:auto;max-width:100%;max-height:100%}
-.tc-body{display:grid;gap:2px;padding:10px 12px 12px}
-.tc-body b{font-family:var(--disp);font-weight:700;font-size:14.5px;letter-spacing:-.01em;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.tc-meta{color:var(--ink-3);font-size:12.5px;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.tc-price{font-family:var(--disp);font-weight:800;font-size:17px;letter-spacing:-.02em;margin-top:6px}
-.tc-price.ask{color:var(--a)}
-.tc-trend{font-size:12.5px;font-weight:600;line-height:1.3}
-.tc-trend.up{color:var(--mint)}
-.tc-trend.down{color:var(--coral)}
-.tc-show{color:var(--ink-3);font-size:12px;line-height:1.3;margin-top:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+/* ---------- on the tables ---------- */
 
-/* ---------- steps ---------- */
-.steps{
-  border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2);
-  padding:clamp(40px,5vw,64px) 0;
+.strip { padding: 64px 0 16px; }
+.strip-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
 }
-.steps-in{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(24px,3.4vw,52px)}
-.step .n{
-  font-family:var(--disp);font-size:13px;font-weight:800;letter-spacing:.16em;
-  color:var(--a);margin-bottom:12px;
-}
-.step h3{margin-bottom:10px}
-.step p{color:var(--ink-2);font-size:16px}
-@media(max-width:820px){.steps-in{grid-template-columns:1fr;gap:30px}}
+.strip h2 { font-size: clamp(24px, 2.4vw, 30px); letter-spacing: -.02em; }
+.strip-nav { display: flex; gap: 8px; }
 
-/* ---------- feature sections ---------- */
-.feat{position:relative;padding:0 0 var(--sec);overflow:hidden}
-/* Half-width columns need a smaller display size than full-bleed centred heads,
-   or "collection is worth." wraps onto a fourth line. */
-.feat h2,.pro h2{font-size:clamp(32px,4.2vw,52px)}
-.feat-in,.pro-in{
-  position:relative;
-  display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);
-  gap:clamp(32px,5vw,80px);align-items:center;
+.tiles {
+  display: flex;
+  gap: 18px;
+  margin: 0;
+  padding: 4px var(--gut-r) 8px max(var(--gut-l), calc((100% - 1140px) / 2));
+  list-style: none;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: max(var(--gut-l), calc((100% - 1140px) / 2));
+  scrollbar-width: none;
 }
-.feat.rev .feat-in>.feat-copy{order:2}
-/* The copy always takes the wider track, whichever side it's on. */
-.feat.rev .feat-in{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)}
-/* The crops differ in aspect ratio (one phone, two phones, a card row), so
-   they're sized by HEIGHT. Sizing by width would render the narrow portrait
-   crops enormous and the wide ones tiny. */
-/* Height-capped; an image whose glow padding makes it wider than the column
-   overflows into the column gap, black on black. */
-.feat-art{display:flex;justify-content:center}
-.feat-art img{width:auto;max-width:none;max-height:640px}
-/* history + scan serve a phone-only file below 560 through <picture>. The
-   picture has to be a flex box itself, not display:contents: Chromium resolved
-   the img's percentage width against nothing under display:contents and drew
-   it at its intrinsic size, and an inline picture put a line-box gap under the
-   img on desktop (measured: everything below shifted 4px). As a flex box it is
-   exactly the wrapper the img already had. */
-.feat-art picture{display:flex;justify-content:center}
-/* history + scan carry BOTH phones on a phone (Caeden 2026-08-27: "I really
-   need both screens") as a swipeable snap track, one phone per slide, the
-   next one peeking. Above 560 the wrapper dissolves (display:contents) and the
-   second slide + dots don't exist, so desktop keeps its one two-phone file. */
-.phones{display:contents}
-/* Specificity matters here: `.feat-art picture{display:flex}` above is (0,1,1),
-   so a bare `.phone-m{display:none}` LOST to it and the second slide rendered
-   beside the two-phone file on desktop (shipped 2026-08-27, caught by Caeden). */
-.feat-art picture.phone-m,.phone-dots{display:none}
+.tiles::-webkit-scrollbar { display: none; }
+.tiles::after { content: ""; flex: none; width: 1px; }
 
-/* Bullets are hairline rows, not dotted lists. The rule under each line is the
-   only structure the page draws anywhere else, so a coloured dot and a hanging
-   indent were the one list convention that didn't belong to it. */
-.pts{list-style:none;margin:26px 0 0;padding:0}
-.pts li{
-  border-top:1px solid var(--line-2);
-  padding:12px 0;color:var(--ink-2);font-size:16px;line-height:1.5;
+.tile {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  width: 180px;
+  scroll-snap-align: start;
+}
+.tile img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 440 / 614;
+  object-fit: contain;
+  margin-bottom: 14px;
+}
+.tile b, .tile-meta {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.tile b { font-size: 15px; line-height: 1.3; }
+.tile-meta { margin-top: 2px; font-size: 13px; color: var(--ink-2); }
+.tile-price { margin-top: 8px; font-size: 18px; font-weight: 800; letter-spacing: -.01em; }
+.tile-price small { margin-left: 5px; font-size: 12px; font-weight: 600; letter-spacing: 0; color: var(--ink-2); }
+.tile-show {
+  display: -webkit-box;
+  margin-top: 4px;
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: var(--ink-3);
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-@media(max-width:900px){
-  /* `.feat.rev .feat-in` above is (0,3,0) and beats a bare `.feat-in` (0,1,0),
-     so the reversed sections (Price history, Scan) kept their desktop
-     two-column track on phones: a 143px copy column beside 215px of art.
-     The override has to match that specificity, not just come later. */
-  .feat-in,.feat.rev .feat-in{grid-template-columns:1fr;gap:30px}
-  .feat.rev .feat-in>.feat-copy{order:0}
-  .feat-art{margin:0 calc(var(--gut) * -1)}
-  .feat-art img{width:100%;max-width:100%;max-height:none;margin:0 auto}
-  /* The picture shrink-wraps its img by default, which turns the img's
-     percentage width into a cycle Chromium resolves to intrinsic size. */
-  .feat-art picture{width:100%}
-  /* the phone carousel (history, scan) */
-  .phones-art{flex-direction:column;align-items:stretch}
-  .phones{
-    display:flex;gap:10px;width:100%;
-    padding:0 var(--gut-r) 0 var(--gut-l);
-    overflow-x:auto;overscroll-behavior-x:contain;
-    scroll-snap-type:x mandatory;scroll-padding:0 var(--gut-r) 0 var(--gut-l);
-    scrollbar-width:none;-webkit-overflow-scrolling:touch;
-  }
-  .phones::-webkit-scrollbar{display:none}
-  .phones picture{flex:0 0 84%;width:84%;scroll-snap-align:start;scroll-snap-stop:always;display:flex;align-items:center}
-  .feat-art picture.phone-m{display:flex}
-  .phones img,.feat-art .phones img{width:100%;max-width:none;transform:none;margin:0}
-  .phone-dots{display:flex;justify-content:center;gap:6px;margin-top:6px}
-  .phone-dots span{width:6px;height:6px;border-radius:3px;background:var(--line);transition:width .2s,background-color .2s}
-  .phone-dots span.on{width:18px;background:var(--a)}
+/* ---------- feature rows ---------- */
 
-  /* Density (Double Holo pass): a phone reads a 17px/1.65 paragraph as air.
-     Body copy steps to 15.5/1.5, the hairline lists tighten, and the section
-     gap drops with them. Headings keep their sizes. */
-  body{font-size:15.5px;line-height:1.5}
-  :root{--sec:48px}
-  /* Headings a step down and the sub line gone: a section is its heading and
-     three bullets (Caeden, device 2026-08-27 — "our title fonts are too big,
-     the subtext is too much"). */
-  h3{font-size:18px}
-  .eyebrow{font-size:11px;margin-bottom:12px}
-  .feat .sub,.pro .sub{display:none}
-  .sec-head .lede{font-size:15.5px}
-  .lede{font-size:16.5px;line-height:1.5;margin-top:14px}
-  .sub{margin-top:12px}
-  .pts{margin-top:18px}
-  .pts li{font-size:15px;line-height:1.45;padding:10px 0}
-  .step p,.tile p{font-size:15px}
-  .steps{padding:36px 0}
-  .steps-in{gap:22px}
-  .pro-list li{padding:11px 0}
-  .pro-list span{font-size:15px}
-  .faq summary{padding:16px 40px 16px 0}
-  .faq details p{font-size:15px;padding-bottom:18px}
-  .plan{padding:22px}
-  .price-foot{font-size:14px}
+.feat { padding: var(--sec) 0 0; }
+.feat-in {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 64px;
 }
+.feat-copy { max-width: 500px; }
+.feat-in:not(.art-first) .feat-copy { justify-self: end; }
+.feat-art { display: flex; justify-content: center; }
+.feat-art img { flex: none; width: 100%; max-width: 560px; height: auto; }
+.feat-art.single img { max-width: 440px; }
 
-/* ---------- grid of smaller features ---------- */
-.sec{padding:0 0 var(--sec)}
-/* The steps band is the last thing with its own top padding — from there down
-   every section carries bottom padding only, so the gaps stay even. (The strip
-   above it carries its own bottom padding, so the band's border-top reads as
-   the strip's closing rule.) */
-.steps + .feat,.steps + .sec{padding-top:var(--sec)}
-/* The 62ch cap was measured against body text, so it clipped a display-size
-   heading ("Common questions." wrapped onto two lines). Constrain the prose,
-   let the heading run. */
-.sec-head{margin-bottom:clamp(36px,4vw,60px)}
-.sec-head .lede{max-width:56ch}
-.sec-head.mid{margin-left:auto;margin-right:auto;text-align:center}
-.sec-head.mid .lede{margin-left:auto;margin-right:auto}
-/* A section that is only its content (pricing) keeps the eyebrow as its label. */
-.eyebrow.mid{text-align:center;margin-bottom:clamp(28px,3vw,40px)}
+.points { margin: 32px 0 0; padding: 0; list-style: none; }
+.points li {
+  padding: 15px 0;
+  font-size: 16.5px;
+  line-height: 1.5;
+  color: var(--body);
+}
+.points li + li { border-top: 1px solid var(--line); }
 
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(22px,2.6vw,34px)}
-.tile{border-top:1px solid var(--line);padding-top:22px;display:flex;flex-direction:column}
-.tile h3{margin-bottom:10px}
-.tile p{color:var(--ink-2);font-size:15.5px;line-height:1.55}
-@media(max-width:900px){.grid3{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:620px){.grid3{grid-template-columns:1fr}}
+/* ---------- price history (stacked) ---------- */
+
+.stack { padding: var(--sec) 0 0; text-align: center; }
+.stack-head .lede { margin-left: auto; margin-right: auto; max-width: 36ch; }
+.stack-art { display: flex; justify-content: center; margin-top: 16px; }
+.stack-art img { flex: none; width: 100%; max-width: 620px; height: auto; }
+.facts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  max-width: 980px;
+  margin: 8px auto 0;
+  text-align: left;
+}
+.facts div { padding-top: 18px; border-top: 1px solid var(--line-2); }
+.facts dt { font-size: 17px; font-weight: 700; color: var(--acc); }
+.facts dd { margin: 6px 0 0; font-size: 15.5px; color: var(--ink-2); }
+
+/* ---------- vendors ---------- */
+
+.vendors { padding: var(--sec) 0 0; }
+.vendors-head { max-width: 640px; }
+.vendors-head .lede { max-width: 36ch; }
+.v-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 64px;
+  margin-top: 48px;
+}
+.v-item { padding: 26px 0; border-top: 1px solid var(--line); }
+.v-item h3 { font-size: 20px; letter-spacing: -.01em; }
+.v-item p { margin: 8px 0 0; color: var(--ink-2); max-width: 42ch; }
+.v-band {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 32px;
+}
+.v-band p {
+  margin: 0;
+  padding: 22px 26px;
+  border-radius: 20px;
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  color: var(--ink-2);
+}
+.v-band b { color: var(--ink); }
 
 /* ---------- pro ---------- */
-/* Laid out as a feature section, not a slab. The rounded panel was the last
-   filled box on the page and it read as a pricing widget dropped into an
-   editorial layout. */
-.pro{padding:0 0 var(--sec)}
-.pro-list{list-style:none;margin:28px 0 0;padding:0}
-/* Always stacked. Inline-when-it-fits made every row a different shape,
-   because the label lengths differ by twenty characters. */
-.pro-list li{
-  display:grid;gap:3px;
-  border-top:1px solid var(--line-2);padding:14px 0;
+
+.pro { padding: var(--sec) 0 0; }
+.pro-card {
+  display: grid;
+  grid-template-columns: .85fr 1.15fr;
+  gap: 64px;
+  padding: 56px;
+  border-radius: 20px;
+  background: linear-gradient(180deg, #131317, #0D0D10);
+  border: 1px solid var(--line-2);
 }
-.pro-list b{font-family:var(--disp);font-weight:700;font-size:16px;letter-spacing:-.01em}
-.pro-list span{color:var(--ink-2);font-size:15.5px;line-height:1.45}
-.pro-art{display:flex;justify-content:center}
-.pro-art img{width:min(100%,320px)}
-/* Hiding this left the section a wall of six text rows with nothing to look
-   at. Keep it, smaller, closing the list. */
-@media(max-width:860px){
-  .pro-in{grid-template-columns:1fr}
-  .pro-art img{width:min(100%,250px)}
+.pro h2 span { display: inline; }
+.pro-price { margin: 22px 0 0; font-size: 18px; color: var(--ink-2); }
+.pro-price b { font-size: 26px; font-weight: 800; letter-spacing: -.02em; color: var(--ink); }
+.pro-note { margin: 14px 0 0; max-width: 34ch; font-size: 14.5px; color: var(--ink-3); }
+.pro-list { margin: 0; padding: 0; list-style: none; }
+.pro-list li { display: grid; gap: 3px; padding: 16px 0; }
+.pro-list li:first-child { padding-top: 4px; }
+.pro-list li + li { border-top: 1px solid var(--line); }
+.pro-list b { font-size: 17px; }
+.pro-list span { font-size: 15.5px; color: var(--ink-2); }
+
+/* ---------- close (App Store slide 7, rebuilt as live HTML) ---------- */
+
+.close { position: relative; padding: calc(var(--sec) * .6) 0 calc(var(--sec) * .8); text-align: center; overflow-x: clip; }
+/* The glow is an image (art/close-glow.webp, edges = page colour), never a CSS gradient. */
+.close-glow {
+  position: absolute;
+  left: 50%;
+  top: 10px;
+  width: 980px;
+  max-width: none;
+  height: auto;
+  transform: translateX(-50%);
+  pointer-events: none;
+  user-select: none;
+}
+.close-in { position: relative; display: flex; flex-direction: column; align-items: center; }
+.close-mark { width: 56px; height: 56px; color: var(--ink); }
+.close-word {
+  margin: 12px 0 0;
+  padding-left: .2em;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: .2em;
+  line-height: 1;
 }
 
-/* ---------- pricing ---------- */
-/* The one place a border still earns a box: two plans have to be read against
-   each other, and the outline is what pairs them. Outline only, no fill. */
-.plans{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(16px,1.8vw,24px);max-width:900px;margin:0 auto}
-.plan{
-  background:transparent;border:1px solid var(--line);
-  border-radius:var(--r);padding:clamp(26px,3vw,38px);
-  display:flex;flex-direction:column;
+.close-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: end;
+  gap: 12px;
+  width: min(100%, 400px);
+  margin-top: 62px;
 }
-.plan.hi{border-color:color-mix(in srgb,var(--a) 40%,transparent)}
-.plan-top{display:flex;align-items:center;gap:10px;margin-bottom:16px}
-.pname{font-family:var(--disp);font-weight:800;font-size:15px;letter-spacing:.1em;text-transform:uppercase}
-/* No tabular-nums here. Schibsted Grotesk gives the decimal point a full
-   figure width in that mode, so $44.99 set as $44 . 99 (seen on device
-   2026-08-26). The two prices sit in separate cards, not a column being
-   compared digit by digit, so the guideline's number-comparison case
-   doesn't apply anyway. */
-.amt{font-family:var(--disp);font-weight:800;font-size:clamp(38px,4.2vw,54px);letter-spacing:-.035em;line-height:1}
-.amt span{font-size:17px;font-weight:600;color:var(--ink-3);letter-spacing:-.01em}
-.plan .alt{color:var(--ink-3);font-size:14.5px;margin-top:10px}
-.plan .pts{margin-top:22px;flex:1}
-.plan .btn{margin-top:30px}
-.price-foot{text-align:center;color:var(--ink-3);font-size:14.5px;margin-top:26px;max-width:56ch;margin-left:auto;margin-right:auto}
-@media(max-width:720px){.plans{grid-template-columns:1fr}}
+.close-row figure { margin: 0; display: flex; flex-direction: column; align-items: center; }
+.close-row img { width: 100%; height: auto; filter: drop-shadow(0 12px 22px rgba(0, 0, 0, .55)); }
+.close-row figure:nth-of-type(1) img,
+.close-row figure:nth-of-type(4) img { width: 96%; }
+.close-row figcaption { display: grid; gap: 2px; margin-top: 10px; }
+.close-row figcaption b { font-size: 15px; font-weight: 800; letter-spacing: -.01em; }
+.close-row figcaption span { font-size: 11px; color: var(--ink-2); }
 
-/* Hug-width pills side by side leave a phone user aiming at half the row.
-   Below this the primary action spans the thumb. */
-@media(max-width:560px){
-  .hero-cta,.close-cta{flex-direction:column;align-items:stretch;gap:10px}
-  .hero-cta .btn,.close-cta .btn{width:100%}
+.close-tag {
+  position: absolute;
+  top: -54px;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 28px;
+  padding: 0 11px 0 9px;
+  border-radius: 999px;
+  border: 1px solid rgba(105, 213, 207, .45);
+  background: rgba(8, 8, 10, .7);
+  font-size: 11.5px;
+  font-weight: 700;
+  white-space: nowrap;
 }
+.close-tag svg { width: 13px; height: 13px; color: var(--teal); flex: none; }
+.close-tag-l { left: -4%; }
+.close-tag-r { right: -4%; }
+.close-lines {
+  position: absolute;
+  left: 0;
+  top: -28px;
+  width: 100%;
+  height: 28px;
+  overflow: visible;
+}
+.close-lines path { fill: none; stroke: var(--teal); stroke-width: 1.5; stroke-dasharray: 4 5; vector-effect: non-scaling-stroke; opacity: .85; }
+
+/* Same headline as every other section: sentence case, second line in the accent. */
+.close-h { margin-top: 44px; }
+.close-h span { color: var(--teal); }
+.close-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 44px;
+  margin-top: 26px;
+  padding: 0 20px 0 16px;
+  border-radius: 999px;
+  border: 1.5px solid rgba(105, 213, 207, .5);
+  background: rgba(105, 213, 207, .08);
+  color: var(--ink);
+  font-size: 12.5px;
+  font-weight: 800;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background-color .2s, transform .2s var(--ease);
+}
+.close-pill:hover { background: rgba(105, 213, 207, .16); }
+.close-pill:active { transform: scale(.98); }
+.close-pill svg { width: 14px; height: 14px; color: var(--teal); }
+.social { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 18px; }
+.social a {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  height: 44px;
+  padding: 0 18px 0 16px;
+  border-radius: 999px;
+  border: 1px solid var(--line-2);
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--ink);
+  transition: border-color .2s;
+}
+.social a:hover { border-color: rgba(255, 255, 255, .5); }
+.social svg { width: 18px; height: 18px; }
 
 /* ---------- faq ---------- */
-.faq{max-width:820px;margin:0 auto;border-top:1px solid var(--line-2)}
-.faq details{border-bottom:1px solid var(--line-2)}
-.faq summary{
-  list-style:none;cursor:pointer;padding:22px 40px 22px 0;position:relative;
-  font-family:var(--disp);font-weight:700;font-size:clamp(17px,1.5vw,19px);letter-spacing:-.015em;
+
+.faq { padding: var(--sec) 0; border-top: 1px solid var(--line); }
+.faq-in {
+  display: grid;
+  grid-template-columns: .8fr 1.2fr;
+  gap: 64px;
+  align-items: start;
 }
-.faq summary::-webkit-details-marker{display:none}
-.faq summary::after{
-  content:"";position:absolute;right:6px;top:50%;
-  width:11px;height:11px;margin-top:-7px;
-  border-right:2px solid var(--ink-3);border-bottom:2px solid var(--ink-3);
-  transform:rotate(45deg);transition:transform .22s,border-color .22s;
+.faq-head h2 { font-size: clamp(32px, 3.4vw, 44px); }
+.faq-head p { margin: 16px 0 0; max-width: 30ch; color: var(--ink-2); }
+.faq-head a { color: var(--ink); text-underline-offset: 3px; }
+.faq-list { border-top: 1px solid var(--line); }
+.faq-list details { border-bottom: 1px solid var(--line); }
+.faq-list summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  min-height: 64px;
+  padding: 16px 0;
+  font-size: 18px;
+  font-weight: 700;
+  list-style: none;
+  cursor: pointer;
 }
-.faq details[open] summary::after{transform:rotate(-135deg);margin-top:-2px;border-color:var(--a)}
-.faq details p{color:var(--ink-2);padding:0 40px 24px 0;margin-top:-4px;font-size:16px}
-.faq-more{text-align:center;color:var(--ink-3);margin-top:28px;font-size:15px}
-.faq-more a{color:var(--a);text-decoration:none;padding:12px 0}
-.faq-more a:hover{text-decoration:underline}
-
-/* ---------- closing ---------- */
-/* The closing art opens on the logo, so the section before it hands over with
-   half the usual gap — the full --sec read as a hole under the pricing note. */
-#pricing{padding-bottom:clamp(40px,4.4vw,68px)}
-.close{position:relative;padding:0 0 var(--sec);text-align:center;overflow:hidden}
-.close-in{position:relative}
-/* Capped at the width the @2x file can actually cover on a 2x screen (1100px). */
-.close-art{max-width:830px;margin:0 auto clamp(18px,2.4vw,34px)}
-.close-art img{width:100%}
-/* The art carries its glow out to flat black on both sides, so on a phone it
-   runs to the screen edge instead of stopping at the gutter. */
-@media(max-width:900px){.close-art{margin-left:calc(var(--gut) * -1);margin-right:calc(var(--gut) * -1)}}
-.close h2{max-width:16ch;margin:0 auto}
-.close .lede{margin-left:auto;margin-right:auto}
-.close-cta{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin-top:34px}
-
-/* ---------- mobile: the art is the focal point, and NOTHING is cut ---------- */
-/* Every crop is mostly glow padding. Measured off the files, the DEVICE inside
-   each one is .45-.90 of the file's width, so `width:100%` drew a phone across
-   55% of a 393pt screen and nothing in it could be read. Below 560 the art may
-   run WIDER than the viewport - but only its black glow padding ever crosses
-   the screen edge (every file's edge columns measure #08080A). THE RULE, set
-   by Caeden on device 2026-08-27: no phone, card or pop-out is ever clipped
-   by the viewport. The first pass let the hero's cards and a second phone run
-   off the edge and it read as broken, not as composition. So the two-phone
-   crops (history, scan) swap to single-phone files below 560 via <picture>
-   (`art/*-m.webp`, built by scratch build-mobile-art.py from the slides: the
-   left phone cut out and set on a synthetic glow, phone = .72 of the file),
-   the hero shows its whole composition, and tables is sized so the pink
-   pop-out fits.
-     --fill   fraction of the FILE the device occupies
-     --span   fraction of the VIEWPORT that device should cover
-     --shift  nudge, in % of the image width, for crops whose subject is
-              off-centre - used only to centre the CONTENT, never to push part
-              of it off screen.
-   The 700px cap stops a 560px-wide window rendering a 1000px-tall phone.
-   Keyed off the file name rather than an inline --fill so the values live with
-   the measurements that produced them (the selector matches the <img>'s src
-   attribute, which stays the desktop file even when <picture> serves -m). */
-@media(max-width:560px){
-  /* The desktop rhythm is tuned to art that sits inside its column. Once the
-     art runs to both screen edges the phone's own black padding is doing part
-     of the spacing job, so the section gap reads long: measured at 393pt, a
-     phone's last pixel to the next eyebrow was ~115pt. 64 brings that back to
-     roughly the gap between an eyebrow and its heading. */
-  :root{--sec:64px}
-
-  .hero-art img,.feat-art img,.pro-art img,.close-art img{
-    width:calc(100% * var(--span,.86) / var(--fill,1));
-    max-width:700px;
-    /* The img is a flex item and a flex item's automatic minimum is
-       min(specified, natural) width, so an image whose 1x file is narrower
-       than its computed width (the -m files: 438px natural, 469 computed)
-       got shrunk back to natural. The wide desktop files never hit it. */
-    flex:none;
-    transform:translateX(var(--shift,0%));
-  }
-  /* Phone + two cards + their connector lines, whole: the composition is .95
-     of the file, so width:100% (span == fill) lands it 10px inside each edge. */
-  .hero-art  img[src*="/shows"]    {--fill:.54;--span:.54}
-  /* tables carries a SECOND subject: the pink "Price history" card hangs off
-     the phone's right shoulder and its border is the file's own right edge
-     (measured on tables@2x: outermost non-black column 929 of 1024 = .9077).
-     Centred on the phone it landed at x=399 on a 393pt screen and the sale
-     rows read "eBay" cut mid-glyph. Phone frame .2305 to pop-out border
-     .9077 = .677 of the file, centred at .569: at span .63 the image is 516px
-     on a 393 screen, the content 349px, and the -6.9% shift centres it - 21px
-     clear on both sides, nothing bleeds but glow. */
-  .feat-art  img[src*="/tables"]   {--fill:.48;--span:.63;--shift:-6.9%}
-  /* history-m / scan-m: one phone, .72 of the file, glow to flat black on
-     every side. Span .86 = a 338px phone on a 393 screen, 38px of black glow
-     past each edge. */
-  .feat-art  img[src*="/history"]  {--fill:.72;--span:.86}
-  /* value and match are the only single-phone sections with nothing beside
-     the phone; at .875 they read as a wall (Caeden, device 2026-08-27). */
-  .feat-art  img[src*="/value"]    {--fill:.565;--span:.68}
-  .feat-art  img[src*="/scan"]     {--fill:.72;--span:.86}
-  .feat-art  img[src*="/match"]    {--fill:.55;--span:.66;--shift:-3.5%}
-  /* Pro's phone is a closing illustration for a six-row list, not the subject:
-     Caeden asked for it smaller (2026-08-27). */
-  /* Pro on a phone is the list alone — the screen under six rows read as
-     bulk, not illustration (Caeden, device 2026-08-27). */
-  .pro-art{display:none}
-  .close-art img[src*="/cards"]    {--fill:.794;--span:.86}
-  /* .pro is the one art section with no clip of its own, and its art is the
-     only one still boxed inside the gutter. */
-  .pro{overflow:hidden}
-  .pro-art{margin:0 calc(var(--gut) * -1)}
-  /* .close-art is a plain block, so an image wider than it would hang off the
-     right instead of overflowing evenly the way the flex art wrappers do. */
-  .close-art{display:flex;justify-content:center}
-
-  /* Authored line breaks have to survive. Every h1/h2 on this page carries a
-     <br> that sets its shape, and at the desktop floor (36/34px) the longest
-     line - "Years of sales history", "Show up with a plan." - overflowed a
-     320px column and wrapped to four and five lines. */
-  .hero h1{font-size:clamp(27px,7.4vw,31px)}
-  /* A step down from round one (28–34): Caeden on device 2026-08-27, "our
-     title fonts are too big". Still exactly two lines per <br> heading. */
-  .feat h2,.pro h2,.sec h2,.close h2,.strip h2{font-size:clamp(23px,6.4vw,27px)}
-  /* 16ch of a display face is ~256px, so "Show up with a plan." wrapped to
-     three lines inside its own cap before the column ever ran out. */
-  .close h2{max-width:none}
-
-  /* One thumb target in the hero, not two stacked 52px pills. The App Store
-     pill is the action; "How it works" is a link under it, which is what lifts
-     the phone into the first screen. */
-  .hero{padding-top:28px}
-  .hero .eyebrow{margin-bottom:10px}
-  .hero .lede{margin-top:14px}
-  .hero-cta{margin-top:22px;gap:2px}
-  .hero-art{margin-top:2px}
-  .hero-cta .btn-line{
-    --btn-bg:transparent;--btn-line:transparent;--btn-fg:var(--ink-2);
-    align-self:center;width:auto;height:auto;min-height:44px;
-    padding:10px 14px;border-radius:8px;
-    font-family:var(--text);font-size:15px;font-weight:600;letter-spacing:0;
-    text-decoration:underline;text-underline-offset:4px;
-    text-decoration-color:rgba(255,255,255,.28);
-  }
-  .hero-cta .btn-line:hover{--btn-bg:transparent;--btn-line:transparent;--btn-fg:var(--ink)}
+.faq-list summary::-webkit-details-marker { display: none; }
+.faq-list summary::after {
+  content: "";
+  flex: none;
+  width: 10px;
+  height: 10px;
+  margin-right: 4px;
+  border-right: 2px solid var(--ink-2);
+  border-bottom: 2px solid var(--ink-2);
+  transform: translateY(-3px) rotate(45deg);
+  transition: transform .25s var(--ease);
 }
+.faq-list details[open] summary::after { transform: translateY(2px) rotate(-135deg); }
+.faq-list details p { margin: 0 0 22px; max-width: 60ch; color: var(--ink-2); }
 
 /* ---------- footer ---------- */
-footer{
-  border-top:1px solid var(--line-2);
-  padding:clamp(48px,5vw,72px) 0 max(40px,env(safe-area-inset-bottom));
-  margin-top:auto;
-}
-.foot{display:grid;grid-template-columns:1.6fr repeat(3,1fr);gap:clamp(28px,3vw,40px)}
-.foot-brand p{color:var(--ink-3);font-size:15px;margin-top:14px;max-width:30ch}
-.foot-col h3{
-  font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--ink-3);margin-bottom:16px;
-}
-.foot-col a{display:block;color:var(--ink-2);text-decoration:none;font-size:15px;padding:10px 0;transition:color .18s}
-.foot-col a:hover{color:var(--ink)}
-.foot-note{
-  margin-top:clamp(40px,4vw,60px);padding-top:26px;border-top:1px solid var(--line-2);
-  color:var(--ink-3);font-size:13.5px;line-height:1.6;
-}
-.foot-note.bare{border-top:0;margin-top:0;padding-top:0}
-@media(max-width:820px){.foot{grid-template-columns:1fr 1fr;gap:32px}.foot-brand{grid-column:1/-1}}
 
-/* ---------- legal pages ---------- */
-.legal{padding:clamp(56px,7vw,96px) 0 clamp(60px,7vw,100px);max-width:760px}
-.legal .back{
-  display:inline-flex;align-items:center;gap:7px;
-  color:var(--ink-3);text-decoration:none;font-size:14.5px;
-  margin-bottom:26px;padding:12px 0;transition:color .18s;
+.foot {
+  padding: 56px 0 calc(32px + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--line);
 }
-.legal .back:hover{color:var(--ink)}
-.legal h1{font-size:clamp(38px,5.4vw,64px);margin-bottom:14px}
-.legal .updated{color:var(--ink-3);font-size:14.5px;margin-bottom:clamp(34px,4vw,52px)}
-.legal h2{font-size:clamp(22px,2.2vw,28px);margin:clamp(36px,3.6vw,52px) 0 14px}
-.legal p,.legal li{color:var(--ink-2);font-size:16.5px;line-height:1.7}
-.legal p+p{margin-top:14px}
-.legal ul{padding-left:22px;margin:14px 0}
-.legal li{margin-bottom:8px}
-.legal a{color:var(--a);text-decoration:none;padding:11px 0}
-.legal a:hover{text-decoration:underline}
-.legal strong{color:var(--ink);font-weight:600}
-
-/* ---------- 404 ---------- */
-.nf{padding:clamp(80px,12vw,180px) 0;text-align:center;max-width:640px}
-.nf .code{
-  font-family:var(--disp);font-weight:800;font-size:clamp(72px,12vw,140px);
-  letter-spacing:-.05em;line-height:1;color:var(--a);margin-bottom:12px;
+.foot-in { display: grid; grid-template-columns: 1fr auto; gap: 48px; }
+.foot-brand p { margin: 10px 0 20px; font-size: 15px; color: var(--ink-2); }
+.foot-social { display: flex; gap: 10px; }
+.foot-social a {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1px solid var(--line-2);
+  color: var(--ink);
+  transition: border-color .2s;
 }
-.nf p{color:var(--ink-2);margin-top:16px}
-.nf-links{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin-top:34px}
+.foot-social a:hover { border-color: rgba(255, 255, 255, .5); }
+.foot-social svg { width: 18px; height: 18px; }
+.foot-cols { display: grid; grid-template-columns: repeat(3, minmax(120px, auto)); gap: 48px; }
+.foot-cols h3 {
+  margin: 0 0 10px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.foot-cols a {
+  display: flex;
+  align-items: center;
+  min-height: 36px;
+  font-size: 15px;
+  color: var(--ink-2);
+  text-decoration: none;
+  transition: color .2s;
+}
+.foot-cols a:hover { color: var(--ink); }
+.foot-base p { margin: 40px 0 0; font-size: 13px; color: var(--ink-3); }
 
-/* ---------- reveal ---------- */
-/* One reveal, below the fold only: 8px and 450ms, staggered 60ms inside a
-   group. Anything longer or taller turns scrolling into a slideshow.
-   Scoped to .js (set by a one-liner in <head>) so the page renders fully with
-   scripting off. Defaulting .reveal to opacity:0 left a blank page for anyone
-   without JS. */
-.js .reveal{opacity:0;transform:translateY(8px);transition:opacity .45s ease-out,transform .45s ease-out}
-.js .reveal.in{opacity:1;transform:none}
-[data-stagger]>*{transition-delay:calc(var(--i,0) * 60ms)}
-@media(prefers-reduced-motion:reduce){
-  /* must out-specify `.js .reveal` above, hence the .js prefix here too */
-  .js .reveal,.reveal{opacity:1;transform:none;transition:none}
-  .btn{transition:none}
+/* ---------- motion ---------- */
+
+.js .load { opacity: 0; transform: translateY(14px); animation: load .9s var(--ease) forwards; }
+.js .load:nth-child(2) { animation-delay: .06s; }
+.js .load:nth-child(3) { animation-delay: .12s; }
+.js .load:nth-child(4) { animation-delay: .18s; }
+.js .hero-art.load { animation-delay: .1s; }
+@keyframes load { to { opacity: 1; transform: none; } }
+
+.js .reveal { opacity: 0; transform: translateY(24px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
+.js .reveal.in { opacity: 1; transform: none; }
+.js .feat-copy.reveal { transition-delay: .06s; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .js .load, .js .reveal { opacity: 1; transform: none; animation: none; transition: none; }
+}
+
+/* ---------- tablet ---------- */
+
+@media (max-width: 1060px) {
+  .nav-links { gap: 20px; }
+  .nav-in { gap: 24px; }
+}
+
+@media (max-width: 900px) {
+  :root { --sec: 104px; }
+  .nav-links { display: none; }
+  .nav-cta { margin-left: auto; }
+  .menu-btn { display: inline-block; }
+
+  .hero { padding-top: calc(var(--nav-h) + 36px); }
+  .hero-in { grid-template-columns: 1fr; gap: 24px; text-align: center; }
+  .hero h1, .hero .lede { margin-left: auto; margin-right: auto; }
+  .cta-row { justify-content: center; }
+  .hero-art { justify-content: center; }
+
+  .feat-in { grid-template-columns: 1fr; gap: 40px; }
+  .feat-copy { order: -1; max-width: 560px; }
+  .feat-in:not(.art-first) .feat-copy { justify-self: start; }
+  .feat-art img { max-width: 480px; }
+
+  .faq-in, .pro-card { grid-template-columns: 1fr; gap: 32px; }
+  .foot-cols a { min-height: 44px; }
+  .pro-card { padding: 40px; }
+  .v-grid { column-gap: 40px; }
+}
+
+/* ---------- phones ---------- */
+
+@media (max-width: 560px) {
+  :root { --gut-l: max(20px, env(safe-area-inset-left)); --gut-r: max(20px, env(safe-area-inset-right)); --sec: 80px; }
+  body { font-size: 16px; }
+  h1 { font-size: clamp(34px, 9.8vw, 42px); }
+  h2 { font-size: clamp(29px, 8.2vw, 36px); }
+  .lede { font-size: 17px; margin-top: 16px; }
+
+  .hero { padding-top: calc(var(--nav-h) + 28px); padding-bottom: 0; }
+  .cta-row { margin-top: 28px; flex-direction: column; gap: 6px; }
+  /* phone art runs edge to edge; only its flat background crosses the gutters */
+  .hero-art, .feat-art.duo {
+    margin-left: calc(-1 * var(--gut-l));
+    margin-right: calc(-1 * var(--gut-r));
+  }
+  .hero-art img, .feat-art.duo img, .stack-art img { max-width: none; }
+  .feat-art.single img { width: 84%; max-width: 360px; }
+  .stack-art { margin-left: calc(-1 * var(--gut-l)); margin-right: calc(-1 * var(--gut-r)); }
+
+  .strip { padding-top: 48px; }
+  .strip-nav { display: none; }
+  .tiles { gap: 14px; }
+  .tile { width: 150px; }
+
+  .feat-in { gap: 24px; }
+  .points { margin-top: 24px; }
+  .points li { font-size: 16px; padding: 13px 0; }
+
+  .facts { grid-template-columns: 1fr; gap: 0; margin-top: 0; }
+  .facts div { padding: 16px 0; border-top-color: var(--line); }
+  .facts div:first-child { border-top-color: var(--line-2); }
+
+  .v-grid { grid-template-columns: 1fr; margin-top: 32px; }
+  .v-item { padding: 20px 0; }
+  .v-band { grid-template-columns: 1fr; gap: 12px; margin-top: 16px; }
+  .v-band p { padding: 18px 20px; }
+
+  .pro-card { padding: 28px 22px; border-radius: 20px; }
+  .pro-price b { font-size: 24px; }
+
+  .close-glow { width: 760px; }
+  .close-row { width: min(100%, 340px); gap: 9px; }
+  .close-row figcaption b { font-size: 14px; }
+  .close-row figcaption span { font-size: 10.5px; }
+  .close-tag { font-size: 10.5px; height: 26px; top: -52px; }
+  .close-tag-l { left: -2%; }
+  .close-tag-r { right: -2%; }
+
+  .faq-in { gap: 24px; }
+  .faq-list summary { font-size: 17px; min-height: 60px; }
+
+  .foot { padding-top: 44px; }
+  .foot-in { grid-template-columns: 1fr; gap: 32px; }
+  .foot-cols { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .foot-cols a { min-height: 44px; }
+}
+
+@media (max-width: 360px) {
+  .nav-cta { display: none; }
+  .tile { width: 140px; }
+}
+
+/* ---------- legal + 404 ---------- */
+
+.doc { padding: calc(var(--nav-h) + 56px) 0 var(--sec); }
+.doc .wrap { max-width: 760px; }
+.doc .back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink-2);
+  text-decoration: none;
+}
+.doc .back:hover { color: var(--ink); }
+.doc .back svg { width: 18px; height: 18px; }
+.doc h1 { margin-top: 20px; font-size: clamp(36px, 5vw, 52px); }
+.doc .updated { margin: 14px 0 0; color: var(--ink-3); font-size: 15px; }
+.doc .intro { margin-top: 32px; font-size: 18px; color: var(--body); }
+.doc h2 { margin: 56px 0 0; font-size: 24px; letter-spacing: -.02em; line-height: 1.25; }
+.doc h3 { margin: 28px 0 0; font-size: 18px; }
+.doc p, .doc li { color: var(--body); }
+.doc p { margin: 14px 0 0; }
+.doc ul { margin: 14px 0 0; padding-left: 22px; }
+.doc li + li { margin-top: 8px; }
+.doc li::marker { color: var(--ink-3); }
+.doc strong { color: var(--ink); font-weight: 700; }
+.doc a { color: var(--blue); text-underline-offset: 3px; }
+.doc .toc {
+  margin-top: 32px;
+  padding: 20px 24px;
+  border-radius: 20px;
+  border: 1px solid var(--line);
+  background: var(--bg-2);
+}
+.doc .toc p { margin: 0 0 8px; font-size: 13px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-3); }
+.doc .toc ol { margin: 0; padding-left: 20px; columns: 2; column-gap: 32px; }
+.doc .toc li { margin: 0; padding: 3px 0; break-inside: avoid; }
+.doc .toc a { color: var(--ink-2); text-decoration: none; }
+.doc .toc a:hover { color: var(--ink); }
+
+.foot-mini { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 24px; }
+.foot-mini p { margin: 0; font-size: 14px; color: var(--ink-3); }
+.foot-mini nav { display: flex; gap: 24px; }
+.foot-mini a { display: inline-flex; align-items: center; min-height: 44px; font-size: 15px; color: var(--ink-2); text-decoration: none; }
+.foot-mini a:hover { color: var(--ink); }
+.doc + .foot { padding-top: 24px; }
+
+.lost { min-height: 100dvh; display: grid; place-items: center; padding: calc(var(--nav-h) + 24px) 0 48px; text-align: center; }
+.lost h1 span { color: var(--blue); }
+.lost p { margin: 18px auto 0; max-width: 32ch; color: var(--ink-2); font-size: 18px; }
+.lost .pill { margin-top: 32px; }
+
+@media (max-width: 560px) {
+  .doc { padding-top: calc(var(--nav-h) + 32px); }
+  .doc h2 { margin-top: 44px; font-size: 22px; }
+  .doc .intro { font-size: 17px; }
+  .doc .toc ol { columns: 1; }
 }

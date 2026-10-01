@@ -3,727 +3,496 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>TCGVendr: know the floor before you walk it</title>
-<meta name="description" content="Vendors post what they’re bringing to a card show before the doors open. Search one card across every table at every show, then track what you own at market value. Free on iOS.">
+<title>TCGVendr: Know the floor before you walk it</title>
+<meta name="description" content="See what vendors are bringing to Pokémon card shows near you, with prices, before the doors open. Track your collection, scan cards and follow prices. Free on iPhone.">
 <meta name="theme-color" content="#08080A">
+<meta name="color-scheme" content="dark">
 <meta name="apple-itunes-app" content="app-id=6778956833">
 <link rel="canonical" href="https://tcgvendr.com/">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=5">
 <link rel="icon" type="image/png" href="/favicon.png?v=5">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=4">
-<meta property="og:title" content="TCGVendr: know the floor before you walk it">
-<meta property="og:description" content="Vendors post what they’re bringing to a card show before the doors open. Search one card across every table at every show.">
+<meta property="og:title" content="TCGVendr: Know the floor before you walk it">
+<meta property="og:description" content="See what vendors are bringing to card shows near you, with prices, before the doors open. Free on iPhone.">
 <meta property="og:url" content="https://tcgvendr.com/">
 <meta property="og:type" content="website">
-<meta property="og:image" content="https://tcgvendr.com/og.jpg?v=5">
+<meta property="og:site_name" content="TCGVendr">
+<meta property="og:image" content="https://tcgvendr.com/og.jpg?v=6">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The TCGVendr Shows tab, listing upcoming card shows with their flyers and vendor tables.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="TCGVendr: know the floor before you walk it">
-<meta name="twitter:description" content="Vendors post what they’re bringing to a card show before the doors open. Search one card across every table at every show.">
-<meta name="twitter:image" content="https://tcgvendr.com/og.jpg?v=5">
-<link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/schibsted-grotesk-800.woff2">
-<link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/hanken-grotesk-400.woff2">
+<meta name="twitter:title" content="TCGVendr: Know the floor before you walk it">
+<meta name="twitter:description" content="See what vendors are bringing to card shows near you, with prices, before the doors open. Free on iPhone.">
+<meta name="twitter:image" content="https://tcgvendr.com/og.jpg?v=6">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/plus-jakarta-sans-latin.woff2">
+<link rel="preload" as="image" href="/art/hero.webp?v=1" imagesrcset="/art/hero.webp?v=1 560w, /art/hero@2x.webp?v=1 1120w" imagesizes="560px" media="(min-width:561px)" fetchpriority="high">
 <script>document.documentElement.className="js"</script>
-<link rel="stylesheet" href="/styles.css?v=73">
-<link rel="preload" as="image" href="/art/shows.webp?v=2" imagesrcset="/art/shows.webp?v=2 550w, /art/shows@2x.webp?v=2 1100w" imagesizes="(max-width:900px) 100vw, 522px" fetchpriority="high">
+<link rel="stylesheet" href="/styles.css?v=80">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "MobileApplication",
-  "name": "TCGVendr",
-  "operatingSystem": "iOS",
-  "applicationCategory": "LifestyleApplication",
-  "description": "Search one card across every vendor’s table at upcoming trading-card shows, and track a Pokémon collection at market value.",
-  "url": "https://tcgvendr.com/",
-  "installUrl": "https://apps.apple.com/us/app/tcgvendr-card-show-finder/id6778956833",
-  "offers": [
-    { "@type": "Offer", "name": "Free", "price": "0", "priceCurrency": "USD" },
-    { "@type": "Offer", "name": "TCGVendr Pro (monthly)", "price": "7.99", "priceCurrency": "USD" },
-    { "@type": "Offer", "name": "TCGVendr Pro (yearly)", "price": "44.99", "priceCurrency": "USD" }
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://tcgvendr.com/#org",
+      "name": "TCGVendr",
+      "url": "https://tcgvendr.com/",
+      "logo": "https://tcgvendr.com/apple-touch-icon.png",
+      "email": "support@tcgvendr.com",
+      "sameAs": [
+        "https://www.instagram.com/tcgvendr.app/",
+        "https://www.tiktok.com/@tcgvendr.app",
+        "https://apps.apple.com/us/app/tcgvendr-card-show-finder/id6778956833"
+      ]
+    },
+    {
+      "@type": "MobileApplication",
+      "name": "TCGVendr: Card Show Finder",
+      "operatingSystem": "iOS",
+      "applicationCategory": "ShoppingApplication",
+      "description": "See what vendors are bringing to Pokémon card shows before the doors open, search one card across every table, and track your collection at market value.",
+      "url": "https://tcgvendr.com/",
+      "installUrl": "https://apps.apple.com/us/app/tcgvendr-card-show-finder/id6778956833",
+      "publisher": { "@id": "https://tcgvendr.com/#org" },
+      "offers": [
+        { "@type": "Offer", "name": "Free", "price": "0", "priceCurrency": "USD" },
+        { "@type": "Offer", "name": "TCGVendr Pro (monthly)", "price": "7.99", "priceCurrency": "USD" },
+        { "@type": "Offer", "name": "TCGVendr Pro (yearly)", "price": "44.99", "priceCurrency": "USD" }
+      ]
+    }
   ]
 }
 </script>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-mark" viewBox="0 0 100 100"><path d="M31 81.5A36 36 0 1 1 69 81.5" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round"/><path d="M35.5 39 50 66 64.5 39" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-apple" viewBox="0 0 24 24"><path fill="currentColor" d="M16.37 12.64c-.02-2.1 1.72-3.11 1.8-3.16-.98-1.43-2.5-1.63-3.04-1.65-1.3-.13-2.53.76-3.19.76-.66 0-1.67-.74-2.75-.72-1.41.02-2.72.82-3.44 2.09-1.47 2.55-.38 6.32 1.05 8.39.7 1.01 1.53 2.15 2.62 2.11 1.05-.04 1.45-.68 2.72-.68s1.63.68 2.74.66c1.13-.02 1.85-1.03 2.54-2.05.8-1.17 1.13-2.3 1.15-2.36-.03-.01-2.2-.85-2.2-3.39zM14.28 6.46c.58-.7.97-1.68.86-2.66-.83.03-1.85.56-2.45 1.26-.54.62-1.01 1.62-.88 2.57.93.07 1.88-.47 2.47-1.17z"/></symbol>
+  <symbol id="i-ig" viewBox="0 0 24 24"><path fill="currentColor" d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></symbol>
+  <symbol id="i-tt" viewBox="0 0 24 24"><path fill="currentColor" d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></symbol>
+  <symbol id="i-table" viewBox="0 0 24 24"><path d="M3 7.5h18M5.5 7.5V18M18.5 7.5V18M4.5 4.5h15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.8l2.75 5.95 6.5.75-4.8 4.45 1.3 6.42L12 17.1l-5.75 3.27 1.3-6.42-4.8-4.45 6.5-.75z"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path d="M14.5 6 8.5 12l6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path d="m9.5 6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
 <a class="skip" href="#main">Skip to content</a>
 
-
-<div class="nav" id="nav">
+<header class="nav" id="nav">
   <div class="wrap nav-in">
-    <a class="brand" href="#top" aria-label="TCGVendr home" translate="no">
-      <span class="mk" aria-hidden="true"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"><path d="M31 81.5A36 36 0 1 1 69 81.5"/><path d="M35.5 39 50 66 64.5 39"/></svg></span>
-      TCGVendr
+    <a class="brand" href="/" aria-label="TCGVendr home" translate="no">
+      <svg class="mark" aria-hidden="true"><use href="#i-mark"/></svg>TCGVendr
     </a>
     <nav class="nav-links" aria-label="Primary">
-      <a href="#buyers">Buyers</a>
-      <a href="#collectors">Collectors</a>
+      <a href="#shows">Shows</a>
+      <a href="#collection">Collection</a>
+      <a href="#scan">Scan</a>
       <a href="#vendors">Vendors</a>
-      <a href="#pricing">Pricing</a>
+      <a href="#pro">Pro</a>
       <a href="#faq">FAQ</a>
     </nav>
-    <div class="nav-actions">
-      <a class="btn btn-sm nav-cta" href="https://apps.apple.com/us/app/tcgvendr-card-show-finder/id6778956833">Get the app</a>
-      <button class="menu-btn" id="menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
-        <svg class="ic-burger" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-        <svg class="ic-close" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-      </button>
-    </div>
+    <a class="pill pill-sm nav-cta" href="https://apps.apple.com/us/app/tcgvendr-card-show-finder/id6778956833">Get the app</a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" aria-label="Open menu">
+      <span></span><span></span>
+    </button>
   </div>
-  <div class="mobile-menu" id="mobile-menu">
-    <a href="#buyers">Buyers</a>
-    <a href="#collectors">Collectors</a>
+  <nav class="menu" id="menu" aria-label="Menu" hidden>
+    <a href="#shows">Shows</a>
+    <a href="#collection">Collection</a>
+    <a href="#scan">Scan</a>
     <a href="#vendors">Vendors</a>
-    <a href="#pricing">Pricing</a>
+    <a href="#pro">Pro</a>
     <a href="#faq">FAQ</a>
-    <a class="btn" href="https://apps.apple.com/us/app/tcgvendr-card-show-finder/id6778956833">Get the app</a>
-  </div>
-</div>
+    <a class="pill" href="https://apps.apple.com/us/app/tcgvendr-card-show-finder/id6778956833">Get the app</a>
+  </nav>
+</header>
+<div class="nav-sentinel" aria-hidden="true"></div>
 
 <main id="main">
 
-<!-- HERO -->
-<header class="hero" id="top">
-  <div class="wrap hero-in">
-    <div class="hero-copy">
-      <p class="eyebrow">Out now &middot; Free on iOS</p>
-      <h1>Know the floor<br><span class="hl">before you walk it.</span></h1>
-      <p class="lede">Vendors post what they’re bringing before the show. Search one card and see every table carrying it.</p>
-      <div class="hero-cta">
-        <a class="btn" href="https://apps.apple.com/us/app/tcgvendr-card-show-finder/id6778956833">Download on the App Store</a>
-        <a class="btn btn-line" href="#how">How it works</a>
+  <section class="hero" style="--acc:var(--blue)">
+    <div class="wrap hero-in">
+      <div class="hero-copy">
+        <p class="eyebrow load">Free on iPhone</p>
+        <h1 class="load">Know the floor <span>before you walk it.</span></h1>
+        <p class="lede load">See what vendors are bringing to card shows near you, with prices, before the doors open.</p>
+        <div class="cta-row load">
+          <a class="store" href="https://apps.apple.com/us/app/tcgvendr-card-show-finder/id6778956833" aria-label="Download TCGVendr on the App Store">
+            <svg aria-hidden="true"><use href="#i-apple"/></svg>
+            <span><small>Download on the</small><b>App Store</b></span>
+          </a>
+          <a class="text-link" href="#vendors">Selling at a show?</a>
+        </div>
+      </div>
+      <picture class="hero-art load">
+        <source media="(max-width:560px)" srcset="/art/hero-m.webp?v=1 390w, /art/hero-m@2x.webp?v=1 780w" sizes="100vw">
+        <img src="/art/hero.webp?v=1" srcset="/art/hero.webp?v=1 560w, /art/hero@2x.webp?v=1 1120w" sizes="560px" width="560" height="687" alt="The Shows tab in TCGVendr: this week's card shows with their flyers, dates, hours and how many vendor tables each one has." fetchpriority="high">
+      </picture>
+    </div>
+  </section>
+
+  <section class="strip" id="tables" aria-labelledby="tables-h">
+    <div class="wrap">
+      <div class="strip-head">
+        <h2 id="tables-h">Cards waiting at upcoming shows</h2>
+        <div class="strip-nav" aria-hidden="true">
+          <button type="button" class="round" data-scroll="-1" tabindex="-1"><svg><use href="#i-left"/></svg></button>
+          <button type="button" class="round" data-scroll="1" tabindex="-1"><svg><use href="#i-right"/></svg></button>
+        </div>
       </div>
     </div>
-    <div class="hero-art">
-      <img src="/art/shows.webp?v=2" srcset="/art/shows.webp?v=2 550w, /art/shows@2x.webp?v=2 1100w" sizes="(max-width:900px) 100vw, 522px"
-           width="550" height="674" fetchpriority="high" decoding="async"
-           alt="The Shows tab listing 23 upcoming card shows by date and city, with a field for searching cards across every show, next to two Pokémon cards pulled from vendor tables.">
-    </div>
-  </div>
-</header>
-
-<!-- ON THE TABLES -->
-<section class="strip" style="--a:var(--mint)" aria-labelledby="strip-h">
-  <div class="wrap strip-head reveal">
-    <p class="eyebrow">On the tables</p>
-    <h2 id="strip-h">Published before the doors open.</h2>
-  </div>
-  <div class="strip-scroll reveal" style="--i:1">
-    <ul class="tc-list tc-tables">
-      <li class="tc">
-        <div class="tc-art"><img src="/cards/ex11-112.webp?v=ex11-112" width="440" height="605" loading="lazy" decoding="async" alt="Kyogre ☆, Delta Species · PSA 9"></div>
-        <div class="tc-body">
-          <b>Kyogre ☆</b>
-          <span class="tc-meta">Delta Species · PSA 9</span>
-          <span class="tc-price">$6,000</span>
-          <span class="tc-trend down">−3.3% · 1M</span>
-          <span class="tc-show">Aug 29 · Las Vegas Card Show</span>
-        </div>
+    <div class="tiles-wrap">
+      <ul class="tiles" data-tiles>
+      <li class="tile" data-end="2026-10-04">
+        <img src="/cards/ex11-112.webp" width="440" height="605" loading="lazy" decoding="async" alt="Kyogre ☆, Delta Species, PSA 9">
+        <b>Kyogre ☆</b>
+        <span class="tile-meta">Delta Species · PSA 9</span>
+        <span class="tile-price">$6,000</span>
+        <span class="tile-show">Oct 3 to 4, Poke’Ville Card Show</span>
       </li>
-      <li class="tc">
-        <div class="tc-art"><img src="/cards/me2pt5-276.webp?v=me2pt5-276" width="440" height="615" loading="lazy" decoding="async" alt="Pikachu ex, Ascended Heroes · PSA 10"></div>
-        <div class="tc-body">
-          <b>Pikachu ex</b>
-          <span class="tc-meta">Ascended Heroes · PSA 10</span>
-          <span class="tc-price">$2,500</span>
-          <span class="tc-trend down">−8.8% · 1M</span>
-          <span class="tc-show">Aug 29 · Las Vegas Card Show</span>
-        </div>
+      <li class="tile" data-end="2026-10-04">
+        <img src="/cards/swsh8-271.webp" width="440" height="614" loading="lazy" decoding="async" alt="Gengar VMAX, Fusion Strike, PSA 10">
+        <b>Gengar VMAX</b>
+        <span class="tile-meta">Fusion Strike · PSA 10</span>
+        <span class="tile-price">$2,300</span>
+        <span class="tile-show">Oct 3 to 4, Poke’Ville Card Show</span>
       </li>
-      <li class="tc">
-        <div class="tc-art"><img src="/cards/me2pt5-284.webp?v=me2pt5-284" width="440" height="615" loading="lazy" decoding="async" alt="Mega Gengar ex, Ascended Heroes · PSA 10"></div>
-        <div class="tc-body">
-          <b>Mega Gengar ex</b>
-          <span class="tc-meta">Ascended Heroes · PSA 10</span>
-          <span class="tc-price">$2,300</span>
-          <span class="tc-trend down">−14.6% · 1M</span>
-          <span class="tc-show">Aug 29 · Las Vegas Card Show</span>
-        </div>
+      <li class="tile" data-end="2026-10-04">
+        <img src="/cards/me2pt5-277.webp" width="440" height="615" loading="lazy" decoding="async" alt="Pikachu ex, Ascended Heroes, PSA 10">
+        <b>Pikachu ex</b>
+        <span class="tile-meta">Ascended Heroes · PSA 10</span>
+        <span class="tile-price">$1,050</span>
+        <span class="tile-show">Oct 3 to 4, Poke’Ville Card Show</span>
       </li>
-      <li class="tc">
-        <div class="tc-art"><img src="/cards/swsh7r_ja-83.webp?v=swsh7r_ja-83" width="440" height="621" loading="lazy" decoding="async" alt="Rayquaza VMAX, Blue Sky Stream · PSA 10"></div>
-        <div class="tc-body">
-          <b>Rayquaza VMAX</b>
-          <span class="tc-meta">Blue Sky Stream · PSA 10</span>
-          <span class="tc-price">$6,825</span>
-          <span class="tc-trend down">−2.9% · 1M</span>
-          <span class="tc-show">Sep 5 · Front Row Card Show Pasadena</span>
-        </div>
+      <li class="tile" data-end="2026-10-03">
+        <img src="/cards/me2pt5-238.webp" width="440" height="615" loading="lazy" decoding="async" alt="Team Rocket's Mimikyu, Ascended Heroes, NM">
+        <b>Team Rocket's Mimikyu</b>
+        <span class="tile-meta">Ascended Heroes · NM</span>
+        <span class="tile-price">$16.92 <small>Market</small></span>
+        <span class="tile-show">Oct 3, Hudson Valley TCG: The Birthday Show</span>
       </li>
-      <li class="tc">
-        <div class="tc-art"><img src="/cards/dpp-DP47.webp?v=dpp-DP47" width="440" height="605" loading="lazy" decoding="async" alt="Rayquaza C LV.X, DP Black Star Promos · NM"></div>
-        <div class="tc-body">
-          <b>Rayquaza C LV.X</b>
-          <span class="tc-meta">DP Black Star Promos · NM</span>
-          <span class="tc-price">$400</span>
-          <span class="tc-trend up">+20.8% · 1M</span>
-          <span class="tc-show">Sep 5 · Front Row Card Show Pasadena</span>
-        </div>
+      <li class="tile" data-end="2026-10-03">
+        <img src="/cards/me2pt5-232.webp" width="440" height="615" loading="lazy" decoding="async" alt="Marill, Ascended Heroes, NM">
+        <b>Marill</b>
+        <span class="tile-meta">Ascended Heroes · NM</span>
+        <span class="tile-price">$9.47 <small>Market</small></span>
+        <span class="tile-show">Oct 3, Hudson Valley TCG: The Birthday Show</span>
       </li>
-      <li class="tc">
-        <div class="tc-art"><img src="/cards/swsh8-271.webp?v=swsh8-271" width="440" height="614" loading="lazy" decoding="async" alt="Gengar VMAX, Fusion Strike · PSA 10"></div>
-        <div class="tc-body">
-          <b>Gengar VMAX</b>
-          <span class="tc-meta">Fusion Strike · PSA 10</span>
-          <span class="tc-price">$2,400</span>
-          <span class="tc-trend down">−12.7% · 1M</span>
-          <span class="tc-show">Sep 19 · Front Row Card Show San Diego</span>
-        </div>
+      <li class="tile" data-end="2026-10-03">
+        <img src="/cards/me2pt5-234.webp" width="440" height="615" loading="lazy" decoding="async" alt="Banette, Ascended Heroes, NM">
+        <b>Banette</b>
+        <span class="tile-meta">Ascended Heroes · NM</span>
+        <span class="tile-price">$9.31 <small>Market</small></span>
+        <span class="tile-show">Oct 3, Hudson Valley TCG: The Birthday Show</span>
       </li>
-      <li class="tc">
-        <div class="tc-art"><img src="/cards/xy12-s3.webp?v=xy12-s3" width="440" height="440" loading="lazy" decoding="async" alt="Evolutions Elite Trainer Box - Mega Charizard Y, Evolutions · Sealed"></div>
-        <div class="tc-body">
-          <b>Evolutions Elite Trainer Box - Mega Charizard Y</b>
-          <span class="tc-meta">Evolutions · Sealed</span>
-          <span class="tc-price">$730</span>
-          
-          <span class="tc-show">Sep 19 · Front Row Card Show San Diego</span>
-        </div>
+      <li class="tile" data-end="2026-10-11">
+        <img src="/cards/dpp-DP47.webp" width="440" height="605" loading="lazy" decoding="async" alt="Rayquaza C LV.X, DP Black Star Promos, NM">
+        <b>Rayquaza C LV.X</b>
+        <span class="tile-meta">DP Black Star Promos · NM</span>
+        <span class="tile-price">$471</span>
+        <span class="tile-show">Oct 9 to 11, Pittsburgh Card Show</span>
       </li>
-      <li class="tc">
-        <div class="tc-art"><img src="/cards/xy12-s4.webp?v=xy12-s4" width="440" height="466" loading="lazy" decoding="async" alt="Evolutions Elite Trainer Box - Mega Blastoise, Evolutions · Sealed"></div>
-        <div class="tc-body">
-          <b>Evolutions Elite Trainer Box - Mega Blastoise</b>
-          <span class="tc-meta">Evolutions · Sealed</span>
-          <span class="tc-price">$600</span>
-          
-          <span class="tc-show">Sep 19 · Front Row Card Show San Diego</span>
-        </div>
+      <li class="tile" data-end="2026-10-11">
+        <img src="/cards/swsh7-111.webp" width="440" height="614" loading="lazy" decoding="async" alt="Rayquaza VMAX, Evolving Skies, NM">
+        <b>Rayquaza VMAX</b>
+        <span class="tile-meta">Evolving Skies · NM</span>
+        <span class="tile-price">$468</span>
+        <span class="tile-show">Oct 9 to 11, Pittsburgh Card Show</span>
       </li>
-      <li class="tc">
-        <div class="tc-art"><img src="/cards/sv8pt5-156.webp?v=sv8pt5-156" width="440" height="615" loading="lazy" decoding="async" alt="Sylveon ex, Prismatic Evolutions · NM"></div>
-        <div class="tc-body">
-          <b>Sylveon ex</b>
-          <span class="tc-meta">Prismatic Evolutions · NM</span>
-          <span class="tc-price">$551</span>
-          
-          <span class="tc-show">Oct 17 · Pokémon Market at Bell Works</span>
-        </div>
+      <li class="tile" data-end="2026-10-11">
+        <img src="/cards/sv8a_ja-217.webp" width="440" height="621" loading="lazy" decoding="async" alt="Umbreon ex, Terastal Festival ex, NM">
+        <b>Umbreon ex</b>
+        <span class="tile-meta">Terastal Festival ex · NM</span>
+        <span class="tile-price">$411</span>
+        <span class="tile-show">Oct 9 to 11, Pittsburgh Card Show</span>
+      </li>
+      <li class="tile" data-end="2026-10-17">
+        <img src="/cards/me2pt5-276.webp" width="440" height="615" loading="lazy" decoding="async" alt="Pikachu ex, Ascended Heroes, PSA 10">
+        <b>Pikachu ex</b>
+        <span class="tile-meta">Ascended Heroes · PSA 10</span>
+        <span class="tile-price">$2,424</span>
+        <span class="tile-show">Oct 17, Pokémon Market at Bell Works</span>
+      </li>
+      <li class="tile" data-end="2026-10-17">
+        <img src="/cards/me2pt5-284.webp" width="440" height="615" loading="lazy" decoding="async" alt="Mega Gengar ex, Ascended Heroes, PSA 10">
+        <b>Mega Gengar ex</b>
+        <span class="tile-meta">Ascended Heroes · PSA 10</span>
+        <span class="tile-price">$2,302</span>
+        <span class="tile-show">Oct 17, Pokémon Market at Bell Works</span>
+      </li>
+      <li class="tile" data-end="2026-10-17">
+        <img src="/cards/dpp-DP17.webp" width="440" height="605" loading="lazy" decoding="async" alt="Dialga LV.X, DP Black Star Promos, PSA 9">
+        <b>Dialga LV.X</b>
+        <span class="tile-meta">DP Black Star Promos · PSA 9</span>
+        <span class="tile-price">$1,200</span>
+        <span class="tile-show">Oct 17, Pokémon Market at Bell Works</span>
       </li>
     </ul>
-  </div>
-</section>
+    </div>
+  </section>
 
-<!-- STEPS -->
-<section class="steps" id="how">
-  <h2 class="sr-only">How it works</h2>
-  <div class="wrap steps-in" data-stagger>
-    <div class="step reveal">
-      <div class="n">01</div>
-      <h3>Find a show</h3>
-      <p>Browse upcoming shows by date and city.</p>
-    </div>
-    <div class="step reveal">
-      <div class="n">02</div>
-      <h3>Search the tables</h3>
-      <p>One search covers every table at every show, with prices.</p>
-    </div>
-    <div class="step reveal">
-      <div class="n">03</div>
-      <h3>Show up knowing</h3>
-      <p>Message the vendor so the card is waiting when you walk in.</p>
-    </div>
-  </div>
-</section>
-
-<!-- BUYERS -->
-<section class="feat" id="buyers" style="--a:var(--pink)">
-  <div class="wrap feat-in">
-    <div class="feat-copy reveal">
-      <p class="eyebrow">For buyers</p>
-      <h2>See the tables<br><span class="hl">before you go.</span></h2>
-      <p class="sub">You walk in knowing which tables to hit.</p>
-      <ul class="pts">
-        <li>Every published table at every upcoming show.</li>
-        <li>The vendor’s price on every card, or Ask.</li>
-        <li>Tap Interested and the vendor knows before you arrive.</li>
-      </ul>
-    </div>
-    <div class="feat-art reveal" style="--i:1">
-      <img src="/art/tables.webp?v=4" srcset="/art/tables.webp?v=4 512w, /art/tables@2x.webp?v=4 1024w" sizes="(max-width:560px) 131vw, (max-width:900px) 100vw, 475px"
-           width="512" height="666" loading="lazy" decoding="async"
-           alt="A vendor profile listing the four shows they’re booked at, their inventory below it, and a Gengar VMAX at $2,400 opened to its price chart.">
-    </div>
-  </div>
-</section>
-
-<!-- PRICE HISTORY -->
-<section class="feat rev" style="--a:var(--coral)">
-  <div class="wrap feat-in">
-    <div class="feat-copy reveal">
-      <p class="eyebrow">Price history</p>
-      <h2>Years of prices<br><span class="hl">in one graph.</span></h2>
-      <p class="sub">Millions of real datapoints: singles, slabs, sealed.</p>
-      <ul class="pts">
-        <li>Graded prices come from the ten most recent sales.</li>
-        <li>Those sales sit under the chart, dated and linked.</li>
-        <li>PSA population counts beside the price.</li>
-      </ul>
-    </div>
-    <div class="feat-art phones-art reveal" style="--i:1">
-      <div class="phones" data-phones>
-        <picture>
-          <source media="(max-width:560px)" srcset="/art/history-m.webp?v=2 1x, /art/history-m@2x.webp?v=2 2x">
-          <img src="/art/history.webp?v=2" srcset="/art/history.webp?v=2 550w, /art/history@2x.webp?v=2 1100w" sizes="(max-width:900px) 100vw, 466px"
-             width="550" height="755" loading="lazy" decoding="async"
-             alt="Mega Gengar ex PSA 10 at $1,988 with a one-month price chart, next to the same card showing PSA population counts and the recent sales the price was built from.">
-        </picture>
-        <picture class="phone-m">
-          <img src="/art/history-m2.webp?v=1" srcset="/art/history-m2.webp?v=1 1x, /art/history-m2@2x.webp?v=1 2x"
-               width="419" height="835" loading="lazy" decoding="async"
-               alt="The same card with PSA population counts beside the price and the recent sales the average was built from.">
-        </picture>
-      </div>
-      <div class="phone-dots" aria-hidden="true"><span class="on"></span><span></span></div>
-    </div>
-  </div>
-</section>
-
-<!-- MOVERS -->
-<section class="strip" style="--a:var(--coral)" aria-labelledby="movers-h">
-  <div class="wrap strip-head split reveal">
-    <div>
-      <p class="eyebrow">This week</p>
-      <h2 id="movers-h">Top movers.</h2>
-    </div>
-    <div class="seg" role="group" aria-label="Show gainers or losers" data-movers-toggle>
-      <button type="button" aria-pressed="true" data-set="gainers">Gainers</button>
-      <button type="button" aria-pressed="false" data-set="losers">Losers</button>
-    </div>
-  </div>
-  <div class="strip-scroll reveal" style="--i:1">
-    <ul class="tc-list tc-movers" data-set="gainers">
-      <li class="tc">
-        <div class="tc-art"><img src="/cards/dpp-DP17.webp?v=dpp-DP17" width="440" height="605" loading="lazy" decoding="async" alt="Dialga LV.X, DP Black Star Promos"></div>
-        <div class="tc-body">
-          <b>Dialga LV.X</b>
-          <span class="tc-meta">DP Black Star Promos · Holofoil · NM</span>
-          <span class="tc-price">$116</span>
-          <span class="tc-trend up">+18.4% · 7D</span>
-        </div>
-      </li>
-      <li class="tc">
-        <div class="tc-art"><img src="/cards/svp-129.webp?v=svp-129" width="440" height="615" loading="lazy" decoding="async" alt="Pecharunt, Scarlet &amp; Violet Black Star Promos"></div>
-        <div class="tc-body">
-          <b>Pecharunt</b>
-          <span class="tc-meta">Scarlet &amp; Violet Black Star Promos · Pokemon Center Stamp · NM</span>
-          <span class="tc-price">$20.67</span>
-          <span class="tc-trend up">+8.8% · 7D</span>
-        </div>
-      </li>
-      <li class="tc">
-        <div class="tc-art"><img src="/cards/xyp-XY124.webp?v=xyp-XY124" width="440" height="614" loading="lazy" decoding="async" alt="Pikachu-EX, XY Black Star Promos"></div>
-        <div class="tc-body">
-          <b>Pikachu-EX</b>
-          <span class="tc-meta">XY Black Star Promos · Holofoil · NM</span>
-          <span class="tc-price">$456</span>
-          <span class="tc-trend up">+6.2% · 7D</span>
-        </div>
-      </li>
-      <li class="tc">
-        <div class="tc-art"><img src="/cards/g1-RC30.webp?v=g1-RC30" width="440" height="614" loading="lazy" decoding="async" alt="Gardevoir-EX, Generations"></div>
-        <div class="tc-body">
-          <b>Gardevoir-EX</b>
-          <span class="tc-meta">Generations · Holofoil · NM</span>
-          <span class="tc-price">$105</span>
-          <span class="tc-trend up">+5.9% · 7D</span>
-        </div>
-      </li>
-      <li class="tc">
-        <div class="tc-art"><img src="/cards/swsh12pt5gg-GG22.webp?v=swsh12pt5gg-GG22" width="440" height="614" loading="lazy" decoding="async" alt="Ditto, Crown Zenith Galarian Gallery"></div>
-        <div class="tc-body">
-          <b>Ditto</b>
-          <span class="tc-meta">Crown Zenith Galarian Gallery · Holofoil · NM</span>
-          <span class="tc-price">$18.03</span>
-          <span class="tc-trend up">+4.5% · 7D</span>
-        </div>
-      </li>
-      <li class="tc">
-        <div class="tc-art"><img src="/cards/sm9-189.webp?v=sm9-189" width="440" height="614" loading="lazy" decoding="async" alt="Cobalion-GX, Team Up"></div>
-        <div class="tc-body">
-          <b>Cobalion-GX</b>
-          <span class="tc-meta">Team Up · Holofoil · NM</span>
-          <span class="tc-price">$16.72</span>
-          <span class="tc-trend up">+3.5% · 7D</span>
-        </div>
-      </li>
-      <li class="tc">
-        <div class="tc-art"><img src="/cards/sm3-20.webp?v=sm3-20" width="440" height="614" loading="lazy" decoding="async" alt="Charizard-GX, Burning Shadows"></div>
-        <div class="tc-body">
-          <b>Charizard-GX</b>
-          <span class="tc-meta">Burning Shadows · Holofoil · NM</span>
-          <span class="tc-price">$28.33</span>
-          <span class="tc-trend up">+3.3% · 7D</span>
-        </div>
-      </li>
-      <li class="tc">
-        <div class="tc-art"><img src="/cards/neo4-46.webp?v=neo4-46" width="440" height="605" loading="lazy" decoding="async" alt="Light Flareon, Neo Destiny"></div>
-        <div class="tc-body">
-          <b>Light Flareon</b>
-          <span class="tc-meta">Neo Destiny · First Edition · NM</span>
-          <span class="tc-price">$61.11</span>
-          <span class="tc-trend up">+3.3% · 7D</span>
-        </div>
-      </li>
-      <li class="tc">
-        <div class="tc-art"><img src="/cards/g1-26.webp?v=g1-26" width="440" height="614" loading="lazy" decoding="async" alt="Pikachu, Generations"></div>
-        <div class="tc-body">
-          <b>Pikachu</b>
-          <span class="tc-meta">Generations · Reverse Holo · NM</span>
-          <span class="tc-price">$16.69</span>
-          <span class="tc-trend up">+3.0% · 7D</span>
-        </div>
-      </li>
-      <li class="tc">
-        <div class="tc-art"><img src="/cards/sv3pt5-7.webp?v=sv3pt5-7" width="440" height="615" loading="lazy" decoding="async" alt="Squirtle, 151"></div>
-        <div class="tc-body">
-          <b>Squirtle</b>
-          <span class="tc-meta">151 · Pokemon Center Stamp · NM</span>
-          <span class="tc-price">$98.69</span>
-          <span class="tc-trend up">+2.6% · 7D</span>
-        </div>
-      </li>
-    </ul>
-    <ul class="tc-list tc-movers" data-set="losers" hidden>
-      <li class="tc">
-        <div class="tc-art"><img src="/cards/xy12-53.webp?v=xy12-53" width="440" height="614" loading="lazy" decoding="async" alt="Mew, Evolutions"></div>
-        <div class="tc-body">
-          <b>Mew</b>
-          <span class="tc-meta">Evolutions · NM</span>
-          <span class="tc-price">$23.45</span>
-          <span class="tc-trend down">−10.4% · 7D</span>
-        </div>
-      </li>
-      <li class="tc">
-        <div class="tc-art"><img src="/cards/me2pt5-277.webp?v=me2pt5-277" width="440" height="615" loading="lazy" decoding="async" alt="Pikachu ex, Ascended Heroes"></div>
-        <div class="tc-body">
-          <b>Pikachu ex</b>
-          <span class="tc-meta">Ascended Heroes · Holofoil · NM</span>
-          <span class="tc-price">$349</span>
-          <span class="tc-trend down">−4.2% · 7D</span>
-        </div>
-      </li>
-      <li class="tc">
-        <div class="tc-art"><img src="/cards/swsh12pt5gg-GG30.webp?v=swsh12pt5gg-GG30" width="440" height="614" loading="lazy" decoding="async" alt="Pikachu, Crown Zenith Galarian Gallery"></div>
-        <div class="tc-body">
-          <b>Pikachu</b>
-          <span class="tc-meta">Crown Zenith Galarian Gallery · Holofoil · NM</span>
-          <span class="tc-price">$46.41</span>
-          <span class="tc-trend down">−3.9% · 7D</span>
-        </div>
-      </li>
-      <li class="tc">
-        <div class="tc-art"><img src="/cards/mep-22.webp?v=mep-22" width="440" height="615" loading="lazy" decoding="async" alt="Charcadet, Mega Evolution Black Star Promos"></div>
-        <div class="tc-body">
-          <b>Charcadet</b>
-          <span class="tc-meta">Mega Evolution Black Star Promos · Pokemon Center Stamp · NM</span>
-          <span class="tc-price">$44.97</span>
-          <span class="tc-trend down">−3.5% · 7D</span>
-        </div>
-      </li>
-      <li class="tc">
-        <div class="tc-art"><img src="/cards/sv4pt5-232.webp?v=sv4pt5-232" width="440" height="615" loading="lazy" decoding="async" alt="Mew ex, Paldean Fates"></div>
-        <div class="tc-body">
-          <b>Mew ex</b>
-          <span class="tc-meta">Paldean Fates · Holofoil · NM</span>
-          <span class="tc-price">$965</span>
-          <span class="tc-trend down">−3.2% · 7D</span>
-        </div>
-      </li>
-      <li class="tc">
-        <div class="tc-art"><img src="/cards/me2pt5-284.webp?v=me2pt5-284" width="440" height="615" loading="lazy" decoding="async" alt="Mega Gengar ex, Ascended Heroes"></div>
-        <div class="tc-body">
-          <b>Mega Gengar ex</b>
-          <span class="tc-meta">Ascended Heroes · Holofoil · NM</span>
-          <span class="tc-price">$1,002</span>
-          <span class="tc-trend down">−3.2% · 7D</span>
-        </div>
-      </li>
-      <li class="tc">
-        <div class="tc-art"><img src="/cards/me2pt5-274.webp?v=me2pt5-274" width="440" height="615" loading="lazy" decoding="async" alt="Mega Feraligatr ex, Ascended Heroes"></div>
-        <div class="tc-body">
-          <b>Mega Feraligatr ex</b>
-          <span class="tc-meta">Ascended Heroes · Holofoil · NM</span>
-          <span class="tc-price">$132</span>
-          <span class="tc-trend down">−3.1% · 7D</span>
-        </div>
-      </li>
-      <li class="tc">
-        <div class="tc-art"><img src="/cards/swsh8-245.webp?v=swsh8-245" width="440" height="614" loading="lazy" decoding="async" alt="Celebi V, Fusion Strike"></div>
-        <div class="tc-body">
-          <b>Celebi V</b>
-          <span class="tc-meta">Fusion Strike · Holofoil · NM</span>
-          <span class="tc-price">$76.33</span>
-          <span class="tc-trend down">−3.1% · 7D</span>
-        </div>
-      </li>
-      <li class="tc">
-        <div class="tc-art"><img src="/cards/sv4-199.webp?v=sv4-199" width="440" height="615" loading="lazy" decoding="async" alt="Groudon, Paradox Rift"></div>
-        <div class="tc-body">
-          <b>Groudon</b>
-          <span class="tc-meta">Paradox Rift · Holofoil · NM</span>
-          <span class="tc-price">$120</span>
-          <span class="tc-trend down">−2.8% · 7D</span>
-        </div>
-      </li>
-      <li class="tc">
-        <div class="tc-art"><img src="/cards/xyp-XY116.webp?v=xyp-XY116" width="440" height="614" loading="lazy" decoding="async" alt="Arceus, XY Black Star Promos"></div>
-        <div class="tc-body">
-          <b>Arceus</b>
-          <span class="tc-meta">XY Black Star Promos · Holofoil · NM</span>
-          <span class="tc-price">$56.75</span>
-          <span class="tc-trend down">−2.7% · 7D</span>
-        </div>
-      </li>
-    </ul>
-  </div>
-</section>
-
-<!-- COLLECTORS -->
-<section class="feat" id="collectors" style="--a:var(--mint)">
-  <div class="wrap feat-in">
-    <div class="feat-copy reveal">
-      <p class="eyebrow">For collectors</p>
-      <h2>Know what your<br><span class="hl">collection is worth.</span></h2>
-      <p class="sub">Your cards and sealed boxes add up to one number.</p>
-      <ul class="pts">
-        <li>Every one is repriced daily from market data.</li>
-        <li>Cost is tracked per purchase, so profit is real.</li>
-        <li>Nothing is public unless you publish it. Hide any card.</li>
-      </ul>
-    </div>
-    <div class="feat-art reveal" style="--i:1">
-      <img src="/art/value.webp?v=5" srcset="/art/value.webp?v=5 720w, /art/value@2x.webp?v=5 1440w" sizes="(max-width:560px) 155vw, (max-width:900px) 100vw, 523px"
-           width="720" height="881" loading="lazy" decoding="async"
-           alt="A portfolio dashboard showing $19,855 across 23 items, up $8,742 over thirty days, with a value chart and the top cards listed underneath.">
-    </div>
-  </div>
-</section>
-
-<!-- SCAN -->
-<section class="feat rev" style="--a:var(--orange)">
-  <div class="wrap feat-in">
-    <div class="feat-copy reveal">
-      <p class="eyebrow">Scan &amp; search</p>
-      <h2>Scan one card.<br><span class="hl">Or a whole page.</span></h2>
-      <p class="sub">Point the camera at a binder page. Every card comes back priced.</p>
-      <ul class="pts">
-        <li>Slabs come back graded, company and grade filled in.</li>
-        <li>The whole Pokémon catalog. Japanese sets read in English.</li>
-        <li>25&nbsp;scans a week free. Pro takes the cap off.</li>
-      </ul>
-    </div>
-    <div class="feat-art phones-art reveal" style="--i:1">
-      <div class="phones" data-phones>
-        <picture>
-          <source media="(max-width:560px)" srcset="/art/scan-m.webp?v=2 1x, /art/scan-m@2x.webp?v=2 2x">
-          <img src="/art/scan.webp?v=2" srcset="/art/scan.webp?v=2 550w, /art/scan@2x.webp?v=2 1100w" sizes="(max-width:900px) 100vw, 465px"
-             width="550" height="757" loading="lazy" decoding="async"
-             alt="The Scan tab ready to read a single card, a stack or a whole spread, beside a catalog search for Charizard returning 113 printings with variant counts.">
-        </picture>
-        <picture class="phone-m">
-          <img src="/art/scan-m2.webp?v=1" srcset="/art/scan-m2.webp?v=1 1x, /art/scan-m2@2x.webp?v=1 2x"
-               width="419" height="835" loading="lazy" decoding="async"
-               alt="A catalog search for Charizard returning 113 printings, each with its variant count.">
-        </picture>
-      </div>
-      <div class="phone-dots" aria-hidden="true"><span class="on"></span><span></span></div>
-    </div>
-  </div>
-</section>
-
-<!-- MATCH -->
-<section class="feat" id="match-sec" style="--a:var(--blue)">
-  <div class="wrap feat-in">
-    <div class="feat-copy reveal">
-      <p class="eyebrow">Match</p>
-      <h2>Find collectors<br><span class="hl">to trade with.</span></h2>
-      <p class="sub">Trades start with two people wanting each other’s cards.</p>
-      <ul class="pts">
-        <li>Tap Interested on any card in anyone’s collection.</li>
-        <li>When they tap back, that’s a Match.</li>
-        <li>A chat opens, so you settle the price before the show.</li>
-      </ul>
-    </div>
-    <div class="feat-art reveal" style="--i:1">
-      <img src="/art/match.webp?v=5" srcset="/art/match.webp?v=5 720w, /art/match@2x.webp?v=5 1440w" sizes="(max-width:560px) 150vw, (max-width:900px) 100vw, 562px"
-           width="720" height="820" loading="lazy" decoding="async"
-           alt="The Matches tab showing a match with another collector, the three cards each side wants, and the chat that opened between them.">
-    </div>
-  </div>
-</section>
-
-<!-- VENDORS -->
-<section class="sec" id="vendors" style="--a:var(--cyan)">
-  <div class="wrap">
-    <div class="sec-head mid reveal">
-      <p class="eyebrow">For vendors</p>
-      <h2>Get found before<br><span class="hl">the doors open.</span></h2>
-      <p class="lede">Publish cards to a show you’re booked at. Buyers arrive with the card already picked out.</p>
-    </div>
-    <div class="grid3" data-stagger>
-      <div class="tile reveal">
-        <h3>Publish in a few taps</h3>
-        <p>Built from cards you already track. Price each one, or Ask.</p>
-      </div>
-      <div class="tile reveal">
-        <h3>Turn up in every search</h3>
-        <p>Anyone searching for the card at that show finds your table.</p>
-      </div>
-      <div class="tile reveal">
-        <h3>Know who’s coming</h3>
-        <p>Interest lands before the show, so you know what to set aside.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PRO -->
-<section class="pro" style="--a:var(--blue)">
-  <div class="wrap pro-in">
-    <div class="pro-copy reveal">
-      <p class="eyebrow" translate="no">TCGVendr Pro</p>
-      <h2>The same app,<br><span class="hl">without the limits.</span></h2>
-      <p class="sub">Everything above is free. Pro removes the caps.</p>
-      <ul class="pro-list">
-        <li><b>Unlimited scanning</b><span>Free covers 25&nbsp;scans a week.</span></li>
-        <li><b>Photos of your own cards</b><span>Show the copy you own instead of the stock art.</span></li>
-        <li><b>Market insights</b><span>Gainers and losers across what you own.</span></li>
-        <li><b>Sales breakdowns</b><span>Profit, ROI and sell-through by set and grade.</span></li>
-        <li><b>Every price range</b><span>Free shows one month.</span></li>
-        <li><b>Pro vendor badge</b><span>On your profile and every table.</span></li>
-      </ul>
-    </div>
-    <div class="pro-art reveal" style="--i:1">
-      <img src="/art/insights.webp?v=2" srcset="/art/insights.webp?v=2 427w, /art/insights@2x.webp?v=2 854w" sizes="(max-width:560px) 96vw, (max-width:860px) 250px, 320px"
-               width="427" height="857" loading="lazy" decoding="async"
-           alt="The Market Insights screen listing seven-day gainers and losers across an owned collection, with the dollar and percentage move on each card.">
-    </div>
-  </div>
-</section>
-
-<!-- PRICING -->
-<section class="sec" id="pricing" style="--a:var(--blue)">
-  <div class="wrap">
-    <p class="eyebrow mid reveal">Pricing</p>
-    <div class="plans" data-stagger>
-      <div class="plan reveal">
-        <div class="plan-top"><div class="pname">Free</div></div>
-        <div class="amt">$0<span> / forever</span></div>
-        <p class="alt">No account needed to browse.</p>
-        <ul class="pts">
-          <li>Every show and every published table</li>
-          <li>Search one card across all shows</li>
-          <li>25&nbsp;card scans a week</li>
-          <li>Track your collection at market value</li>
-          <li>Publish tables, Match, chat and follow</li>
-          <li>One month of price history</li>
+  <section class="feat" id="shows" style="--acc:var(--pink)">
+    <div class="wrap feat-in art-first">
+      <picture class="feat-art duo reveal">
+        <source media="(max-width:560px)" srcset="/art/tables-m.webp?v=1 390w, /art/tables-m@2x.webp?v=1 780w" sizes="100vw">
+        <img src="/art/tables.webp?v=1" srcset="/art/tables.webp?v=1 560w, /art/tables@2x.webp?v=1 1120w" sizes="(max-width:900px) 90vw, 560px" width="560" height="732" loading="lazy" decoding="async" alt="A show page with its date, hours and Going button, next to one vendor's table: a grid of cards, each with a price.">
+      </picture>
+      <div class="feat-copy reveal">
+        <h2>See the tables <span>before you go.</span></h2>
+        <p class="lede">Vendors post the cards they’re bringing, with prices, before the show.</p>
+        <ul class="points">
+          <li>Shows near you, sorted by weekend, with the flyer, hours and entry fee.</li>
+          <li>Open any table to see every card on it and what it costs.</li>
+          <li>Search one card and see which tables at which shows have it.</li>
+          <li>Tap Going, get directions, or message a vendor before you leave.</li>
         </ul>
-        <a class="btn btn-line btn-full" href="https://apps.apple.com/us/app/tcgvendr-card-show-finder/id6778956833">Download free</a>
       </div>
-      <div class="plan hi reveal">
-        <div class="plan-top"><div class="pname">Pro</div></div>
-        <div class="amt">$7.99<span> / month</span></div>
-        <p class="alt">Or $44.99 a year.</p>
-        <ul class="pts">
-          <li>Everything in Free</li>
-          <li>Unlimited scanning</li>
-          <li>Photos of your own cards</li>
-          <li>Market insights and sales breakdowns</li>
-          <li>Every price range, not just one month</li>
-          <li>Pro vendor badge</li>
+    </div>
+  </section>
+
+  <section class="feat" id="collection" style="--acc:var(--mint)">
+    <div class="wrap feat-in">
+      <div class="feat-copy reveal">
+        <h2>Know what your <span>collection is worth.</span></h2>
+        <p class="lede">Singles, slabs and sealed add up to one number that updates every day.</p>
+        <ul class="points">
+          <li>See your biggest movers over a day, a week or a month.</li>
+          <li>Log what you paid, so your profit is real.</li>
+          <li>Get one notification a day when your collection moves.</li>
+          <li>Your cards show on your profile. Hide any you’d rather keep private.</li>
         </ul>
-        <a class="btn btn-a btn-full" href="https://apps.apple.com/us/app/tcgvendr-card-show-finder/id6778956833">Start the free trial</a>
+      </div>
+      <picture class="feat-art single reveal">
+        <img src="/art/collection.webp?v=1" srcset="/art/collection.webp?v=1 440w, /art/collection@2x.webp?v=1 880w" sizes="(max-width:560px) 84vw, 440px" width="440" height="781" loading="lazy" decoding="async" alt="TCGVendr Home: a portfolio worth $65,000 with its 30-day graph, top movers, and the collection split into raw, graded and sealed.">
+      </picture>
+    </div>
+  </section>
+
+  <section class="stack" id="prices" style="--acc:var(--coral)">
+    <div class="wrap">
+      <div class="stack-head reveal">
+        <h2>Years of price history <span>in one graph.</span></h2>
+        <p class="lede">Millions of real data points for singles, slabs and sealed.</p>
+      </div>
+      <picture class="stack-art reveal">
+        <source media="(max-width:560px)" srcset="/art/history-m.webp?v=1 390w, /art/history-m@2x.webp?v=1 780w" sizes="100vw">
+        <img src="/art/history.webp?v=1" srcset="/art/history.webp?v=1 560w, /art/history@2x.webp?v=1 1120w" sizes="(max-width:900px) 90vw, 620px" width="560" height="749" loading="lazy" decoding="async" alt="Gengar VMAX price history: a PSA 10 graph with its recent sales listed underneath, and the raw Near Mint graph going back to 2024.">
+      </picture>
+      <dl class="facts reveal">
+        <div><dt>Raw, by condition</dt><dd>Near Mint through Damaged, each with its own price.</dd></div>
+        <div><dt>Slabs, by grade</dt><dd>Priced from recent sales, listed right under the chart.</dd></div>
+        <div><dt>PSA population</dt><dd>The pop count sits next to the price.</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="feat" id="scan" style="--acc:var(--orange)">
+    <div class="wrap feat-in art-first">
+      <picture class="feat-art single reveal">
+        <img src="/art/scan.webp?v=1" srcset="/art/scan.webp?v=1 440w, /art/scan@2x.webp?v=1 880w" sizes="(max-width:560px) 84vw, 440px" width="440" height="781" loading="lazy" decoding="async" alt="The Scan tab in Page mode: six cards in a binder page, each identified and priced in a row of tiles below the camera.">
+      </picture>
+      <div class="feat-copy reveal">
+        <h2>Experience <span>Multicard Scanning.</span></h2>
+        <p class="lede">Find out what your cards are worth, from one vintage grail to a whole binder page.</p>
+        <ul class="points">
+          <li>Card, Slab and Page modes. A page shot reads up to nine cards.</li>
+          <li>Slabs come back with the grading company and grade filled in.</li>
+          <li>Japanese cards are read and shown in English.</li>
+          <li>Every card lands priced and ready to add to your collection.</li>
+        </ul>
       </div>
     </div>
-    <p class="price-foot reveal">Pro starts with a 7-day free trial and renews through Apple. Cancel any time.</p>
-  </div>
-</section>
+  </section>
 
-<!-- CLOSE -->
-<section class="close" style="--a:var(--cyan)">
-  <div class="wrap close-in">
-    <div class="close-art reveal">
-      <img src="/art/cards.webp?v=5" srcset="/art/cards.webp?v=5 690w, /art/cards@2x.webp?v=5 1380w" sizes="(max-width:560px) 108vw, (max-width:900px) 100vw, 830px"
-           width="690" height="612" loading="lazy" decoding="async"
-           alt="Four Pokémon products tagged to the shows carrying them: a sealed pack at $64.84, Umbreon VMAX at $2,348, Sylveon VMAX at $402 and another sealed pack at $44.04.">
+  <section class="feat" id="favorites" style="--acc:var(--blue)">
+    <div class="wrap feat-in">
+      <div class="feat-copy reveal">
+        <h2>Keep tabs on <span>every card you want.</span></h2>
+        <p class="lede">Heart the shows, tables and cards you care about. They all live on one tab.</p>
+        <ul class="points">
+          <li>Heart a card and its owner knows you want it.</li>
+          <li>Follow the vendors you like buying from.</li>
+          <li>Message anyone from their card, table or profile.</li>
+        </ul>
+      </div>
+      <picture class="feat-art single reveal">
+        <img src="/art/favorites.webp?v=1" srcset="/art/favorites.webp?v=1 440w, /art/favorites@2x.webp?v=1 880w" sizes="(max-width:560px) 84vw, 440px" width="440" height="781" loading="lazy" decoding="async" alt="The Favorites tab: hearted shows with their flyers, hearted cards with prices, and followed vendors.">
+      </picture>
     </div>
-    <h2 class="reveal">Don’t guess.<br><span class="hl">Show up with a plan.</span></h2>
-    <div class="close-cta reveal">
-      <a class="btn" href="https://apps.apple.com/us/app/tcgvendr-card-show-finder/id6778956833">Download on the App Store</a>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- FAQ -->
-<section class="sec" id="faq" style="--a:var(--blue)">
-  <div class="wrap">
-    <div class="sec-head mid reveal"><h2>Common questions.</h2></div>
-    <div class="faq reveal">
-      <details>
-        <summary>Is this a marketplace?</summary>
-        <p>No. Vendors post what they’re bringing and the deal happens in person at the show. There are no payments, no shipping and no escrow.</p>
-      </details>
-      <details>
-        <summary>Do I need an account?</summary>
-        <p>Not to look around. Browsing and saving shows, tables and cards works without one. You’ll need an account to publish a table, tap Interested, or message someone.</p>
-      </details>
-      <details>
-        <summary>Which card games are supported?</summary>
-        <p>Pokémon right now: English and Japanese sets plus sealed. The catalog was built to take Magic, Yu-Gi-Oh!, One Piece and Lorcana later.</p>
-      </details>
-      <details>
-        <summary>Where do the prices come from?</summary>
-        <p>Market data, refreshed daily. Graded cards are priced off recent completed sales, and those sales are listed under the chart so you can check the math. Vendors can take the market price, set their own, or leave a card as Ask.</p>
-      </details>
-      <details>
-        <summary>I run a show. Can I get it listed?</summary>
-        <p>Yes. Submit it from the Shows tab. Submissions get reviewed before they publish, and listing is free.</p>
-      </details>
-      <details>
-        <summary>Is there an Android version?</summary>
-        <p>Not yet. iOS is live now and Android is planned.</p>
-      </details>
+  <section class="vendors" id="vendors" style="--acc:var(--mint)">
+    <div class="wrap">
+      <div class="vendors-head reveal">
+        <p class="eyebrow">For vendors</p>
+        <h2>Get found <span>before the doors open.</span></h2>
+        <p class="lede">Put the cards you’re bringing in front of buyers before the show starts.</p>
+      </div>
+      <div class="v-grid reveal">
+        <div class="v-item">
+          <h3>Publish a table</h3>
+          <p>Pick cards from your collection for any show you’re booked at. It takes a few taps.</p>
+        </div>
+        <div class="v-item">
+          <h3>Price it your way</h3>
+          <p>Set your own prices or let market value show. Prices you set save back to your cards for next time.</p>
+        </div>
+        <div class="v-item">
+          <h3>Show up in search</h3>
+          <p>Anyone who searches for a card at that show finds it on your table.</p>
+        </div>
+        <div class="v-item">
+          <h3>See who wants what</h3>
+          <p>You’ll know when someone hearts one of your cards, so you can bring it or set it aside.</p>
+        </div>
+      </div>
+      <div class="v-band reveal">
+        <p><b>Bringing cards but not tabling?</b> Tap Going on the show and pick what you’re bringing so other collectors can see it.</p>
+        <p><b>Run a show?</b> Send it in from the Shows tab. Listing is free.</p>
+      </div>
     </div>
-    <p class="faq-more reveal">Something else? <a href="mailto:support@tcgvendr.com">support@tcgvendr.com</a></p>
-  </div>
-</section>
+  </section>
+
+  <section class="pro" id="pro" style="--acc:var(--blue)">
+    <div class="wrap">
+      <div class="pro-card reveal">
+        <div class="pro-intro">
+          <h2>TCGVendr <span>Pro</span></h2>
+          <p class="pro-price"><b>$7.99</b> a month or <b>$44.99</b> a year</p>
+          <p class="pro-note">New subscribers get 7 days free. Billed to your Apple ID, cancel anytime in Settings.</p>
+        </div>
+        <ul class="pro-list">
+          <li><b>Full price history</b><span>Open every range on every graph, going back years.</span></li>
+          <li><b>Unlimited scanning</b><span>Scan hundreds of singles, slabs and binder pages.</span></li>
+          <li><b>Real card photos</b><span>Swap stock art for photos of your actual cards.</span></li>
+          <li><b>Market insights</b><span>Top movers, sell-through and ROI on every sale.</span></li>
+          <li><b>Pro vendor badge</b><span>Stand out on every table you publish.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="close" aria-labelledby="close-h">
+    <img class="close-glow" src="/art/close-glow.webp?v=1" width="1600" height="1300" alt="" aria-hidden="true">
+    <div class="wrap close-in reveal">
+      <svg class="close-mark" aria-hidden="true"><use href="#i-mark"/></svg>
+      <p class="close-word" translate="no">TCGVENDR</p>
+      <div class="close-row">
+        <svg class="close-lines" viewBox="0 0 400 70" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M70 6 C70 40 150 34 150 70"/>
+          <path d="M330 6 C330 40 250 34 250 70"/>
+        </svg>
+        <span class="close-tag close-tag-l"><svg aria-hidden="true"><use href="#i-table"/></svg>Las Vegas Card Show</span>
+        <span class="close-tag close-tag-r"><svg aria-hidden="true"><use href="#i-table"/></svg>Front Row Card Show</span>
+        <figure>
+          <img src="/art/close/pack-umbreon.webp" width="320" height="577" loading="lazy" decoding="async" alt="Evolving Skies sleeved booster pack">
+          <figcaption><b>$64.84</b><span>SEALED</span></figcaption>
+        </figure>
+        <figure>
+          <img src="/art/close/umbreon-vmax.webp" width="320" height="446" loading="lazy" decoding="async" alt="Umbreon VMAX, Evolving Skies alternate art">
+          <figcaption><b>$2,348</b><span>Near Mint</span></figcaption>
+        </figure>
+        <figure>
+          <img src="/art/close/sylveon-vmax.webp" width="320" height="446" loading="lazy" decoding="async" alt="Sylveon VMAX, Evolving Skies alternate art">
+          <figcaption><b>$402</b><span>Near Mint</span></figcaption>
+        </figure>
+        <figure>
+          <img src="/art/close/pack-sylveon.webp" width="320" height="576" loading="lazy" decoding="async" alt="Evolving Skies booster pack">
+          <figcaption><b>$44.04</b><span>SEALED</span></figcaption>
+        </figure>
+      </div>
+      <h2 id="close-h" class="close-h">Don’t guess. <span>Show up with a plan.</span></h2>
+      <a class="close-pill" href="https://apps.apple.com/us/app/tcgvendr-card-show-finder/id6778956833"><svg aria-hidden="true"><use href="#i-star"/></svg>Free on the App Store</a>
+      <div class="social">
+        <a href="https://www.instagram.com/tcgvendr.app/" rel="me noopener" target="_blank"><svg aria-hidden="true"><use href="#i-ig"/></svg>Instagram</a>
+        <a href="https://www.tiktok.com/@tcgvendr.app" rel="me noopener" target="_blank"><svg aria-hidden="true"><use href="#i-tt"/></svg>TikTok</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq" id="faq">
+    <div class="wrap faq-in">
+      <div class="faq-head">
+        <h2>Questions</h2>
+        <p>Something else? Email <a href="mailto:support@tcgvendr.com">support@tcgvendr.com</a> and we’ll get back to you.</p>
+      </div>
+      <div class="faq-list">
+        <details>
+          <summary>Is TCGVendr a marketplace?</summary>
+          <p>No. Vendors show what they’re bringing, and you buy in person at the show. There are no payments, shipping or escrow in the app.</p>
+        </details>
+        <details>
+          <summary>Is it free?</summary>
+          <p>Yes. Shows, tables, search, your collection, favorites, messages and publishing a table are all free, and you get 25 scans a week. TCGVendr Pro is optional.</p>
+        </details>
+        <details>
+          <summary>Do I need an account?</summary>
+          <p>Yes. Sign in with Apple, Google or your email (we send you a code, there’s no password). Then add a display name and your home state so the app can show you shows nearby.</p>
+        </details>
+        <details>
+          <summary>Who can see my collection?</summary>
+          <p>Your cards show on your profile, with an asking price if you set one. Nobody sees what you paid or what you’ve sold. Hide any card to take it off your profile.</p>
+        </details>
+        <details>
+          <summary>Where do the prices come from?</summary>
+          <p>Raw cards and sealed follow the live market and update every day. Slabs are priced from recent sales, and you can see those sales under the chart. On a table, the vendor’s own price comes first.</p>
+        </details>
+        <details>
+          <summary>Which games does it cover?</summary>
+          <p>Pokémon for now: English and Japanese cards, plus sealed product. Japanese cards show their English names.</p>
+        </details>
+        <details>
+          <summary>I run a show. How do I get it listed?</summary>
+          <p>Tap + on the Shows tab and fill it in. We check every show before it goes live, and listing is free.</p>
+        </details>
+        <details>
+          <summary>Is there an Android app?</summary>
+          <p>Not right now. TCGVendr is iPhone only.</p>
+        </details>
+      </div>
+    </div>
+  </section>
 
 </main>
 
-<footer>
-  <div class="wrap">
-    <div class="foot">
-      <div class="foot-brand">
-        <div class="brand" translate="no">
-          <span class="mk" aria-hidden="true"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"><path d="M31 81.5A36 36 0 1 1 69 81.5"/><path d="M35.5 39 50 66 64.5 39"/></svg></span>
-          TCGVendr
-        </div>
-        <p>Show discovery with real table inventory.</p>
-      </div>
-      <div class="foot-col">
-        <h3>Product</h3>
-        <a href="#how">How it works</a>
-        <a href="#buyers">For buyers</a>
-        <a href="#vendors">For vendors</a>
-        <a href="#pricing">Pricing</a>
-      </div>
-      <div class="foot-col">
-        <h3>Company</h3>
-        <a href="mailto:support@tcgvendr.com">Contact</a>
-        <a href="#faq">FAQ</a>
-        <a href="https://apps.apple.com/us/app/tcgvendr-card-show-finder/id6778956833">Download</a>
-      </div>
-      <div class="foot-col">
-        <h3>Legal</h3>
-        <a href="/terms">Terms</a>
-        <a href="/privacy">Privacy</a>
+<footer class="foot">
+  <div class="wrap foot-in">
+    <div class="foot-brand">
+      <a class="brand" href="/" translate="no"><svg class="mark" aria-hidden="true"><use href="#i-mark"/></svg>TCGVendr</a>
+      <p>The portfolio and card show app.</p>
+      <div class="foot-social">
+        <a href="https://www.instagram.com/tcgvendr.app/" rel="me noopener" target="_blank" aria-label="TCGVendr on Instagram"><svg aria-hidden="true"><use href="#i-ig"/></svg></a>
+        <a href="https://www.tiktok.com/@tcgvendr.app" rel="me noopener" target="_blank" aria-label="TCGVendr on TikTok"><svg aria-hidden="true"><use href="#i-tt"/></svg></a>
       </div>
     </div>
-    <div class="foot-note">&copy; 2026 TCGVendr. Not affiliated with or endorsed by The Pokémon Company or any game publisher.</div>
+    <nav class="foot-cols" aria-label="Footer">
+      <div>
+        <h3>App</h3>
+        <a href="#shows">Shows</a>
+        <a href="#collection">Collection</a>
+        <a href="#scan">Scan</a>
+        <a href="#vendors">Vendors</a>
+        <a href="#pro">Pro</a>
+      </div>
+      <div>
+        <h3>Help</h3>
+        <a href="#faq">FAQ</a>
+        <a href="mailto:support@tcgvendr.com">Contact</a>
+        <a href="https://apps.apple.com/us/app/tcgvendr-card-show-finder/id6778956833">App Store</a>
+      </div>
+      <div>
+        <h3>Legal</h3>
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+      </div>
+    </nav>
+  </div>
+  <div class="wrap foot-base">
+    <p>© 2026 TCGVendr. Not affiliated with or endorsed by The Pokémon Company or any game publisher.</p>
   </div>
 </footer>
 
-<script src="/main.js?v=15" defer></script>
+<script src="/main.js?v=80" defer></script>
 </body>
 </html>
