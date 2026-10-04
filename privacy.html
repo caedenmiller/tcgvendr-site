@@ -32,7 +32,7 @@
   <div class="wrap">
     <a class="back" href="/"><svg aria-hidden="true"><use href="#i-left"/></svg>tcgvendr.com</a>
     <h1>Privacy Policy</h1>
-    <p class="updated">Effective October 1, 2026</p>
+    <p class="updated">Effective October 2, 2026</p>
 
     <p class="intro">TCGVendr is an iPhone app for trading-card shows. Vendors post the cards they’re bringing to upcoming shows, collectors track what they own, and everyone can browse shows, tables and cards. This policy covers what the app collects, who can see what, and how to delete it. The short version: we collect what the app needs to work, we don’t run ads, we don’t sell your data, and we don’t track you across other companies’ apps or websites.</p>
 
@@ -73,7 +73,7 @@
       <li><strong>Sales.</strong> Sales you record, including price, date and notes.</li>
       <li><strong>Social activity.</strong> Shows, tables and cards you favorite, vendors you follow, messages you send, people you block, and reports you file.</li>
       <li><strong>Card scans.</strong> When you scan, the photo goes through our servers to Cardsight, which identifies the card. Some of the reading happens on your phone first. Cardsight isn’t given your account, and we don’t keep the photo. We do count how many scans each account makes per day, for the weekly scan limit.</li>
-      <li><strong>PSA certification numbers.</strong> If you enter a PSA cert number on a graded card, our servers send that number (and nothing else) to PSA to fetch the official image of the slab. That image is stored and reused for anyone who enters the same cert number.</li>
+      <li><strong>PSA certification numbers.</strong> When you scan a PSA slab, your phone reads the cert number off its label. When you scan or add a PSA slab, our servers send that cert number (and nothing else) to PSA to look up PSA’s photo of the slab. We keep PSA’s link to the photo for up to 30 days and reuse it for anyone with the same cert number. The photo itself loads from PSA’s servers. We keep a record of each lookup (the cert number, your account identifier and the result) for two years, as our agreement with PSA requires.</li>
       <li><strong>Subscriptions.</strong> If you buy TCGVendr Pro, Apple handles the payment and tells RevenueCat whether your subscription is active. We see that status for your account. We never see your card number or billing address.</li>
     </ul>
 
@@ -127,7 +127,7 @@
       <li><strong>RevenueCat:</strong> tracks whether Pro is active, keyed to your account identifier. It gets the receipt from Apple, never your payment details.</li>
       <li><strong>Scrydex:</strong> the card catalog and market prices. Searches go through our servers, so Scrydex isn’t given your account. Card images load straight from Scrydex’s image servers, which see your IP address.</li>
       <li><strong>Cardsight:</strong> card recognition for scans, as described above.</li>
-      <li><strong>PSA:</strong> official slab images, looked up by cert number only.</li>
+      <li><strong>PSA:</strong> official slab photos, looked up by cert number only. The photos load straight from PSA’s servers, which see your IP address.</li>
       <li><strong>PostHog:</strong> product analytics and session replays.</li>
       <li><strong>Sentry:</strong> crash and error reports.</li>
       <li><strong>Expo:</strong> delivers push notifications through Apple.</li>
@@ -142,6 +142,7 @@
       <li>Shows you submitted stay listed, with their flyers, because other people rely on them. Your name is removed from them.</li>
       <li>Copies of messages or content that were reported stay while we review the report.</li>
       <li>Records of subscription billing events from RevenueCat, which we keep for our accounts.</li>
+      <li>The record of PSA lookups (cert numbers and account identifiers), kept for two years under our agreement with PSA.</li>
       <li>Analytics and crash data in PostHog and Sentry aren’t removed automatically. Email us and we’ll delete yours.</li>
       <li>Backups expire on a rolling schedule.</li>
     </ul>
