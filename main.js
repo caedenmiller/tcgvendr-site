@@ -66,8 +66,13 @@
 
     var prev = document.querySelector('[data-scroll="-1"]');
     var next = document.querySelector('[data-scroll="1"]');
+    var arrows = prev && prev.closest('.strip-nav');
     var sync = function () {
       if (!prev || !next) return;
+      // A row that fits has nothing to scroll: two greyed arrows read as
+      // broken (10-07, six tiles left at desktop width). Hidden, not removed,
+      // so the header keeps its height.
+      if (arrows) arrows.style.visibility = list.scrollWidth <= list.clientWidth + 8 ? 'hidden' : '';
       prev.disabled = list.scrollLeft < 8;
       next.disabled = list.scrollLeft + list.clientWidth > list.scrollWidth - 8;
     };
