@@ -49,20 +49,33 @@
     window.matchMedia('(min-width: 901px)').addEventListener('change', function (m) { if (m.matches) setOpen(false); });
   }
 
-  /* On the tables: each card carries its show's last day (data-end). Once that
-     day has passed the card hides itself, and with fewer than four left the
-     whole strip goes, so an old bake never advertises a past show. */
+  /* On the tables: each card carries its show's last day (data-end). With four
+     or more cards still upcoming, the ended ones go. With fewer, the strip
+     keeps the ended ones instead of disappearing (Caeden 10-14): upcoming
+     cards first, the rest without their past show line, under a heading
+     that doesn't say "upcoming". */
   var list = document.querySelector('[data-tiles]');
   if (list) {
     var d = new Date();
     var today = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
-    var live = 0;
-    list.querySelectorAll('.tile').forEach(function (t) {
+    var ended = [].slice.call(list.querySelectorAll('.tile')).filter(function (t) {
       var end = t.getAttribute('data-end');
-      if (end && end < today) t.remove(); else live++;
+      return end && end < today;
     });
+    var live = list.querySelectorAll('.tile').length - ended.length;
+    if (live >= 4) {
+      ended.forEach(function (t) { t.remove(); });
+    } else if (ended.length) {
+      ended.forEach(function (t) {
+        var when = t.querySelector('.tile-show');
+        if (when) when.remove();
+        list.appendChild(t);
+      });
+      var head = document.getElementById('tables-h');
+      if (head && head.getAttribute('data-past')) head.textContent = head.getAttribute('data-past');
+    }
     var strip = list.closest('.strip');
-    if (live < 4 && strip) { strip.remove(); return; }
+    if (list.querySelectorAll('.tile').length < 4 && strip) { strip.remove(); return; }
 
     var prev = document.querySelector('[data-scroll="-1"]');
     var next = document.querySelector('[data-scroll="1"]');

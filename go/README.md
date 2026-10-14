@@ -14,4 +14,4 @@ the campaign token lives here, so a token change never touches a bio.
 
 
 **Regenerate** after editing the template or re-baking the tables: `python3 go/gen.py maya ugc-maya && python3 go/gen.py reddit reddit`.
-The strip at the top reads `data/tables.json` (cards on tables at upcoming shows), the same bake as the landing page's "Cards waiting at upcoming shows" strip (scripts/website-tables.py). Tiles from shows that have ended drop out on their own.
+The strip at the top reads `data/tables.json` (cards on tables at upcoming shows), the same bake as the landing page's "Cards waiting at upcoming shows" strip (scripts/website-tables.py). Tiles from shows that have ended drop out on their own while three or more are still upcoming; with fewer, the ended ones stay (without their show line) so the strip never empties.

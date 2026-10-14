@@ -2,8 +2,8 @@
 """Regenerate /go/<dir>/index.html.  usage: python3 gen.py <dir> <ct>
 The strip at the top reads ../data/tables.json (cards on tables at upcoming
 shows, baked by scripts/website-tables.py). Each tile carries its show's last
-day; the page drops tiles from shows that have ended and hides the strip when
-fewer than three are left."""
+day; with three or more still upcoming the page drops the ended ones, with fewer
+it keeps them after the upcoming ones, without their past show line."""
 import json, sys, os, html
 dir_, ct = sys.argv[1], sys.argv[2]
 here = os.path.dirname(os.path.abspath(__file__))
@@ -95,10 +95,16 @@ p span{{color:var(--blue)}}
 <div class="foot" id="hint" hidden>Not opening? Tap ⋯ and choose Open in browser.</div>
 <script>
 (function(){{
-  // drop cards from shows that have ended; hide the strip when too few are left
+  // three or more cards still upcoming: drop the ended ones. Fewer: keep the
+  // ended ones after them, without their past show line (Caeden 10-14)
   var d=new Date(),today=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
-  var tiles=[].slice.call(document.querySelectorAll(".t"));
-  tiles.forEach(function(t){{if(t.getAttribute("data-end")<today)t.remove();}});
+  var tiles=[].slice.call(document.querySelectorAll(".t")),list=document.querySelector(".list");
+  var ended=tiles.filter(function(t){{return t.getAttribute("data-end")<today;}});
+  if(tiles.length-ended.length>=3){{ended.forEach(function(t){{t.remove();}});}}
+  else if(ended.length){{
+    ended.forEach(function(t){{var s=t.querySelector(".ts");if(s)s.remove();list.appendChild(t);}});
+    document.querySelector(".eyebrow").textContent="On vendors’ tables";
+  }}
   var left=document.querySelectorAll(".t").length,sc=document.getElementById("scroll"),dotsEl=document.getElementById("dots");
   if(left<3){{document.getElementById("strip").hidden=true;}}
   else{{
