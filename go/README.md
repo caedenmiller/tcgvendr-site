@@ -4,12 +4,15 @@ One folder per channel/persona, each a redirect to the App Store campaign link. 
 browser; inside the Instagram / Facebook / Threads / TikTok in-app browsers (user agent sniffed) the
 page shows an "Open in App Store" BUTTON instead, because those web views drop an automatic
 navigation to apps.apple.com (blank page) but honor a user tap. No `<meta refresh>` for that reason
-(App Store Connect → Analytics → Acquisition → Campaigns). The bio holds the short address;
+(App Store Connect → Analytics → Acquisition → Campaigns).
+
+**TikTok is different (10-20):** TikTok refuses App Store links from personal accounts even on a tap ("Action can't be completed", policy since 2023). `/escape.js`, loaded on every site page and every /go page, catches App Store taps inside TikTok on iPhone: it opens /go/tiktok/ in Safari (x-safari-https, iOS 17+), which redirects to the store, and if the page is still showing 1.2 s later it shows a sheet with the manual way out (⋯ then Open in browser, or search the App Store). The bio stays tcgvendr.com (Caeden's ruling). `/go/tt-test/` = the on-device test page (six ways out, labelled A to F). The bio holds the short address;
 the campaign token lives here, so a token change never touches a bio.
 
 | path | campaign (ct=) | used in |
 |---|---|---|
 | /go/maya | ugc-maya | @maya.collects Instagram bio (TikTok bio points at the Instagram until 1,000 followers) |
+| /go/tiktok | tiktok | the Safari landing for the TikTok escape (not a bio link; the bio stays tcgvendr.com) |
 | /go/reddit | reddit | u/C333343 Reddit profile. Per-subreddit splits, if ever wanted, follow as /go/reddit-<sub> with ct=reddit-<sub>, leaving plain `reddit` as the profile/catch-all. |
 
 
