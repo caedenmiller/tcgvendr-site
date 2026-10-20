@@ -3,11 +3,12 @@
    bio link (tcgvendr.com) can't reach the store from inside TikTok. On an
    iPhone inside TikTok, a tap on any App Store link instead shows a sheet with
    the way out: ⋯ then Open in browser, or search the App Store by name.
-   While the sheet is up the address reads /go/tiktok/, so Open in browser
-   lands on that page in Safari, which redirects straight to the App Store
-   (ct=tiktok). Closing the sheet puts the address back.
-   The x-safari-https one-tap jump was tried first and does NOT work inside
-   TikTok (Caeden's phone, 10-20).
+   The tap first LOADS /go/tiktok/ (a real navigation), which opens with the
+   sheet up, so Open in browser hands Safari that page and Safari redirects
+   straight to the App Store (ct=tiktok).
+   Tried and failed on Caeden's phone 10-20: the x-safari-https one-tap jump,
+   and history.replaceState to /go/tiktok/ (TikTok's Open in browser uses the
+   last LOADED address, so the homepage came back).
    Loaded on every page and every /go page; does nothing anywhere else. */
 (function () {
   var ua = navigator.userAgent;
@@ -15,11 +16,11 @@
   if (!/iPhone|iPad|iPod/i.test(ua)) return;
 
   var LANDING = '/go/tiktok/';
-  var original = null;
+  var onLanding = location.pathname === LANDING;
   var sheet = null;
   // /go pages redirect to the store on their own once in Safari: no step 3
   var onGo = location.pathname.indexOf('/go/') === 0;
-  var canSwap = !!(window.history && history.replaceState);
+
 
   function css() {
     var s = document.createElement('style');
@@ -59,7 +60,7 @@
         '<ol class="tt-steps">' +
           '<li><span class="tt-n">1</span><span>Tap <b>⋯</b> at the top right</span></li>' +
           '<li><span class="tt-n">2</span><span>Choose <b>Open in browser</b></span></li>' +
-          (onGo || canSwap ? '' : '<li><span class="tt-n">3</span><span>Tap <b>Get the app</b> again</span></li>') +
+          (onGo ? '' : '<li><span class="tt-n">3</span><span>Tap <b>Get the app</b> again</span></li>') +
         '</ol>' +
         '<div class="tt-alt"><img src="/go/icon.png?v=1" alt=""><span>Or search <b>TCGVendr</b> in the App Store. It’s free.</span></div>' +
         '<button class="tt-close" type="button">Got it</button>' +
@@ -74,25 +75,31 @@
     if (!sheet) build();
     sheet.hidden = false;
     requestAnimationFrame(function () { requestAnimationFrame(function () { sheet.classList.add('on'); }); });
-    if (canSwap && !onGo && original === null) {
-      original = location.pathname + location.search + location.hash;
-      try { history.replaceState(history.state, '', LANDING); } catch (err) { original = null; }
-    }
   }
 
   function hide() {
     sheet.classList.remove('on');
-    if (original !== null) {
-      try { history.replaceState(history.state, '', original); } catch (err) { /* keep going */ }
-      original = null;
+    // came here from one of our pages: Got it goes back there
+    if (onLanding && document.referrer.indexOf(location.origin) === 0 && history.length > 1) {
+      history.back();
+      return;
     }
     setTimeout(function () { sheet.hidden = true; }, 220);
+  }
+
+  if (onLanding) {
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', show);
+    else show();
   }
 
   document.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('a[href*="apps.apple.com"]');
     if (!a) return;
     e.preventDefault();
-    show();
+    // /go pages already redirect in Safari: just show the sheet there.
+    // Everywhere else, load the landing page so it becomes the address
+    // TikTok's Open in browser hands to Safari.
+    if (onGo) show();
+    else window.location.href = LANDING;
   }, true);
 })();
