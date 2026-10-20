@@ -130,6 +130,7 @@ p span{{color:var(--blue)}}
   else{{location.replace(url);}}
 }})();
 </script>
+<script src="/escape.js?v=1" defer></script>
 </body>
 </html>
 '''
