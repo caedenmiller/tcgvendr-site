@@ -6,6 +6,8 @@
                     in-app browser it opened in: tiktok, instagram, facebook,
                     threads, or none)
      web_store_tap  a tap on any App Store or /go link
+   android.js adds web_android_sheet_shown (trigger) and
+   web_android_waitlist_joined through window.tvTrack (never the email).
    No library, no cookies, no person profiles. The id lives in sessionStorage,
    so it's forgotten when the tab closes and never follows anyone across
    visits (privacy.html section 12 says this).
@@ -59,4 +61,7 @@
     var ct = /[?&]ct=([^&]+)/.exec(href);
     send('web_store_tap', { href: href, ct: ct ? ct[1] : null });
   }, true);
+
+  // For the other page scripts (android.js): same id, same in_app/os props.
+  window.tvTrack = send;
 })();
