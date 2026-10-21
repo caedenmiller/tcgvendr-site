@@ -6,7 +6,7 @@ page shows an "Open in App Store" BUTTON instead, because those web views drop a
 navigation to apps.apple.com (blank page) but honor a user tap. No `<meta refresh>` for that reason
 (App Store Connect → Analytics → Acquisition → Campaigns).
 
-**TikTok is different (10-20):** TikTok refuses App Store links from personal accounts even on a tap ("Action can't be completed", policy since 2023). `/escape.js`, loaded on every site page and every /go page, catches App Store taps inside TikTok on iPhone and shows a sheet at once: ⋯ then Open in browser, or search the App Store. While the sheet is up the address reads /go/tiktok/, so Open in browser lands there in Safari and redirects to the store (ct=tiktok). The x-safari-https one-tap jump does NOT work in TikTok (Caeden's phone, 10-20). The bio stays tcgvendr.com (Caeden's ruling). `/go/tt-test/` = the on-device test page (six ways out, labelled A to F). The bio holds the short address;
+**TikTok is different (10-20):** TikTok refuses App Store links from personal accounts even on a tap ("Action can't be completed", policy since 2023). `/escape.js`, loaded on every site page and every /go page, catches App Store taps inside TikTok on iPhone and LOADS /go/tiktok/, which opens with the sheet up (⋯ then Open in browser, or search the App Store). Open in browser hands Safari that page, which redirects to the store (ct=tiktok). Failed on Caeden's phone 10-20: x-safari-https (no jump) and history.replaceState (TikTok opens the last LOADED address). The bio stays tcgvendr.com (Caeden's ruling). `/go/tt-test/` = the on-device test page (six ways out, labelled A to F). The bio holds the short address;
 the campaign token lives here, so a token change never touches a bio.
 
 | path | campaign (ct=) | used in |

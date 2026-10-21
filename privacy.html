@@ -32,7 +32,7 @@
   <div class="wrap">
     <a class="back" href="/"><svg aria-hidden="true"><use href="#i-left"/></svg>tcgvendr.com</a>
     <h1>Privacy Policy</h1>
-    <p class="updated">Effective October 10, 2026</p>
+    <p class="updated">Effective October 21, 2026</p>
 
     <p class="intro">TCGVendr is an iPhone app for trading-card shows. Vendors post the cards they’re bringing to upcoming shows, collectors track what they own, and everyone can browse shows, tables and cards. This policy covers what the app collects, who can see what, and how to delete it. The short version: we collect what the app needs to work, we don’t run ads, we don’t sell your data, and we don’t track you across other companies’ apps or websites.</p>
 
@@ -128,7 +128,7 @@
       <li><strong>Scrydex:</strong> the card catalog and market prices. Searches go through our servers, so Scrydex isn’t given your account. Card images load straight from Scrydex’s image servers, which see your IP address.</li>
       <li><strong>Cardsight:</strong> card recognition for scans, as described above.</li>
       <li><strong>PSA:</strong> official slab photos, looked up by cert number only. The photos load straight from PSA’s servers, which see your IP address.</li>
-      <li><strong>PostHog:</strong> product analytics and session replays.</li>
+      <li><strong>PostHog:</strong> product analytics, session replays and website visit counts.</li>
       <li><strong>Sentry:</strong> crash and error reports.</li>
       <li><strong>Expo:</strong> delivers push notifications through Apple.</li>
       <li><strong>Brevo:</strong> sends the email with your sign-in code. It also sends us a note when someone submits a show, which includes the submitter’s email address.</li>
@@ -158,7 +158,7 @@
     <p>Data is encrypted in transit. Sign-in uses one-time codes, Apple or Google, so there’s no TCGVendr password to steal, and session tokens are kept in your phone’s keychain. Access rules run on our servers, so an account can read only what the visibility rules above allow.</p>
 
     <h2 id="website">12. This website</h2>
-    <p>tcgvendr.com doesn’t use cookies, analytics or trackers. It’s hosted on GitHub Pages, which keeps standard server logs such as IP addresses.</p>
+    <p>tcgvendr.com doesn’t use cookies or advertising trackers. It counts visits with PostHog: the page you opened, the site or app that sent you there (for example TikTok), your device type, and whether you tapped through to the App Store. PostHog estimates your approximate location from your IP address. Each visit gets a random identifier that your browser forgets when you close the tab, so visits aren’t linked to you or to each other, and nothing here is tied to an app account. The site is hosted on GitHub Pages, which keeps standard server logs such as IP addresses.</p>
 
     <h2 id="changes">13. Changes and contact</h2>
     <p>If this policy changes in a meaningful way, we’ll update this page and the date at the top. Questions or requests, including deletion: <a href="mailto:support@tcgvendr.com">support@tcgvendr.com</a>.</p>
@@ -171,6 +171,7 @@
     <nav aria-label="Footer"><a href="/">Home</a><a href="/terms">Terms</a><a href="mailto:support@tcgvendr.com">Contact</a></nav>
   </div>
 </footer>
+<script src="/track.js?v=1"></script>
 <script src="/escape.js?v=3" defer></script>
 </body>
 </html>
