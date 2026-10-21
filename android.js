@@ -7,6 +7,8 @@
    The email goes to the android-waitlist Edge Function (saves it, emails
    Caeden). PostHog gets web_android_sheet_shown and web_android_waitlist_joined
    through track.js, never the email.
+   On the homepage the hero badge reads "On Android? Get notified" and the
+   "Get the app" pills read "Get notified" (relabel below).
    Loaded on every site page and every /go page; does nothing off Android. */
 (function () {
   if (!/Android/i.test(navigator.userAgent)) return;
@@ -153,6 +155,35 @@
     css();
     sub.insertAdjacentElement('afterend', b);
   }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', goButton);
-  else goButton();
+  // The homepage speaks to Android directly (10-21): the hero's App Store
+  // badge becomes "On Android? Get notified", and the "Get the app" pills say
+  // "Get notified", so nobody reads an Apple badge as "not for me" and leaves
+  // without finding the signup. The pills keep their App Store href, so the
+  // listener above opens the sheet; the hero button opens it itself.
+  function relabel() {
+    var hero = document.querySelector('.cta-row a.store');
+    if (hero) {
+      hero.setAttribute('href', '#');
+      hero.setAttribute('aria-label', 'On Android? Get notified when TCGVendr comes to Android');
+      hero.innerHTML =
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+          '<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>' +
+        '<span><small>On Android?</small><b>Get notified</b></span>';
+      hero.addEventListener('click', function (e) {
+        e.preventDefault();
+        show('hero_button');
+      });
+    }
+    var pills = document.querySelectorAll('.nav-cta, .menu .pill');
+    for (var i = 0; i < pills.length; i++) pills[i].textContent = 'Get notified';
+    var close = document.querySelector('.close-pill');
+    if (close) close.lastChild.textContent = 'Get notified on Android';
+  }
+
+  function ready() {
+    goButton();
+    relabel();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', ready);
+  else ready();
 })();

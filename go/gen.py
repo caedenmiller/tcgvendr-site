@@ -132,7 +132,7 @@ p span{{color:var(--blue)}}
 }})();
 </script>
 <script src="/escape.js?v=3" defer></script>
-<script src="/android.js?v=1" defer></script>
+<script src="/android.js?v=2" defer></script>
 </body>
 </html>
 '''
