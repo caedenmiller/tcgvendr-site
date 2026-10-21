@@ -16,7 +16,9 @@
    survives the navigation). */
 (function () {
   var KEY = 'phc_tKUVCnpDc2XCnZUeNS5v723mcqwKfBDqzhuGpxesLakb';
-  var URL = 'https://us.i.posthog.com/i/v0/e/';
+  // NOT named URL: that shadowed window.URL, so new URL(document.referrer) threw
+  // and every visit that arrived WITH a referrer sent nothing (fixed 10-21).
+  var ENDPOINT = 'https://us.i.posthog.com/i/v0/e/';
   var ua = navigator.userAgent;
   var inApp = /TikTok|musical_ly|BytedanceWebview|trill_/i.test(ua) ? 'tiktok'
     : /Barcelona/i.test(ua) ? 'threads'
@@ -39,16 +41,20 @@
     var body = JSON.stringify({ api_key: KEY, event: event, distinct_id: id, timestamp: new Date().toISOString(), properties: p });
     try {
       // text/plain keeps the beacon a simple request (no CORS preflight)
-      if (navigator.sendBeacon && navigator.sendBeacon(URL, new Blob([body], { type: 'text/plain' }))) return;
+      if (navigator.sendBeacon && navigator.sendBeacon(ENDPOINT, new Blob([body], { type: 'text/plain' }))) return;
     } catch (e) {}
-    try { fetch(URL, { method: 'POST', body: body, keepalive: true, headers: { 'Content-Type': 'text/plain' } }); } catch (e) {}
+    try { fetch(ENDPOINT, { method: 'POST', body: body, keepalive: true, headers: { 'Content-Type': 'text/plain' } }); } catch (e) {}
+  }
+
+  function refHost() {
+    try { return document.referrer ? new window.URL(document.referrer).hostname : null; } catch (e) { return null; }
   }
 
   var q = new URLSearchParams(location.search);
   send('web_pageview', {
     $current_url: location.href,
     $referrer: document.referrer || '$direct',
-    referrer_host: document.referrer ? new URL(document.referrer).hostname : null,
+    referrer_host: refHost(),
     utm_source: q.get('utm_source'),
   });
 

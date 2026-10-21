@@ -71,13 +71,23 @@
     document.body.appendChild(sheet);
   }
 
+  // PostHog (10-21): the in-TikTok load of /go/tiktok/ never showed up as a
+  // pageview, not even in Caeden's own test, so the sheet reports itself.
+  // Shown, then Got it; a later /go/tiktok/ pageview with in_app none is
+  // the visitor arriving in Safari.
+  function track(event) {
+    if (window.tvTrack) window.tvTrack(event, { page: onLanding ? 'landing' : 'go' });
+  }
+
   function show() {
     if (!sheet) build();
+    track('web_tiktok_sheet_shown');
     sheet.hidden = false;
     requestAnimationFrame(function () { requestAnimationFrame(function () { sheet.classList.add('on'); }); });
   }
 
   function hide() {
+    track('web_tiktok_sheet_dismissed');
     sheet.classList.remove('on');
     // came here from one of our pages: Got it goes back there
     if (onLanding && document.referrer.indexOf(location.origin) === 0 && history.length > 1) {
