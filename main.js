@@ -3,6 +3,7 @@
 // The page must read fine without any of this.
 (function () {
   'use strict';
+  window.tcgvMain = true; // index.html drops the js class if this never runs
 
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var hasIO = 'IntersectionObserver' in window;
@@ -46,7 +47,7 @@
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && !menu.hidden) { setOpen(false); btn.focus(); }
     });
-    window.matchMedia('(min-width: 901px)').addEventListener('change', function (m) { if (m.matches) setOpen(false); });
+    window.matchMedia('(min-width: 1081px)').addEventListener('change', function (m) { if (m.matches) setOpen(false); });
   }
 
   /* On the tables: each card carries its show's last day (data-end). With four
