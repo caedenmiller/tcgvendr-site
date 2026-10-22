@@ -75,12 +75,19 @@
   // pageview, not even in Caeden's own test, so the sheet reports itself.
   // Shown, then Got it; a later /go/tiktok/ pageview with in_app none is
   // the visitor arriving in Safari.
+  // 10-21 night: the sheet now opens IN PLACE on the page the visitor is on
+  // ('inline'). For a normal visitor TikTok refuses to load /go/tiktok/ at all
+  // (its grey "Open this link in your browser" screen; the account owner's phone
+  // isn't blocked, so his tests passed). Open in browser now hands Safari this
+  // page, where the App Store button works: one extra tap, Caeden's call.
+  var inline = false;
   function track(event) {
-    if (window.tvTrack) window.tvTrack(event, { page: onLanding ? 'landing' : 'go' });
+    if (window.tvTrack) window.tvTrack(event, { page: inline ? 'inline' : onLanding ? 'landing' : 'go' });
   }
 
-  function show() {
+  function show(asInline) {
     if (!sheet) build();
+    inline = !!asInline;
     track('web_tiktok_sheet_shown');
     sheet.hidden = false;
     requestAnimationFrame(function () { requestAnimationFrame(function () { sheet.classList.add('on'); }); });
@@ -89,8 +96,8 @@
   function hide() {
     track('web_tiktok_sheet_dismissed');
     sheet.classList.remove('on');
-    // came here from one of our pages: Got it goes back there
-    if (onLanding && document.referrer.indexOf(location.origin) === 0 && history.length > 1) {
+    // came here from one of our pages: Got it goes back there (the old hop only)
+    if (onLanding && !inline && document.referrer.indexOf(location.origin) === 0 && history.length > 1) {
       history.back();
       return;
     }
@@ -107,9 +114,9 @@
     if (!a) return;
     e.preventDefault();
     // /go pages already redirect in Safari: just show the sheet there.
-    // Everywhere else, load the landing page so it becomes the address
-    // TikTok's Open in browser hands to Safari.
+    // Everywhere else the sheet opens on this page (no navigation: TikTok
+    // blocks the /go/tiktok/ load for normal visitors).
     if (onGo) show();
-    else window.location.href = LANDING;
+    else show(true);
   }, true);
 })();

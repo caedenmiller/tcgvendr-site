@@ -16,5 +16,7 @@ the campaign token lives here, so a token change never touches a bio.
 | /go/reddit | reddit | u/C333343 Reddit profile. Per-subreddit splits, if ever wanted, follow as /go/reddit-<sub> with ct=reddit-<sub>, leaving plain `reddit` as the profile/catch-all. |
 
 
+**Android (10-21):** these pages hide the badge on Android ("iPhone only right now"); `/android.js` (loaded on every page and in gen.py's template) adds a "Tell me when it's on Android" button that opens the waitlist sheet. On the homepage it relabels the App Store buttons "On Android? Get notified". See data-model.md "Android waitlist".
+
 **Regenerate** after editing the template or re-baking the tables: `python3 go/gen.py maya ugc-maya && python3 go/gen.py reddit reddit`.
 The strip at the top reads `data/tables.json` (cards on tables at upcoming shows), the same bake as the landing page's "Cards waiting at upcoming shows" strip (scripts/website-tables.py). Tiles from shows that have ended drop out on their own while three or more are still upcoming; with fewer, the ended ones stay (without their show line) so the strip never empties.
