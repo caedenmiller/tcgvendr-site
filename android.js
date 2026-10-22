@@ -33,6 +33,10 @@
     var s = document.createElement('style');
     s.textContent =
       '.aw-scrim{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.72);display:flex;flex-direction:column;justify-content:flex-end;opacity:0;transition:opacity .2s ease-out;-webkit-tap-highlight-color:transparent}' +
+      // the display rules above beat the browser's own [hidden] rule: without this a
+      // closed sheet stayed as an invisible layer eating every tap and the saved
+      // form never went away (10-22)
+      '.aw-scrim[hidden],.aw-form[hidden]{display:none}' +
       '.aw-scrim.on{opacity:1}' +
       '.aw-sheet{position:relative;background:#101013;border-top:1px solid rgba(255,255,255,.12);border-radius:20px 20px 0 0;padding:24px 24px max(24px,env(safe-area-inset-bottom));color:#fff;font:500 16px/1.45 "Plus Jakarta Sans",-apple-system,system-ui,sans-serif;transform:translateY(16px);transition:transform .24s ease-out}' +
       '.aw-scrim.on .aw-sheet{transform:none}' +
