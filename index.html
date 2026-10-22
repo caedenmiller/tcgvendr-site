@@ -30,7 +30,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/instrument-serif-italic-latin.woff2">
 <link rel="preload" as="image" href="/shots/home-720.webp?v=1" imagesrcset="/shots/home-360.webp?v=1 360w, /shots/home-540.webp?v=1 540w, /shots/home-720.webp?v=1 720w" imagesizes="(max-width:560px) 176px, 264px" fetchpriority="high">
 <script>document.documentElement.className="js";addEventListener("load",function(){if(!(window.tcgvMain&&window.tcgvSite))document.documentElement.className=""})</script>
-<link rel="stylesheet" href="/site.css?v=32">
+<link rel="stylesheet" href="/site.css?v=33">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -83,8 +83,8 @@
     <a class="brand" href="/" aria-label="TCGVendr home" translate="no"><img src="/art/v2/icon.png" width="30" height="30" alt="">TCGVendr</a>
     <nav class="nav-links" aria-label="Primary">
       <a href="#shows">Shows</a>
-      <a href="#collection">Collection</a>
       <a href="#scan">Scan</a>
+      <a href="#collection">Collection</a>
       <a href="#vendors">Vendors</a>
       <a href="#pro">Pro</a>
       <a href="#faq">FAQ</a>
@@ -94,8 +94,8 @@
   </div>
   <nav class="menu" id="menu" aria-label="Menu" hidden>
     <a href="#shows">Shows</a>
-    <a href="#collection">Collection</a>
     <a href="#scan">Scan</a>
+    <a href="#collection">Collection</a>
     <a href="#vendors">Vendors</a>
     <a href="#pro">Pro</a>
     <a href="#faq">FAQ</a>
@@ -252,27 +252,7 @@
       </div>
     </section>
 
-    <section class="feat flip" id="collection">
-      <div class="wrap feat-in">
-        <div class="feat-art reveal" data-graph>
-          <svg class="well" viewBox="0 0 560 560" aria-hidden="true"><circle cx="280" cy="280" r="210" fill="var(--well)"/><circle cx="280" cy="280" r="272" fill="none" stroke="var(--ring)"/></svg>
-          <div class="phone" data-float>
-            <div class="rim"><div class="bezel"><div class="screen"><img src="/shots/sales-720.webp?v=1" srcset="/shots/sales-360.webp?v=1 360w, /shots/sales-540.webp?v=1 540w, /shots/sales-720.webp?v=1 720w" sizes="(max-width:560px) 200px, 232px" width="720" height="1565" loading="lazy" decoding="async" alt="Gengar VMAX PSA 10: its recent sales, newest first."></div></div></div><span class="island"></span>
-            <img class="pop-graph" src="/art/v2/pop-graph.webp?v=2" width="720" height="522" loading="lazy" decoding="async" alt="" aria-hidden="true">
-            <svg class="pop-arrow" viewBox="0 0 300 300" aria-hidden="true"><path class="line shaft" pathLength="1" d="M262 196Q150 18 48 148"/><path class="line head" pathLength="1" d="M88 131L48 148L56 105"/></svg>
-            <svg class="pop-arrow-m" viewBox="0 0 440 320" aria-hidden="true"><path class="line shaft" pathLength="1" d="M70 280C300 280 400 210 400 30"/><path class="line head" pathLength="1" d="M365 65L400 30L435 65"/></svg>
-          </div>
-        </div>
-        <div class="feat-copy reveal">
-          <p class="eyebrow">Your collection</p>
-          <h2>Know what it’s worth. <span class="it">Every single day.</span></h2>
-          <p class="body">Raw cards follow the live market. Slabs are priced from real sales data, and you can see every one.</p>
-          <p class="note">Singles, slabs and sealed in one number.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="feat" id="scan">
+    <section class="feat flip" id="scan">
       <div class="ghost" aria-hidden="true">Scan it</div>
       <div class="wrap feat-in">
         <div class="feat-art reveal" data-scanfx>
@@ -290,6 +270,26 @@
           <h2>Scan a whole <span class="it">binder page.</span></h2>
           <p class="body">Up to nine cards in one shot, all priced.</p>
           <p class="note">Singles and slabs too. Works on Japanese cards.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="feat" id="collection">
+      <div class="wrap feat-in">
+        <div class="feat-art reveal" data-graph>
+          <svg class="well" viewBox="0 0 560 560" aria-hidden="true"><circle cx="280" cy="280" r="210" fill="var(--well)"/><circle cx="280" cy="280" r="272" fill="none" stroke="var(--ring)"/></svg>
+          <div class="phone" data-float>
+            <div class="rim"><div class="bezel"><div class="screen"><img src="/shots/sales-720.webp?v=1" srcset="/shots/sales-360.webp?v=1 360w, /shots/sales-540.webp?v=1 540w, /shots/sales-720.webp?v=1 720w" sizes="(max-width:560px) 200px, 232px" width="720" height="1565" loading="lazy" decoding="async" alt="Gengar VMAX PSA 10: its recent sales, newest first."></div></div></div><span class="island"></span>
+            <img class="pop-graph" src="/art/v2/pop-graph.webp?v=2" width="720" height="522" loading="lazy" decoding="async" alt="" aria-hidden="true">
+            <svg class="pop-arrow" viewBox="0 0 300 300" aria-hidden="true"><path class="line shaft" pathLength="1" d="M262 196Q150 18 48 148"/><path class="line head" pathLength="1" d="M88 131L48 148L56 105"/></svg>
+            <svg class="pop-arrow-m" viewBox="0 0 440 320" aria-hidden="true"><path class="line shaft" pathLength="1" d="M70 280C300 280 400 210 400 30"/><path class="line head" pathLength="1" d="M365 65L400 30L435 65"/></svg>
+          </div>
+        </div>
+        <div class="feat-copy reveal">
+          <p class="eyebrow">Your collection</p>
+          <h2>Know what it’s worth. <span class="it">Every single day.</span></h2>
+          <p class="body">Raw cards follow the live market. Slabs are priced from real sales data, and you can see every one.</p>
+          <p class="note">Singles, slabs and sealed in one number.</p>
         </div>
       </div>
     </section>
@@ -353,7 +353,7 @@
           <details><summary>Where do the prices come from?</summary><p>Raw cards and sealed follow the live market and update every day. Slabs are priced from recent sales, and you can see those sales under the chart. On a table, the vendor’s own price comes first.</p></details>
           <details><summary>Which games does it cover?</summary><p>Pokémon for now: English and Japanese cards, plus sealed product. Japanese cards show their English names.</p></details>
           <details><summary>I run a show. How do I get it listed?</summary><p>Tap + on the Shows tab and fill it in. We check every show before it goes live, and listing is free.</p></details>
-          <details><summary>Is there an Android app?</summary><p>Not yet. TCGVendr is iPhone only for now. On an Android phone, tap any Get the app button and leave your email, and we’ll tell you the day it’s out.</p></details>
+          <details><summary>Is there an Android app?</summary><p>Not yet. TCGVendr is iPhone only for now. On an Android phone, tap Get notified anywhere on this page and leave your email, and we’ll tell you the day it’s out.</p></details>
         </div>
       </div>
     </section>
@@ -398,6 +398,6 @@
 <script src="/main.js?v=82" defer></script>
 <script src="/site.js?v=5" defer></script>
 <script src="/escape.js?v=6" defer></script>
-<script src="/android.js?v=3" defer></script>
+<script src="/android.js?v=4" defer></script>
 </body>
 </html>

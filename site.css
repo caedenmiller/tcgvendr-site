@@ -131,7 +131,9 @@ p { margin: 0; }
 .hero-stage .rim { box-shadow: var(--hero-shadow); }
 .float { position: absolute; width: 80px; border-radius: 4px; box-shadow: 0 16px 22px rgba(21, 67, 59, .4), 0 2px 5px rgba(21, 67, 59, .25); }
 .float-a { left: 56px; top: 344px; transform: translateY(var(--py, 0px)) rotate(-12deg); }
-.float-b { right: 64px; top: 96px; width: 83px; transform: translateY(var(--py, 0px)) rotate(10deg); }
+/* Blastoise mirrors the Umbreon across the oval: upper right, tilted the other
+   way, the line meeting the middle of its top edge as it meets the Umbreon's bottom */
+.float-b { right: 28px; top: 266px; width: 83px; transform: translateY(var(--py, 0px)) rotate(12deg); }
 
 /* ---------- the phone: a CSS frame around a real screenshot (layers inside can move) ---------- */
 .phone { --w: 290px; font-size: var(--w); width: 1em; position: relative; }

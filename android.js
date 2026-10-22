@@ -182,6 +182,9 @@
     for (var i = 0; i < pills.length; i++) pills[i].textContent = 'Get notified';
     var close = document.querySelector('.close-pill');
     if (close) close.lastChild.textContent = 'Get notified on Android';
+    // the Pro button keeps its arrow icon; only its text changes
+    var pro = document.querySelector('.pro-btn');
+    if (pro && pro.firstChild && pro.firstChild.nodeType === 3) pro.firstChild.textContent = 'Get notified on Android';
   }
 
   function ready() {
