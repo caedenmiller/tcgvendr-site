@@ -26,6 +26,9 @@
     var s = document.createElement('style');
     s.textContent =
       '.tt-scrim{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.72);display:flex;flex-direction:column;justify-content:flex-end;opacity:0;transition:opacity .2s ease-out;-webkit-tap-highlight-color:transparent}' +
+      // the display:flex above beats the browser's own [hidden] rule, so a closed
+      // sheet stayed as an invisible full-screen layer eating every tap (10-22)
+      '.tt-scrim[hidden]{display:none}' +
       '.tt-scrim.on{opacity:1}' +
       '.tt-arrow{position:absolute;top:max(2px,env(safe-area-inset-top));right:10px;width:56px;height:74px;color:#fff;animation:tt-nudge 1.4s ease-in-out infinite}' +
       '@keyframes tt-nudge{0%,100%{transform:translate(0,0)}50%{transform:translate(4px,-6px)}}' +
