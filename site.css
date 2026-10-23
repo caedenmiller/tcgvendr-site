@@ -298,26 +298,57 @@ p { margin: 0; }
 
 /* Pro (the compare table is the one ruled place Pro sits beside free) */
 .pro { padding: 32px 0 88px; }
-.pro-card { position: relative; border-radius: 36px; background: rgba(255, 255, 255, .6); padding: 44px; display: grid; grid-template-columns: 1fr 1.25fr; gap: 44px; align-items: start; }
-.pro-head .eyebrow { color: var(--accent); }
-.pro-head h2 { margin-top: 14px; font-size: clamp(36px, 3.6vw, 48px); line-height: 1; }
-.pro-head h2 .it { color: var(--accent); }
-.pro-price { margin-top: 18px; color: var(--ink-sub); }
-.pro-price b { color: var(--ink); font-weight: 800; }
+/* Pro: the 10A hub. Four tools each side draw into TCGVendr Pro in the middle
+   (price + button). Cards are a fixed 104 tall with 16 between, so their centers
+   (52/172/292/412) and the hub's (232) are where the lines start and end. Below
+   1081 the sides would be too narrow, so the hub sits on top and the tools hang
+   off one line under it. */
+.pro-intro { text-align: center; }
+.pro-intro .eyebrow { color: var(--accent); }
+.pro-intro h2 { margin-top: 14px; font-size: clamp(34px, 3.6vw, 51px); line-height: 1; }
+.pro-intro h2 .it { color: var(--accent); }
+.pro-flow { margin-top: 48px; display: grid; grid-template-columns: 1fr 72px 320px 72px 1fr; align-items: center; }
+.pf-side { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 16px; }
+.pf-card { height: 104px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; border-radius: 20px; background: rgba(255, 255, 255, .6); padding: 14px 20px; }
+.pf-card h3 { font: 400 25px/1.1 var(--serif); letter-spacing: -.01em; color: var(--ink); }
+.pf-card p { margin-top: 4px; font-size: 14px; line-height: 1.45; color: var(--ink-sub); text-wrap: pretty; }
+.pf-lines { display: block; width: 72px; height: 464px; overflow: visible; }
+.pf-lines path { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 0; }
+.js .pro-flow .pf-lines path { stroke-dashoffset: 1; }
+.js .pro-flow.in .pf-lines path { stroke-dashoffset: 0; transition: stroke-dashoffset .7s cubic-bezier(.65, 0, .35, 1) .3s; }
+.pf-hub { text-align: center; border-radius: 30px; background: var(--deep); color: var(--on-deep); padding: 32px 26px 28px; box-shadow: 0 22px 40px rgba(24, 62, 57, .22); }
+.pf-hub h3 { white-space: nowrap; font-size: 40px; font-weight: 600; letter-spacing: -.04em; line-height: 1; }
+.pf-hub h3 .it { font-size: 1.12em; }
+.pf-price { margin-top: 14px; color: rgba(255, 255, 255, .88); }
+.pf-price b { color: #fff; font-weight: 800; }
+.pf-hub .pro-btn { margin-top: 22px; background: var(--light); color: var(--ink); }
+.pf-note { margin-top: 16px; font-size: 13px; line-height: 1.5; color: rgba(255, 255, 255, .84); }
+@media (max-width: 1080px) {
+  .pro-flow { display: flex; flex-direction: column; max-width: 560px; margin-left: auto; margin-right: auto; }
+  .pf-hub { order: -1; }
+  .pf-lines { display: none; }
+  .pf-side { position: relative; padding-left: 64px; gap: 12px; }
+  .pf-l { padding-top: 28px; }
+  .pf-r { padding-top: 12px; }
+  .pf-card { height: auto; position: relative; padding: 16px 20px; }
+  /* the line: down from the hub, a tick into each card, ending at the last one */
+  .pf-card::before { content: ""; position: absolute; left: -32px; top: 50%; width: 32px; height: 2px; background: var(--accent); }
+  .pf-card::after { content: ""; position: absolute; left: -32px; top: -12px; bottom: 0; width: 2px; background: var(--accent); }
+  .pf-l .pf-card:first-child::after { top: -28px; }
+  .pf-r .pf-card:last-child::after { bottom: calc(50% - 2px); }
+}
+@media (max-width: 560px) {
+  .pf-side { padding-left: 52px; gap: 10px; }
+  .pf-r { padding-top: 10px; }
+  .pf-card { padding: 13px 18px; }
+  .pf-card::before { left: -24px; width: 24px; }
+  .pf-card::after { left: -24px; top: -10px; }
+  .pf-card h3 { font-size: 23px; }
+}
 .pro-btn { margin-top: 28px; display: inline-flex; align-items: center; gap: 8px; height: 52px; padding: 0 22px; border-radius: 999px; background: var(--deep); color: #fff; font-weight: 700; font-size: 15px; transition: transform .3s var(--spring), box-shadow .25s; }
 .pro-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(24, 62, 57, .25); }
 .pro-btn svg { width: 15px; height: 15px; transition: transform .3s var(--spring); }
 .pro-btn:hover svg { transform: translateX(4px); }
-.pro-note { margin-top: 14px; font-size: 12px; color: var(--ink-faint); max-width: 320px; }
-.pro-table table { width: 100%; border-collapse: collapse; font-size: 15px; }
-.pro-table th, .pro-table td { padding: 14px 8px; text-align: left; border-bottom: 1px solid var(--ring); }
-.pro-table thead th { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-faint); font-weight: 700; padding-top: 0; }
-.pro-table tbody th { font-weight: 600; color: var(--ink); text-wrap: balance; }
-.pro-table .pt-free, .pro-table .pt-pro { text-align: center; width: 92px; }
-.pro-table .pt-free { color: var(--ink-faint); font-size: 14px; }
-.pro-table thead .pt-free { font-size: 11px; } /* the header matches PRO */
-.pt-check { width: 18px; height: 18px; color: var(--deep); display: inline-block; vertical-align: middle; }
-.pt-no { display: inline-block; width: 12px; height: 2px; border-radius: 2px; background: var(--ink-faint); vertical-align: middle; opacity: .6; }
 
 /* FAQ */
 .faq { padding: 20px 0 100px; }
@@ -380,7 +411,6 @@ p { margin: 0; }
   .feat .feat-art, .feat.flip .feat-art { order: 2; height: 560px; }
   .v-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
   .v-band { grid-template-columns: 1fr; }
-  .pro-card { grid-template-columns: 1fr; padding: 36px 26px; gap: 32px; }
   .faq-in { grid-template-columns: 1fr; gap: 24px; }
   .faq-head { position: static; margin-top: 0; }
 }
@@ -485,9 +515,6 @@ p { margin: 0; }
   .v-grid { grid-template-columns: 1fr; gap: 22px; margin-top: 32px; }
   .v-item h3 { font-size: 26px; }
   .pro { padding: 20px 0 72px; }
-  .pro-card { border-radius: 26px; padding: 28px 20px; }
-  .pro-table .pt-free, .pro-table .pt-pro { width: 70px; }
-  .pro-table th, .pro-table td { padding: 12px 4px; font-size: 14px; }
   .faq { padding: 10px 0 64px; }
   .close { padding: 20px 0 80px; }
   .close h2 { font-size: 40px; }
@@ -514,7 +541,7 @@ p { margin: 0; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .js .reveal, .js .hero-stage .phone, .js .hero-stage .float { opacity: 1 !important; translate: none !important; transition: none !important; }
-  .share-card, .base-phone .screen .share-screen, .store, .see svg, .pluck, .pluck-tag, .pop-graph, .pop-arrow path, .pop-map, .map-arrow path, .map-arrow-m path, .pop-arrow-m path, .scanfx { transition: none !important; }
+  .share-card, .base-phone .screen .share-screen, .store, .see svg, .pluck, .pluck-tag, .pop-graph, .pop-arrow path, .pop-map, .map-arrow path, .map-arrow-m path, .pop-arrow-m path, .scanfx, .pf-lines path { transition: none !important; }
   .scan-card .beam { display: none; }
   .hero-shader { display: none; }
 }
