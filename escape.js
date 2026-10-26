@@ -9,6 +9,9 @@
    Tried and failed on Caeden's phone 10-20: the x-safari-https one-tap jump,
    and history.replaceState to /go/tiktok/ (TikTok's Open in browser uses the
    last LOADED address, so the homepage came back).
+   10-25: site pages (not /go) also pin a bar on load with the same way out
+   and an arrow at TikTok's ⋯. Of 37 visits after the viral post, 29 never
+   tapped a store button, so the sheet alone never reached them.
    Loaded on every page and every /go page; does nothing anywhere else. */
 (function () {
   var ua = navigator.userAgent;
@@ -22,7 +25,10 @@
   var onGo = location.pathname.indexOf('/go/') === 0;
 
 
+  var styled = false;
   function css() {
+    if (styled) return;
+    styled = true;
     var s = document.createElement('style');
     s.textContent =
       '.tt-scrim{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.72);display:flex;flex-direction:column;justify-content:flex-end;opacity:0;transition:opacity .2s ease-out;-webkit-tap-highlight-color:transparent}' +
@@ -44,7 +50,14 @@
       '.tt-alt b{color:#fff;font-weight:700}' +
       '.tt-close{display:flex;width:100%;height:50px;margin-top:20px;border:0;border-radius:999px;background:rgba(255,255,255,.1);color:#fff;font:700 16px "Plus Jakarta Sans",-apple-system,system-ui,sans-serif;align-items:center;justify-content:center}' +
       '.tt-close:focus{outline:none}.tt-close:active{background:rgba(255,255,255,.16)}' +
-      '@media(prefers-reduced-motion:reduce){.tt-arrow{animation:none}.tt-scrim,.tt-sheet{transition:none}}';
+      // the pinned bar: the nav and the page sit below it (--ttb = its height)
+      '.tt-bar{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:center;gap:12px;padding:10px 14px 10px 16px;background:#fff;color:#183e39;font:600 14px/1.35 "Plus Jakarta Sans",-apple-system,system-ui,sans-serif;box-shadow:0 1px 0 rgba(0,0,0,.1)}' +
+      '.tt-bar span{flex:1}' +
+      '.tt-bar b{font-weight:800}' +
+      '.tt-bar svg{flex:none;width:22px;height:22px;color:#205e54;animation:tt-nudge 1.4s ease-in-out infinite}' +
+      'html.tt-in body{padding-top:var(--ttb,0px)}' +
+      'html.tt-in .nav{top:var(--ttb,0px)}' +
+      '@media(prefers-reduced-motion:reduce){.tt-arrow,.tt-bar svg{animation:none}.tt-scrim,.tt-sheet{transition:none}}';
     document.head.appendChild(s);
   }
 
@@ -65,7 +78,7 @@
           '<li><span class="tt-n">2</span><span>Choose <b>Open in browser</b></span></li>' +
           (onGo ? '' : '<li><span class="tt-n">3</span><span>Tap <b>Get the app</b> again</span></li>') +
         '</ol>' +
-        '<div class="tt-alt"><img src="/go/icon.png?v=1" alt=""><span>Or search <b>TCGVendr</b> in the App Store. It’s free.</span></div>' +
+        '<div class="tt-alt"><img src="/go/icon.png?v=1" alt=""><span>Or search <b>TCGVendr</b> in the App Store.</span></div>' +
         '<button class="tt-close" type="button">Got it</button>' +
       '</div>';
     sheet.addEventListener('click', function (e) {
@@ -107,10 +120,30 @@
     setTimeout(function () { sheet.hidden = true; }, 220);
   }
 
-  if (onLanding) {
-    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', show);
-    else show();
+  // /go pages have their own "Not opening?" line, so the bar is site pages only
+  function bar() {
+    css();
+    var b = document.createElement('div');
+    b.className = 'tt-bar';
+    b.setAttribute('role', 'note');
+    b.innerHTML =
+      '<span>To get the app, tap <b>⋯</b> then <b>Open in browser</b></span>' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+        '<path d="M6 18L18 6"/><path d="M9 6h9v9"/></svg>';
+    document.body.insertBefore(b, document.body.firstChild);
+    var root = document.documentElement;
+    function fit() { root.style.setProperty('--ttb', b.offsetHeight + 'px'); }
+    fit();
+    window.addEventListener('resize', fit);
+    root.classList.add('tt-in');
   }
+
+  function start() {
+    if (onLanding) show();
+    else if (!onGo) bar();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
 
   document.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('a[href*="apps.apple.com"]');

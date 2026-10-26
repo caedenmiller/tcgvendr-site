@@ -9,6 +9,10 @@ navigation to apps.apple.com (blank page) but honor a user tap. No `<meta refres
 **TikTok is different (10-20):** TikTok refuses App Store links from personal accounts even on a tap ("Action can't be completed", policy since 2023). `/escape.js`, loaded on every site page and every /go page, catches App Store taps inside TikTok on iPhone and LOADS /go/tiktok/, which opens with the sheet up (⋯ then Open in browser, or search the App Store). Open in browser hands Safari that page, which redirects to the store (ct=tiktok). Failed on Caeden's phone 10-20: x-safari-https (no jump) and history.replaceState (TikTok opens the last LOADED address). The bio stays tcgvendr.com (Caeden's ruling). `/go/tt-test/` = the on-device test page (six ways out, labelled A to F). The bio holds the short address;
 the campaign token lives here, so a token change never touches a bio.
 
+**10-25:** site pages inside TikTok (iPhone) now pin a bar on load: "To get the app, tap ⋯ then Open in browser" with an arrow at TikTok's ⋯ (escape.js v7). 29 of 37 visits after the viral post never tapped a store button, so the tap-only sheet never reached them.
+
+**MAYBE (not built, his 10-25 call):** cut the second "Get the app" tap in Safari. Inside TikTok, the homepage reloads itself once as `/?tt=1` (a real load, so TikTok's Open in browser hands Safari that address); in Safari (not TikTok) `?tt=1` redirects straight to the App Store. Risk: TikTok blocked the real navigation to /go/tiktok/ for normal visitors (grey "Open this link in your browser" screen, his brother's phone 10-21), and it is unknown whether that was the page or the navigation. Test on a phone that is NOT his (the account owner is never blocked) before shipping.
+
 | path | campaign (ct=) | used in |
 |---|---|---|
 | /go/maya | ugc-maya | @maya.collects Instagram bio (TikTok bio points at the Instagram until 1,000 followers) |
